@@ -441,6 +441,11 @@ body {
   user-select: none;
 }
 .quiz-option:hover { background: var(--paper3); border-color: var(--rule); }
+.quiz-option.selected {
+  background: #eef3fb;
+  border-color: var(--blue2);
+  color: var(--blue);
+}
 .quiz-option.correct {
   background: #eef7f3;
   border-color: var(--teal2);
