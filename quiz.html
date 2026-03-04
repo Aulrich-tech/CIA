@@ -17,7 +17,7 @@
     <div class="masthead-title">
       <div class="masthead-eyebrow">Cybersecurity Fundamentals</div>
       <h1 class="masthead-h1">Practice <em>Quiz</em></h1>
-      <p class="masthead-sub">Click an option to check your answer · Green = correct · Red = wrong</p>
+      <p class="masthead-sub">Select your answers · Click Submit to see results · Green = correct · Red = wrong</p>
     </div>
     <div class="masthead-meta">
       <strong id="total-count">—</strong>
@@ -54,7 +54,7 @@
 
 <main class="page">
 
-  <div class="quiz-score-bar">
+  <div class="quiz-score-bar" id="score-bar" style="display:none;">
     <div>
       <div class="quiz-score-num"><span id="score-correct">0</span> / <span id="score-total">0</span></div>
       <div class="quiz-score-label">Score</div>
@@ -67,8 +67,8 @@
   </div>
 
   <div class="quiz-ctrl">
-    <button class="quiz-ctrl-btn" onclick="resetAll()">Reset All Answers</button>
-    <button class="quiz-ctrl-btn secondary" onclick="revealAll()">Reveal All Answers</button>
+    <button class="quiz-ctrl-btn" id="submit-btn" onclick="submitAll()">Submit Answers</button>
+    <button class="quiz-ctrl-btn secondary" id="reset-btn" style="display:none;" onclick="resetAll()">Reset &amp; Try Again</button>
   </div>
 
   <!-- ═══════ LESSON 1 ═══════ -->
@@ -1301,106 +1301,144 @@
 </footer>
 
 <script>
-// Count total questions
+// Count total visible questions and set header
 const allBlocks = document.querySelectorAll('.quiz-block');
 document.getElementById('total-count').textContent = allBlocks.length;
 
-let answered = 0;
-let correct = 0;
+// Track selected answers per block (before submission)
+// Each option: click toggles .selected
 
-function updateScore() {
-  document.getElementById('score-correct').textContent = correct;
-  document.getElementById('score-total').textContent = answered;
-  const pct = answered > 0 ? Math.round((correct / answered) * 100) : 0;
-  document.getElementById('score-pct').textContent = answered > 0 ? pct + '%' : '—';
-  document.getElementById('progress-fill').style.width = (answered / allBlocks.length * 100) + '%';
-}
-
-// Attach click handlers
 document.querySelectorAll('.quiz-option').forEach(opt => {
-  opt.addEventListener('click', function() {
+  opt.addEventListener('click', function () {
     const block = this.closest('.quiz-block');
-    if (block.dataset.answered) return; // already answered
+    if (block.dataset.submitted) return; // locked after submit
 
-    const isCorrect = this.dataset.correct === 'true';
     const isMulti = block.querySelector('.quiz-multi-note') !== null;
 
     if (!isMulti) {
-      // Single answer — reveal immediately
-      block.dataset.answered = '1';
-      answered++;
-      if (isCorrect) {
-        this.classList.add('correct');
-        correct++;
-      } else {
-        this.classList.add('wrong');
-        // Reveal the correct answer
-        block.querySelectorAll('.quiz-option').forEach(o => {
-          if (o.dataset.correct === 'true') o.classList.add('reveal-correct');
-        });
-      }
-      updateScore();
+      // Single select — deselect all others, select this one
+      block.querySelectorAll('.quiz-option').forEach(o => {
+        o.classList.remove('selected');
+        o.querySelector('.quiz-dot').style.background = '';
+        o.querySelector('.quiz-dot').style.borderColor = '';
+      });
+      this.classList.add('selected');
+      this.querySelector('.quiz-dot').style.background = 'var(--blue)';
+      this.querySelector('.quiz-dot').style.borderColor = 'var(--blue)';
     } else {
-      // Multi-select — toggle selection
+      // Multi select — toggle
       this.classList.toggle('selected');
-      this.querySelector('.quiz-dot').style.background = this.classList.contains('selected') ? 'var(--blue)' : '';
-      this.querySelector('.quiz-dot').style.borderColor = this.classList.contains('selected') ? 'var(--blue)' : '';
-
-      // Check if all correct are selected (and none wrong)
-      const correctOpts = [...block.querySelectorAll('.quiz-option[data-correct="true"]')];
-      const selectedOpts = [...block.querySelectorAll('.quiz-option.selected')];
-      const allCorrectSelected = correctOpts.every(o => o.classList.contains('selected'));
-      const noWrongSelected = selectedOpts.every(o => o.dataset.correct === 'true');
-
-      if (allCorrectSelected && noWrongSelected && selectedOpts.length === correctOpts.length) {
-        block.dataset.answered = '1';
-        answered++;
-        correct++;
-        selectedOpts.forEach(o => { o.classList.remove('selected'); o.classList.add('correct'); o.querySelector('.quiz-dot').style = ''; });
-        updateScore();
+      const dot = this.querySelector('.quiz-dot');
+      if (this.classList.contains('selected')) {
+        dot.style.background = 'var(--blue)';
+        dot.style.borderColor = 'var(--blue)';
+      } else {
+        dot.style.background = '';
+        dot.style.borderColor = '';
       }
     }
   });
 });
 
-// Show/hide by lesson
-function showLesson(lesson) {
-  document.querySelectorAll('.quiz-block, .lesson-header').forEach(el => {
-    if (lesson === 'all') {
-      el.style.display = '';
+// Submit all answers
+function submitAll() {
+  let totalVisible = 0;
+  let totalCorrect = 0;
+
+  document.querySelectorAll('.quiz-block').forEach(block => {
+    // Only grade visible blocks
+    if (block.style.display === 'none') return;
+
+    totalVisible++;
+    block.dataset.submitted = '1';
+
+    const isMulti = block.querySelector('.quiz-multi-note') !== null;
+    const selected = [...block.querySelectorAll('.quiz-option.selected')];
+    const correctOpts = [...block.querySelectorAll('.quiz-option[data-correct="true"]')];
+
+    let blockCorrect = false;
+
+    if (!isMulti) {
+      if (selected.length === 1 && selected[0].dataset.correct === 'true') {
+        blockCorrect = true;
+      }
     } else {
-      el.style.display = (el.dataset.lesson === lesson) ? '' : 'none';
+      const selectedCorrect = selected.filter(o => o.dataset.correct === 'true');
+      const selectedWrong = selected.filter(o => o.dataset.correct === 'false');
+      blockCorrect = selectedCorrect.length === correctOpts.length && selectedWrong.length === 0;
     }
+
+    if (blockCorrect) totalCorrect++;
+
+    // Apply visual feedback
+    block.querySelectorAll('.quiz-option').forEach(o => {
+      const dot = o.querySelector('.quiz-dot');
+      dot.style.background = '';
+      dot.style.borderColor = '';
+
+      if (o.dataset.correct === 'true') {
+        // Always highlight the correct answer(s) green
+        if (o.classList.contains('selected')) {
+          o.classList.add('correct');
+        } else {
+          o.classList.add('reveal-correct'); // correct but not selected
+        }
+      } else {
+        if (o.classList.contains('selected')) {
+          o.classList.add('wrong'); // selected but wrong
+        }
+      }
+      o.classList.remove('selected');
+    });
   });
-  // Update nav active state
-  document.querySelectorAll('button.nav-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
+
+  // Show score
+  const pct = totalVisible > 0 ? Math.round((totalCorrect / totalVisible) * 100) : 0;
+  document.getElementById('score-correct').textContent = totalCorrect;
+  document.getElementById('score-total').textContent = totalVisible;
+  document.getElementById('score-pct').textContent = pct + '%';
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('score-bar').style.display = 'flex';
+
+  // Swap buttons
+  document.getElementById('submit-btn').style.display = 'none';
+  document.getElementById('reset-btn').style.display = '';
+
+  // Scroll to top of results
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Reset all
+// Reset everything
 function resetAll() {
   document.querySelectorAll('.quiz-block').forEach(block => {
-    delete block.dataset.answered;
+    delete block.dataset.submitted;
     block.querySelectorAll('.quiz-option').forEach(o => {
       o.classList.remove('correct', 'wrong', 'reveal-correct', 'selected');
-      o.querySelector('.quiz-dot').style = '';
+      o.querySelector('.quiz-dot').style.background = '';
+      o.querySelector('.quiz-dot').style.borderColor = '';
     });
   });
-  answered = 0; correct = 0;
-  updateScore();
+
+  document.getElementById('score-bar').style.display = 'none';
+  document.getElementById('submit-btn').style.display = '';
+  document.getElementById('reset-btn').style.display = 'none';
 }
 
-// Reveal all answers
-function revealAll() {
-  document.querySelectorAll('.quiz-block').forEach(block => {
-    if (block.dataset.answered) return;
-    block.dataset.answered = '1';
-    answered++;
-    block.querySelectorAll('.quiz-option').forEach(o => {
-      if (o.dataset.correct === 'true') o.classList.add('reveal-correct');
-    });
+// Show/hide by lesson
+function showLesson(lesson) {
+  // Reset state when switching lesson filter
+  resetAll();
+
+  document.querySelectorAll('.quiz-block, .lesson-header').forEach(el => {
+    el.style.display = (lesson === 'all' || el.dataset.lesson === lesson) ? '' : 'none';
   });
-  updateScore();
+
+  // Update count shown in masthead
+  const visible = [...document.querySelectorAll('.quiz-block')].filter(b => b.style.display !== 'none').length;
+  document.getElementById('total-count').textContent = visible;
+
+  document.querySelectorAll('button.nav-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
 }
 </script>
 </body>
