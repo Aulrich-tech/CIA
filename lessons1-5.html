@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lessons 1–5 — Cybersecurity Reviewer</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-top">
+    <span>FIREWALLS · NAC · SANDBOX · WAF · SECURE EMAIL GATEWAY</span>
+    <span>LESSONS 1–5</span>
+  </div>
+  <div class="masthead-main">
+    <div class="masthead-title">
+      <div class="masthead-eyebrow">Cybersecurity Fundamentals</div>
+      <h1 class="masthead-h1">Lessons <em>1–5</em></h1>
+      <p class="masthead-sub">Firewalls · Network Access Control · Sandbox · WAF · Secure Email Gateway</p>
+    </div>
+    <div class="masthead-meta">
+      <strong>5</strong>
+      Lessons
+    </div>
+  </div>
+</header>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-btn">Overview</a>
+    <a href="lessons1-5.html" class="nav-btn active">Lessons 1–5</a>
+    <a href="lessons6-10.html" class="nav-btn">Lessons 6–10</a>
+    <a href="lessons11-15.html" class="nav-btn">Lessons 11–15</a>
+    <a href="quiz.html" class="nav-btn">Quiz</a>
+    <button class="nav-btn" onclick="show('l1')">L1: Firewalls</button>
+    <button class="nav-btn" onclick="show('l2')">L2: NAC</button>
+    <button class="nav-btn" onclick="show('l3')">L3: Sandbox</button>
+    <button class="nav-btn" onclick="show('l4')">L4: WAF</button>
+    <button class="nav-btn" onclick="show('l5')">L5: Email Gateway</button>
+  </div>
+</nav>
+
+<main class="page">
+
+<!-- ═══════════════════════════════════════════ LESSON 1 -->
+<div class="section active" id="l1">
+  <div class="lesson-header">
+    <div class="lesson-num">01</div>
+    <div class="lesson-title-block">
+      <div class="lesson-label">Lesson One</div>
+      <h2 class="lesson-title">Firewalls</h2>
+    </div>
+  </div>
+
+  <!-- Overview -->
+  <div class="content-grid">
+    <div class="card card-accent content-full">
+      <h4>What Is a Firewall?</h4>
+      <p>As networks began to grow, interconnect with one another, and eventually connect to the internet, it became important to control the flow of network traffic. Firewalls became a means of control that had to evolve and change alongside networks. They are classified into generations: first-generation (stateless), second-generation (stateful), third-generation (application layer), and next-generation firewall (NGFW).</p>
+    </div>
+  </div>
+
+  <!-- Generation comparison table -->
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Four Generations of Firewalls</div><div class="sec-divider-line"></div></div>
+
+  <div class="card" style="margin-bottom:32px;">
+    <table class="gen-table">
+      <thead>
+        <tr>
+          <th>Generation</th>
+          <th>Also Known As</th>
+          <th>How It Works</th>
+          <th>Key Limitation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1st Gen</strong></td>
+          <td>Stateless / Packet Filter Firewall</td>
+          <td>Examines routing &amp; transport layer info: source/destination IP, protocols, port numbers. Rules are ordered top-to-bottom; last rule is implicit deny or explicit action.</td>
+          <td>Requires extra rules for return traffic; cannot manage protocols that open random ports (e.g., FTP). Uses a "one-size-fits-all" approach; bad actors can inject rogue packets via acceptable ports.</td>
+        </tr>
+        <tr>
+          <td><strong>2nd Gen</strong></td>
+          <td>Stateful Firewall</td>
+          <td>Tracks the 5-tuple check and connection state in a session table. Monitors traffic going back and forth between endpoints. Blocks connections that behave improperly or whose return traffic doesn't match incoming traffic.</td>
+          <td>Cannot block rogue packets if they use an acceptable protocol (e.g., HTTP). Cannot distinguish between different uses of the same protocol running on the same port.</td>
+        </tr>
+        <tr>
+          <td><strong>3rd Gen</strong></td>
+          <td>Application Layer / UTM Firewall</td>
+          <td>Performs Application Layer Filtering (ALF) — understands protocols at the application layer such as HTTP, FTP, DNS. Can distinguish between blog traffic, e-commerce, VoIP, email, etc. UTM adds antivirus, antispam, IPS, VPN.</td>
+          <td>IT security teams managing application learning cannot keep pace with rapid mutation of exploits; no native defense against zero-day attacks.</td>
+        </tr>
+        <tr>
+          <td><strong>4th Gen / NGFW</strong></td>
+          <td>Next-Generation Firewall</td>
+          <td>Rule-based packet inspection + DPI (deep packet inspection) + sandboxing + AI for proactive security. Supports network segmentation to eliminate single points of entry. Delivers high-performance inspection with minimal network degradation.</td>
+          <td>More complex to configure; requires skilled administrators. Broader feature set means larger attack surface if misconfigured.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Deep dives -->
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Stateless Firewall — Deep Dive</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid">
+    <div class="card card-accent">
+      <h3>How Stateless Firewalls Work</h3>
+      <p>A stateless firewall allows a packet to pass if the network addresses, protocol, and port number match its firewall policy. If it does not match, the packet is either silently dropped or blocked.</p>
+      <p>Policies are ordered in a list; potential matches are evaluated top-to-bottom. The <strong>last firewall policy</strong> can be implicit (deny by default) or explicit (perform configured action).</p>
+      <div class="callout callout-red" style="margin-top:12px;">
+        <strong>Key weakness:</strong> Requires additional configuration for return traffic. Stateless firewalls open random ports and use multiple connections (like FTP control + data). Bad actors can bypass rules using acceptable protocols or exploit bugs in networking software.
+      </div>
+    </div>
+    <div class="card card-teal">
+      <h3>How Stateful Firewalls Work</h3>
+      <p>A stateful firewall observes network connections over time by tracking the <strong>5-tuple check</strong> (source IP, destination IP, source port, destination port, protocol) and the <strong>connection state</strong> in its session table.</p>
+      <p>It watches as new connections are made and continuously examines traffic going back and forth between endpoints. If a connection behaves improperly or return traffic doesn't match the incoming traffic, the firewall blocks that connection.</p>
+      <p>Any packet that doesn't belong to a known conversation or doesn't match an allowed policy is dropped.</p>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Application Layer &amp; Next-Gen Firewalls</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid">
+    <div class="card card-blue">
+      <h3>Why HTTP Was a Problem</h3>
+      <p>The explosion of the World Wide Web made HTTP one of the most frequently used network protocols. HTTP is used in many ways: static text, e-commerce, file hosting, web apps — all on the <strong>same port number</strong>. Stateful firewalls couldn't distinguish between them.</p>
+      <p>Network admins needed to distinguish approved from malicious applications. Firewalls had to look deeper into data payloads — this led to <strong>application layer filtering</strong>.</p>
+    </div>
+    <div class="card card-gold">
+      <h3>UTM Firewall Features</h3>
+      <p>Third-generation firewalls that implement application layer filtering understand protocols like HTTP, FTP, and DNS. HTTP-aware firewalls can distinguish between browser traffic, a blog, file sharing, e-commerce, social media, VoIP, and email.</p>
+      <p>UTM firewalls also combine additional protections:</p>
+      <div class="badge-list" style="margin-top:8px;">
+        <span class="badge badge-teal">Antivirus</span>
+        <span class="badge badge-teal">Antispam</span>
+        <span class="badge badge-teal">IPS</span>
+        <span class="badge badge-teal">VPN</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-accent" style="margin-top:24px;">
+    <h3>Next-Generation Firewall (NGFW) — The Airport Analogy</h3>
+    <p>A next-generation firewall operates like airport security, with multiple security checkpoints:</p>
+    <div class="deflist" style="margin-top:12px;">
+      <div class="deflist-item">
+        <div class="deflist-term">Boarding Pass Check</div>
+        <div class="deflist-def">Like a security agent checking your pass, the NGFW looks at packets and makes rule-based decisions whether to allow or drop traffic.</div>
+      </div>
+      <div class="deflist-item">
+        <div class="deflist-term">Bag Screening (DPI)</div>
+        <div class="deflist-def">Security checks bags for banned items — similarly, the NGFW performs <strong>deep packet inspection (DPI)</strong> to look inside the packet payload for malicious content.</div>
+      </div>
+      <div class="deflist-item">
+        <div class="deflist-term">Enhanced Screening (Sandbox)</div>
+        <div class="deflist-def">If suspicious items are found, the bag is set aside for further review — similarly, the NGFW sends malicious content to a <strong>sandbox</strong> for further analysis.</div>
+      </div>
+    </div>
+    <div class="callout callout-blue" style="margin-top:14px;">
+      <strong>NGFW evolution:</strong> As challenges grow, NGFWs control applications by classification or user identity. They use segmentation to eliminate single points of entry, leverage AI to enforce security policies, and deliver high-performance inspection for hybrid data center infrastructure.
+    </div>
+    <p style="margin-top:12px; font-size:13px; color:var(--ink3);">Fortinet's NGFW product: <strong>FortiGate</strong></p>
+  </div>
+
+  <div class="pullquote">"A network is only as secure as its most vulnerable endpoint — having a broader, top-down view when designing security policies is essential."</div>
+
+</div><!-- /l1 -->
+
+
+<!-- ═══════════════════════════════════════════ LESSON 2 -->
+<div class="section" id="l2">
+  <div class="lesson-header">
+    <div class="lesson-num">02</div>
+    <div class="lesson-title-block">
+      <div class="lesson-label">Lesson Two</div>
+      <h2 class="lesson-title">Network Access Control (NAC)</h2>
+    </div>
+  </div>
+
+  <div class="card card-accent content-full" style="margin-bottom:24px;">
+    <h4>What Is NAC?</h4>
+    <p><strong>Network Access Control (NAC)</strong> is an appliance or virtual machine that controls access to a network. It has complete visibility into network profiles and categorizes devices automatically. It evaluates and classifies security-policy compliance by user, device, location, operating system, and other criteria that may detect unusual activity. Many NAC solutions have centralized architecture that improves control of devices across large and multi-site networks.</p>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">NAC Origins — IEEE 802.1X Authentication</div><div class="sec-divider-line"></div></div>
+
+  <div class="card card-blue" style="margin-bottom:24px;">
+    <h3>IEEE 802.1X Authentication Model</h3>
+    <p>NAC began as a network authentication and authorization method for devices joining the network, following the <strong>IEEE 802.1X standards</strong>. The authentication method involves three parties:</p>
+    <div class="deflist" style="margin-top:12px;">
+      <div class="deflist-item">
+        <div class="deflist-term">Client Device</div>
+        <div class="deflist-def">Provides credentials (username/password, digital certificate, or other means) to the authenticator.</div>
+      </div>
+      <div class="deflist-item">
+        <div class="deflist-term">Authenticator</div>
+        <div class="deflist-def">A network switch or wireless access point that demarks the protected from the unprotected network. Forwards credentials to the server.</div>
+      </div>
+      <div class="deflist-item">
+        <div class="deflist-term">Authentication Server</div>
+        <div class="deflist-def">Verifies credentials. Depending on the outcome, the authenticator either blocks the device or grants it network access.</div>
+      </div>
+    </div>
+    <div class="callout callout-blue" style="margin-top:14px;">
+      <strong>Captive Portal:</strong> Another method to control access to a publicly available network. Example: connecting to WiFi at a coffee shop where you must agree to legal terms before gaining access.
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">BYOD and IoT Challenges</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid">
+    <div class="card card-accent">
+      <h3>BYOD Challenge</h3>
+      <p>Guest access, Bring Your Own Devices (BYODs), and IoT devices have introduced complex problems for network security.</p>
+      <p>The first problem: devices trying to connect are personally owned, not company assets. The company's MIS department does not control what runs on these devices — for example, antivirus software or unsafe applications.</p>
+    </div>
+    <div class="card card-gold">
+      <h3>IoT Challenge</h3>
+      <p>IoT devices are hardware with sensors that transmit data from one place to another over the internet, dramatically expanding the attack surface.</p>
+      <p>Organizations buy IoT-enabled devices from other vendors, and these devices connect back to vendor networks to provide information about product use and maintenance (e.g., a printer that auto-orders toner).</p>
+      <div class="callout callout-red" style="margin-top:12px;">
+        <strong>Security risk:</strong> IoT devices often lack CPU cycles or memory for authentication and security software. They identify themselves using a shared secret or unique serial number — if the secret is exposed, there is likely no way to reset it.
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">How NAC Works — Device Profiling &amp; Segmentation</div><div class="sec-divider-line"></div></div>
+
+  <div class="card card-teal" style="margin-bottom:24px;">
+    <h3>NAC Device Profiling</h3>
+    <p>When NAC is introduced into a network, the first thing it does is <strong>create profiles of all connected devices</strong>. NAC then permits access to network resources based on the device profile, which is defined by function.</p>
+    <p>If a device does not have a defined profile or a profile that matches a particular function, it is <strong>denied entry</strong> — like granting individuals access to sensitive information based on their need to know.</p>
+    <div class="callout callout-teal" style="margin-top:14px;">
+      <strong>Example:</strong> NAC can permit an IP camera connection to a network video recorder (NVR) server but would prevent it from connecting to a finance server. NAC directs the IP camera to its appropriate VLAN. If the camera is compromised, malware can only infect the NVR server, not the finance server.
+    </div>
+  </div>
+
+  <div class="content-grid">
+    <div class="card card-blue">
+      <h3>NAC Segmentation Benefits</h3>
+      <p>By segmenting networks rather than using a flat network, the firewall helps eliminate a single point of entry — which used to make it easy for cybercriminals to enter and spread threats across the network.</p>
+      <p>This also applies to contractors, partners, and guests who need to enter an organization's network — they are segmented by profile and can gain secure access while being locked out of restricted areas.</p>
+    </div>
+    <div class="card card-accent">
+      <h3>Guest Access &amp; Temporary Users</h3>
+      <p>With WiFi hotspots in public locations and company offices, there is a need for temporary guest access. NAC enables an organization to manage and authenticate temporary users and devices through a <strong>self-service portal</strong>.</p>
+      <p>User and device policies are adjusted as people, endpoints, and businesses change to ensure the network remains secure.</p>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">NAC Integration &amp; Benefits</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid">
+    <div class="card card-teal">
+      <h3>NAC Integration</h3>
+      <p>NAC can be integrated into the security framework so that when a breach is detected, it automatically responds to notify the <strong>Security Operations Center (SOC)</strong> and coordinates with other security devices to neutralize the threat.</p>
+      <p>NAC integrates with other security products through the <strong>open/RESTful API</strong> or <strong>secure shell (SSH)</strong>.</p>
+    </div>
+    <div class="card card-blue">
+      <h3>Five Benefits of NAC</h3>
+      <div class="deflist">
+        <div class="deflist-item">
+          <div class="deflist-term">Improved Security</div>
+          <div class="deflist-def">Oversight of all devices; authenticates users and devices the moment they enter the network.</div>
+        </div>
+        <div class="deflist-item">
+          <div class="deflist-term">Cost Savings</div>
+          <div class="deflist-def">Automated tracking and protection of devices at scale means fewer IT resources are needed.</div>
+        </div>
+        <div class="deflist-item">
+          <div class="deflist-term">Automation</div>
+          <div class="deflist-def">Automates authentication and authorization — organizations cannot manually verify endpoints at scale.</div>
+        </div>
+        <div class="deflist-item">
+          <div class="deflist-term">Enhanced IT Experience</div>
+          <div class="deflist-def">Seamless, frictionless access for users connecting to the network.</div>
+        </div>
+        <div class="deflist-item">
+          <div class="deflist-term">Ease of Control</div>
+          <div class="deflist-def">Acts as a 24/7 inventory of authorized endpoints; assists with lifecycle management when devices must be phased out or replaced.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-teal">
+    <strong>Fortinet NAC product:</strong> <em>FortiNAC™</em> — contains all features identified in this lesson plus additional features. Easily integrates with the Fortinet Security Fabric and can automatically isolate clients not adhering to set policies.
+  </div>
+
+</div><!-- /l2 -->
+
+
+<!-- ═══════════════════════════════════════════ LESSON 3 -->
+<div class="section" id="l3">
+  <div class="lesson-header">
+    <div class="lesson-num">03</div>
+    <div class="lesson-title-block">
+      <div class="lesson-label">Lesson Three</div>
+      <h2 class="lesson-title">Sandbox</h2>
+    </div>
+  </div>
+
+  <div class="card card-accent content-full" style="margin-bottom:24px;">
+    <h4>What Is a Sandbox?</h4>
+    <p>A sandbox, in the context of computer security, is a system that <strong>confines the actions of an application</strong> (such as opening a Word document or a browser) within a safe virtual environment. In a sandbox, an application is isolated so that any malicious intent can be uncovered safely, without causing harm to the network. If something unexpected or dangerous happens, it affects only the sandbox — not the other computers and devices on the network.</p>
+    <p>Sandbox technology is typically managed by an organization's information security team, but is used by network, applications, and desktop operations teams to bolster security in their respective domains.</p>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Why Sandboxes Were Created — Zero-Day Attacks</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid">
+    <div class="card card-blue">
+      <h3>The Zero-Day Problem</h3>
+      <p>Threat actors exploit vulnerabilities in legitimate applications in order to compromise a device and from there move through the network to infect other devices. Firewalls and antivirus software can stop <strong>known threats</strong>, but they are helpless against <strong>zero-day attacks</strong>.</p>
+      <p>A <strong>zero-day attack</strong> is when a threat actor exploits an unknown vulnerability — one that the vendor has had zero days to patch. Sandboxing was created as a defense against zero-day attacks.</p>
+    </div>
+    <div class="card card-teal">
+      <h3>How Sandboxing Works</h3>
+      <p>A sandbox offers an isolated virtual space that mimics computer systems and applications. It allows potential threats to run safely within these virtual systems and analyzes them.</p>
+      <ul style="margin-left:16px; font-size:13px; color:var(--ink2); margin-top:8px;">
+        <li style="margin-bottom:6px;">If a sandbox deems a file <strong>safe</strong>, it does not take any action.</li>
+        <li style="margin-bottom:6px;">If it detects <strong>malicious behavior</strong>, it quarantines the file and prevents it from accessing other computers and devices on the network.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Three Generations of Sandboxing</div><div class="sec-divider-line"></div></div>
+
+  <div class="timeline" style="margin-bottom:32px;">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-head">1st Generation — Standalone Sandboxes</div>
+      <div class="tl-body">Early sandboxes encountered challenges sharing threat intelligence with other security devices due to security architecture dependence on <strong>standalone solutions</strong>. Standalone solutions could not easily integrate with products from other vendors, forcing the SOC to use a separate management console for each one. The process of consolidating and analyzing threat intelligence data was both challenging and time-consuming.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--teal);box-shadow:0 0 0 2px var(--teal);"></div>
+      <div class="tl-head">2nd Generation — Integrated Sandboxes</div>
+      <div class="tl-body">Second-generation sandboxes were better at integrating with other security devices, allowing for improved intelligence sharing. Analysts could correlate threat intelligence centrally and respond to threats from a <strong>single pane of glass</strong>. An integrated network security environment could share information with a threat intelligence service in the cloud, which could then push that intelligence to other networks.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--blue);box-shadow:0 0 0 2px var(--blue);"></div>
+      <div class="tl-head">3rd Generation — AI/ML-Driven Sandboxes</div>
+      <div class="tl-body">Threat actors leveraged automation and AI to accelerate development of new exploits. AI-driven attacks necessitated a third-generation sandbox based on a threat analysis standard. Third-gen sandbox devices not only help detect breaches in a timely manner — they also <strong>prevent them from happening</strong>. These solutions utilize the universal <strong>MITRE ATT&amp;CK</strong> security language for categorizing threat models and methodologies.</div>
+    </div>
+  </div>
+
+  <div class="card card-accent" style="margin-bottom:24px;">
+    <h3>FortiSandbox™ — Fortinet's Sandbox Product</h3>
+    <p>FortiSandbox is a high-performance security solution that utilizes <strong>AI and machine learning (ML)</strong> technology to identify and isolate advanced threats in real time. It integrates with other security products in a collective defense called the <strong>Fortinet Security Fabric</strong> to inspect files, websites, URLs, and network traffic for malicious activity, including zero-day threats. It also uses sandboxing technology to analyze suspicious files in a secure virtual environment.</p>
+    <div class="badge-list" style="margin-top:10px;">
+      <span class="badge badge-red">AI/ML Detection</span>
+      <span class="badge badge-teal">Real-time Isolation</span>
+      <span class="badge badge-blue">Fortinet Security Fabric Integration</span>
+      <span class="badge badge-gold">Zero-day Defense</span>
+    </div>
+  </div>
+
+</div><!-- /l3 -->
+
+
+<!-- ═══════════════════════════════════════════ LESSON 4 -->
+<div class="section" id="l4">
+  <div class="lesson-header">
+    <div class="lesson-num">04</div>
+    <div class="lesson-title-block">
+      <div class="lesson-label">Lesson Four</div>
+      <h2 class="lesson-title">Web Application Firewall (WAF)</h2>
+    </div>
+  </div>
+
+  <div class="card card-accent content-full" style="margin-bottom:24px;">
+    <h4>What Is a WAF?</h4>
+    <p>A <strong>Web Application Firewall (WAF)</strong> is an appliance or software that monitors HTTP/HTTPS traffic and can block malicious traffic to and from a web application. WAFs target content from specific web applications at the application level, while edge firewalls form secure gateways between the LAN and outside servers at the network level.</p>
+    <p>By inspecting HTTP traffic, a WAF can stop attacks that target web application security flaws, such as <strong>SQL injection</strong>, <strong>cross-site scripting (XSS)</strong>, <strong>file inclusion</strong>, and <strong>security misconfigurations</strong>.</p>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">History of WAF — From Application Firewalls to ML</div><div class="sec-divider-line"></div></div>
+
+  <div class="timeline" style="margin-bottom:32px;">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-head">1990s — Application Firewall Origins</div>
+      <div class="tl-body">The ancestor of the WAF was the application firewall developed in the 1990s. Although largely a network-based firewall, it could target some applications or protocols (FTP, RSH). The debut of the World Wide Web in 1991 was the "big bang" — expanding internet access also permitted bad actors to exploit it. As organizations became victims of espionage and theft, developing a defense against HTTP-based cyberattacks became a top priority.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--teal);box-shadow:0 0 0 2px var(--teal);"></div>
+      <div class="tl-head">1st Generation WAF — Blocklists &amp; Signatures</div>
+      <div class="tl-body">Because all web applications used HTTP and either port 80 or port 443, WAF could not rely on traditional edge firewall methods. The first generation used <strong>blocklists and signature-based HTTP attributes</strong> to alert the firewall of an attack — making SQL injection attacks like the described example (using <code>2+2=4</code> as a valid SQL statement) no longer successful.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--blue);box-shadow:0 0 0 2px var(--blue);"></div>
+      <div class="tl-head">2nd Generation WAF — Behavior Baselines</div>
+      <div class="tl-body">Growing complexity of web apps made signature-based WAFs obsolete. False positives grew beyond IT teams' capacity. The next generation included <strong>behavior baselines and session monitoring with heuristics</strong>, enabling detection of variants of known signatures. However, rapid mutation of exploits and lack of zero-day defense remained problems.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--gold);box-shadow:0 0 0 2px var(--gold);"></div>
+      <div class="tl-head">3rd Generation WAF — Machine Learning</div>
+      <div class="tl-body">The next logical evolution was <strong>machine learning (ML)</strong>. Unencumbered by human supervision, behavior analysis could be done at machine speed and could adapt to ever-changing threat attributes. Additional security features added: DDoS defense, IP reputation, antivirus, data loss prevention (DLP). WAFs could monitor HTTP traffic and stop any action violating acceptable behavior, identify users, correlate actions with permissions, and share information with other security devices.</div>
+    </div>
+  </div>
+
+  <!-- SQL Injection Example -->
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">SQL Injection — Worked Example</div><div class="sec-divider-line"></div></div>
+
+  <div class="card card-blue" style="margin-bottom:24px;">
+    <h3>How SQL Injection Works</h3>
+    <p>Imagine an online business. Customers log in using a typical login page (username + password), which is verified against a back-end database.</p>
+    <p><strong>Normal flow:</strong> User John Smith types his user ID (jsmith) and password. If the password is true, he is allowed access; if false, he is not.</p>
+    <p><strong>Attack flow:</strong> A bad actor pretending to be John Smith doesn't know the password. Instead of guessing, when asked for a password, the bad actor types <code>abc123</code> or <code>2+2=4</code>.</p>
+    <ul style="margin-left:16px; font-size:13px; color:var(--ink2); margin-top:8px;">
+      <li style="margin-bottom:6px;"><code>abc123</code> is identified as false — access denied.</li>
+      <li style="margin-bottom:6px;"><code>2+2=4</code> is a <strong>valid SQL statement</strong> — identified as true — bad actor gains access.</li>
+    </ul>
+    <div class="callout callout-red" style="margin-top:12px;">
+      <strong>Defense:</strong> First-generation WAFs used blocklists and signature-based HTTP attributes to alert the firewall of such attacks, making SQL injection attacks no longer successful.
+    </div>
+  </div>
+
+  <!-- WAF Features -->
+  <div class="content-grid">
+    <div class="card card-teal">
+      <h3>Modern WAF Capabilities</h3>
+      <div class="badge-list">
+        <span class="badge badge-teal">DDoS Defense</span>
+        <span class="badge badge-teal">IP Reputation</span>
+        <span class="badge badge-teal">Antivirus</span>
+        <span class="badge badge-teal">DLP</span>
+        <span class="badge badge-blue">Session Monitoring</span>
+        <span class="badge badge-blue">Behavior Baseline</span>
+        <span class="badge badge-red">Zero-day via Sandbox</span>
+        <span class="badge badge-gold">ML-Powered Detection</span>
+      </div>
+      <p style="margin-top:12px;">WAFs can share information and collaborate with other security devices — firewalls, sandboxes — as part of a <strong>collective defense</strong>. Sandboxing capabilities mean suspicious material can be tested safely in isolation; zero-day signatures can be shared with other devices and uploaded to a threat intelligence center.</p>
+    </div>
+    <div class="card card-accent">
+      <h3>WAF vs. Edge Firewall</h3>
+      <div class="deflist">
+        <div class="deflist-item">
+          <div class="deflist-term">WAF</div>
+          <div class="deflist-def">Operates at the <strong>application level</strong>. Targets content from specific web applications. Inspects HTTP/HTTPS traffic for malicious patterns, SQL injection, XSS, etc.</div>
+        </div>
+        <div class="deflist-item">
+          <div class="deflist-term">Edge Firewall</div>
+          <div class="deflist-def">Operates at the <strong>network level</strong>. Forms a secure gateway between LAN and external servers. Makes decisions based on IP, port, protocol.</div>
+        </div>
+      </div>
+      <p style="margin-top:12px; font-size:13px; color:var(--ink3);">Fortinet WAF product: <strong>FortiWeb</strong> — defends web applications and APIs against all OWASP Top-10 threats, DDoS, bot attacks, and more. Can integrate with FortiGate and FortiSandbox.</p>
+    </div>
+  </div>
+
+</div><!-- /l4 -->
+
+
+<!-- ═══════════════════════════════════════════ LESSON 5 -->
+<div class="section" id="l5">
+  <div class="lesson-header">
+    <div class="lesson-num">05</div>
+    <div class="lesson-title-block">
+      <div class="lesson-label">Lesson Five</div>
+      <h2 class="lesson-title">Secure Email Gateway (SEG)</h2>
+    </div>
+  </div>
+
+  <div class="card card-accent content-full" style="margin-bottom:24px;">
+    <h4>What Is a Secure Email Gateway?</h4>
+    <p>A <strong>Secure Email Gateway (SEG)</strong> is a technology solution designed to protect organizations from email-based threats and ensure the security and privacy of email communications. It serves as a barrier between an organization's email infrastructure and the external email network (the internet).</p>
+    <p>Email offers fast, inexpensive, anonymous communication — but also equips bad actors with means to spread misinformation, promote fraud, steal personal information, and distribute malware. Unsolicited email to many recipients is called <strong>spam</strong>. Spam that entices recipients to click a link or download a file is called <strong>phishing</strong> (named by America Online in 1996).</p>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">The Phishing Threat — Scale &amp; Impact</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid">
+    <div class="card card-blue">
+      <h3>Phishing by the Numbers</h3>
+      <p>Phishing relies on human naivety, carelessness, or distraction. Educating employees has not ended these attacks.</p>
+      <div class="deflist" style="margin-top:12px;">
+        <div class="deflist-item">
+          <div class="deflist-term">2004</div>
+          <div class="deflist-def">176 phishing attacks recorded</div>
+        </div>
+        <div class="deflist-item">
+          <div class="deflist-term">2012</div>
+          <div class="deflist-def">28,000 phishing attacks recorded</div>
+        </div>
+        <div class="deflist-item">
+          <div class="deflist-term">2022</div>
+          <div class="deflist-def">~500 million phishing attacks estimated</div>
+        </div>
+        <div class="deflist-item">
+          <div class="deflist-term">Cost per breach</div>
+          <div class="deflist-def">Average of $4.35 million per data breach; phishing remains the leading cause</div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-teal">
+      <h3>SEG Core Features</h3>
+      <div class="deflist">
+        <div class="deflist-item">
+          <div class="deflist-term">Content Filtering</div>
+          <div class="deflist-def">Controls and manages types of content that can be accessed or shared. Uses keyword matching, regular expressions, DPI, and context-aware analysis.</div>
+        </div>
+        <div class="deflist-item">
+          <div class="deflist-term">DLP</div>
+          <div class="deflist-def">Data Loss Prevention — prevents unauthorized or accidental leakage of sensitive/confidential information.</div>
+        </div>
+        <div class="deflist-item">
+          <div class="deflist-term">Spam Filters</div>
+          <div class="deflist-def">Identifies emails by suspicious sender addresses, excessive keywords, known spam patterns, poor-reputation IPs. Uses Bayesian filters, deny/allow lists, and ML algorithms.</div>
+        </div>
+        <div class="deflist-item">
+          <div class="deflist-term">Malware Filtering</div>
+          <div class="deflist-def">Scans email attachments and links for malware, preventing harmful content from reaching inboxes.</div>
+        </div>
+        <div class="deflist-item">
+          <div class="deflist-term">Encryption</div>
+          <div class="deflist-def">Encrypts email to protect content from unauthorized access during transmission; can digitally sign emails to verify sender identity.</div>
+        </div>
+        <div class="deflist-item">
+          <div class="deflist-term">Authentication</div>
+          <div class="deflist-def">Verifies sender identities to prevent email spoofing and impersonation.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Email Authentication Standards — SPF, DKIM, DMARC</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid three">
+    <div class="card card-accent">
+      <h3>SPF</h3>
+      <p><strong>Sender Policy Framework</strong> works at the level of the receiving email server. When an email is sent, the recipient's server checks the <strong>SPF record</strong> of the sender's domain to verify whether the sending server's IP address is authorized to send emails on behalf of that domain.</p>
+      <p>If not listed in the SPF record, the server may flag the email as suspicious, reject it, or take other actions. This helps prevent email spoofing and sender address forgery.</p>
+    </div>
+    <div class="card card-teal">
+      <h3>DKIM</h3>
+      <p><strong>DomainKeys Identified Mail</strong> works alongside SPF. DKIM uses cryptographic signatures to verify that an email was actually sent by the claimed domain and that the content was not altered in transit.</p>
+      <p>SPF alone has limitations — it does not travel with the email header when forwarded. DKIM provides an additional layer that remains with the message.</p>
+    </div>
+    <div class="card card-blue">
+      <h3>DMARC</h3>
+      <p><strong>Domain-based Message Authentication, Reporting, and Conformance</strong> works with both SPF and DKIM to provide comprehensive email security. DMARC tells receiving servers what to do when SPF or DKIM checks fail.</p>
+      <p>SPF is an effective tool in the fight against email spoofing and fraud, but it has limitations and should be used in conjunction with DKIM and DMARC for a more robust strategy.</p>
+    </div>
+  </div>
+
+  <div class="content-grid" style="margin-top:24px;">
+    <div class="card card-gold">
+      <h3>Content Filter vs. Spam Filter</h3>
+      <div class="deflist">
+        <div class="deflist-item">
+          <div class="deflist-term">Spam Filters</div>
+          <div class="deflist-def">Aim to reduce spam reaching a user's inbox. Focus on characteristics associated with spam: suspicious senders, excessive keywords, known spam patterns, poor-reputation IPs. Highly automated using algorithms and heuristics.</div>
+        </div>
+        <div class="deflist-item">
+          <div class="deflist-term">Content Filters</div>
+          <div class="deflist-def">Target a broader range of content — not only spam but also inappropriate or sensitive data. Enforce content-related policies. Used in web filtering, email filtering, and DLP.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-teal">
+      <h3>Modern SEG Evolution</h3>
+      <p>Secure email gateways continue to evolve as threats evolve. Today, greater <strong>automation and machine learning</strong> are built into SEGs, alleviating demands on security operations centers.</p>
+      <p>In some cases, a SEG is integrated with other network security devices such as edge and segmentation firewalls and sandboxes.</p>
+      <p style="margin-top:10px; font-size:13px; color:var(--ink3);">Fortinet SEG product: <strong>FortiMail®</strong> — includes all features discussed, support for SPF, DKIM, DMARC, and integrates with firewalls and sandboxing solutions.</p>
+    </div>
+  </div>
+
+</div><!-- /l5 -->
+
+</main>
+
+<footer class="footer">
+  CYBERSECURITY FUNDAMENTALS REVIEWER · LESSONS 1–5 · PERIMETER &amp; APPLICATION SECURITY
+</footer>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function tog(btn) {
+  btn.classList.toggle('open');
+  const b = btn.nextElementSibling;
+  b.style.display = b.style.display === 'block' ? 'none' : 'block';
+}
+// Set initial nav state
+document.addEventListener('DOMContentLoaded', () => {
+  const lessonBtns = document.querySelectorAll('.nav-btn');
+  lessonBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      lessonBtns.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+});
+</script>
+</body>
+</html>

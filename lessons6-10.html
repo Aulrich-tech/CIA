@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lessons 6–10 — Cybersecurity Reviewer</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-top">
+    <span>CONTENT FILTERS · WIFI · ENDPOINT HARDENING · MONITORING · SOAR</span>
+    <span>LESSONS 6–10</span>
+  </div>
+  <div class="masthead-main">
+    <div class="masthead-title">
+      <div class="masthead-eyebrow">Cybersecurity Fundamentals</div>
+      <h1 class="masthead-h1">Lessons <em>6–10</em></h1>
+      <p class="masthead-sub">Content Filters · WiFi Security · Endpoint Hardening · Endpoint Monitoring · SOAR</p>
+    </div>
+    <div class="masthead-meta">
+      <strong>5</strong>
+      Lessons
+    </div>
+  </div>
+</header>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-btn">Overview</a>
+    <a href="lessons1-5.html" class="nav-btn">Lessons 1–5</a>
+    <a href="lessons6-10.html" class="nav-btn active">Lessons 6–10</a>
+    <a href="lessons11-15.html" class="nav-btn">Lessons 11–15</a>
+    <a href="quiz.html" class="nav-btn">Quiz</a>
+    <button class="nav-btn" onclick="show('l6')">L6: Content Filters</button>
+    <button class="nav-btn" onclick="show('l7')">L7: WiFi</button>
+    <button class="nav-btn" onclick="show('l8')">L8: Endpoint Hardening</button>
+    <button class="nav-btn" onclick="show('l9')">L9: Monitoring</button>
+    <button class="nav-btn" onclick="show('l10')">L10: SOAR</button>
+  </div>
+</nav>
+
+<main class="page">
+
+<!-- ═══════════════════════════════════════════ LESSON 6 -->
+<div class="section active" id="l6">
+  <div class="lesson-header">
+    <div class="lesson-num">06</div>
+    <div class="lesson-title-block">
+      <div class="lesson-label">Lesson Six</div>
+      <h2 class="lesson-title">Content Filters</h2>
+    </div>
+  </div>
+
+  <div class="card card-accent content-full" style="margin-bottom:24px;">
+    <h4>What Is Content Filtering?</h4>
+    <p><strong>Content filtering</strong> is a process to screen or restrict access to objectionable emails, webpages, executables, and other suspicious items. It is a common security measure that is often built into internet firewalls and blocks content that contains harmful, illegal, or inappropriate information.</p>
+    <p>For example, parents often use web filtering to protect their children from improper or graphic material. Organizations use it to block malware-carrying sites and enforce productivity policies.</p>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Four Types of Content Filters</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid">
+    <div class="card card-accent">
+      <h3>1. Search Engine Filters</h3>
+      <p>Rate web content according to its <strong>text and images</strong>. Text and images hold a specific weight, measured against a classification set. The weights vary based on whether the classification level is set to off, moderate, or strict.</p>
+      <p>Machine learning helps define weights to avoid possible false positives. Content is classified as <strong>safe, moderate, inappropriate, or rejected</strong>. The search engine result will then display contents only if they meet the set classification level.</p>
+    </div>
+    <div class="card card-teal">
+      <h3>2. Email Filters</h3>
+      <p>Email content filters check the <strong>header of incoming mails against real-time blackhole lists</strong>. The raw data of the body is scanned for inappropriate content, providing a spam confidence level similar to search engine weights.</p>
+      <p>Email content filters also check <strong>attachments</strong>, identify keywords or potential unauthorized file types (like executables), and complete the email content filtering — enabling users to block, quarantine, or reject malicious emails including phishing, while accepting appropriate incoming emails.</p>
+    </div>
+    <div class="card card-blue">
+      <h3>3. DNS-Based Content Filters</h3>
+      <p>DNS-based content filters check the website during the <strong>resolution of the domain through DNS servers using blocklists</strong>. If the website is not allowed, the browser is redirected to a replacement message announcing that the page is blocked.</p>
+      <p>Alternatively, a company can define an <strong>allowlist</strong> of all company-approved websites — DNS-based content filtering would then block all other websites.</p>
+    </div>
+    <div class="card card-gold">
+      <h3>4. Web Filters</h3>
+      <p>Web filters are similar to DNS-based content filters with an additional function that <strong>categorizes websites</strong>. For example, schools in the United States must adhere to the <strong>Children's Internet Protection Act (CIPA)</strong>, addressing children's access to obscene or harmful content. Schools use web filters to block material deemed harmful to minors.</p>
+      <p>All websites and their contents are rated through machine learning, so access to a specific URL is allowed or blocked according to its category and the user's profile.</p>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Why Content Filtering Matters</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid">
+    <div class="card card-teal">
+      <h3>Malware &amp; Phishing Protection</h3>
+      <p>Content filters allow organizations to block access to sites known to carry malware, protecting their data and users from malicious activity.</p>
+      <p>Content filters can also identify phishing or exploit kits, blocking access before it triggers a malicious download. This is important while cybercriminals increasingly develop new, more sophisticated ways to illegally access networks and steal data.</p>
+    </div>
+    <div class="card card-blue">
+      <h3>Productivity &amp; Bandwidth</h3>
+      <p>Limiting users' access to only specific work-related internet can increase bandwidth efficiency and enable faster connections for all employees.</p>
+      <p>Organizations can use web filtering on sites like social media and online shopping to <strong>increase staff productivity</strong>.</p>
+    </div>
+  </div>
+
+  <div class="deflist" style="margin-top:24px;">
+    <div class="deflist-item">
+      <div class="deflist-term">Blocklist</div>
+      <div class="deflist-def">A list of sites/addresses/senders that are explicitly denied. Any entry on the list is blocked by default.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">Allowlist</div>
+      <div class="deflist-def">A list of sites/addresses/senders that are explicitly permitted. Everything not on the list is blocked by default.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">Real-Time Blackhole List</div>
+      <div class="deflist-def">A list of IP addresses associated with known spam or malicious activity, used to filter email headers.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">CIPA</div>
+      <div class="deflist-def">Children's Internet Protection Act — a US law requiring schools and libraries to use web filters to block material harmful to minors in order to receive federal funding.</div>
+    </div>
+  </div>
+
+</div><!-- /l6 -->
+
+
+<!-- ═══════════════════════════════════════════ LESSON 7 -->
+<div class="section" id="l7">
+  <div class="lesson-header">
+    <div class="lesson-num">07</div>
+    <div class="lesson-title-block">
+      <div class="lesson-label">Lesson Seven</div>
+      <h2 class="lesson-title">WiFi Security</h2>
+    </div>
+  </div>
+
+  <div class="card card-accent content-full" style="margin-bottom:24px;">
+    <h4>What Is Wi-Fi?</h4>
+    <p>Wi-Fi, based on the <strong>IEEE 802.11 standards</strong>, is a wireless technology employed for local area networking of devices. Its development drew from similar protocols and technology as Ethernet, encompassing IP at the network layer and TCP/UDP at the transport layer. Common technologies include routers, switches, DNS, and in most cases, wireless networks connect to wired networks.</p>
+    <p>The <strong>principal advantage</strong> of wireless networks is mobility — you can walk around with a device anywhere within Wi-Fi range without being tethered to a cable. The <strong>main disadvantage</strong> is security — without proper security protocols, bad actors can listen in to communication.</p>
+    <p>Data is sent through <strong>radio waves or microwaves</strong>, unlike wired networks that pipe data through twisted copper wire or fiber optic cable.</p>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">WiFi Encryption — WEP to WPA3</div><div class="sec-divider-line"></div></div>
+
+  <div class="timeline" style="margin-bottom:32px;">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-head">WEP — Wired Equivalent Privacy (Original)</div>
+      <div class="tl-body">The first Wi-Fi encryption protocol. Designed to provide security equivalent to wired networks. However, WEP was found to have serious vulnerabilities and was quickly broken by attackers. It was superseded by WPA.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--gold);box-shadow:0 0 0 2px var(--gold);"></div>
+      <div class="tl-head">WPA / WPA2 — Wi-Fi Protected Access</div>
+      <div class="tl-body">WPA2 employs the <strong>Advanced Encryption Standard (AES)</strong> for encrypting outgoing data — a standard established by the National Institute of Standards and Technology (NIST). Two security options: <strong>Home (personal)</strong> level uses network authentication and key exchange relying on a shared passphrase; <strong>Enterprise</strong> level uses <strong>802.1x authentication</strong> mechanisms (like those used in wired networks) to authenticate users and establish encryption. Security remained at risk if poorly chosen or weak passphrases were used at the home level.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--teal);box-shadow:0 0 0 2px var(--teal);"></div>
+      <div class="tl-head">WPA3 — Released 2018</div>
+      <div class="tl-body">WPA3 introduced: a <strong>new, more secure handshake</strong> for making connections; an easier method for adding devices to the network; <strong>increased key sizes</strong>; and other security features. While security technology continued to improve, bad actors turned their efforts to <strong>social engineering techniques</strong>, exploiting human carelessness or naivety.</div>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Wi-Fi Threats &amp; Attack Types</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid">
+    <div class="card card-accent">
+      <h3>Honeypot / Rogue Access Points</h3>
+      <p>Freely available Wi-Fi in public places comes with risks. Bad actors can set up access points (APs) to act as <strong>honeypots</strong> in places like coffee shops. Unsuspecting people who connect to these so-called free networks don't realize that the hacker has access to everything they are doing online — account credentials, credit card information, etc.</p>
+      <div class="callout callout-red" style="margin-top:12px;">
+        Be wary, even if a network name seems legitimate.
+      </div>
+    </div>
+    <div class="card card-blue">
+      <h3>Evil Twin Attacks</h3>
+      <p>Handheld devices remember networks they've connected to in the past. They automatically look for the network name or <strong>SSID (Service Set Identifier)</strong> and connect again when they see it.</p>
+      <p>A hacker can hear your phone looking for the legitimate hotel Wi-Fi you connected to last year, set up a fake AP broadcasting that network name, and trick your device into connecting. These are called <strong>evil twin attacks</strong> — a type of <strong>man-in-the-middle attack</strong> used to steal information and infiltrate connecting devices.</p>
+      <div class="callout callout-blue" style="margin-top:12px;">
+        <strong>Defense:</strong> Never trust an SSID with open security. Use other means to encrypt communications — leverage the built-in encryption feature on your device or VPN.
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Router &amp; AP Security Best Practices</div><div class="sec-divider-line"></div></div>
+
+  <div class="card card-teal" style="margin-bottom:24px;">
+    <h3>Setting Up a Secure Router/AP</h3>
+    <div class="deflist">
+      <div class="deflist-item">
+        <div class="deflist-term">Change SSID &amp; Default Passphrase</div>
+        <div class="deflist-def">Always change the SSID name and default passphrase that came with the device. Choose a complex passphrase.</div>
+      </div>
+      <div class="deflist-item">
+        <div class="deflist-term">Enable Security</div>
+        <div class="deflist-def">Ensure security is enabled on the router so that data is encrypted when sent between devices.</div>
+      </div>
+      <div class="deflist-item">
+        <div class="deflist-term">Update Firmware</div>
+        <div class="deflist-def">Update to the latest firmware and select the latest security protocol (e.g., WPA3).</div>
+      </div>
+      <div class="deflist-item">
+        <div class="deflist-term">Monitor Connected Devices</div>
+        <div class="deflist-def">Some router/AP software allows monitoring of devices connected to your network — use this feature.</div>
+      </div>
+      <div class="deflist-item">
+        <div class="deflist-term">Rogue AP Suppression</div>
+        <div class="deflist-def">Newer APs can detect and suppress rogue APs. Note: there are legal caveats with AP suppression that differ between countries and legal districts — ensure familiarity with legality before implementing.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-blue" style="margin-bottom:24px;">
+    <h3>Key Features of a Secure Wireless LAN Solution</h3>
+    <div class="badge-list">
+      <span class="badge badge-teal">Strong Encryption</span>
+      <span class="badge badge-teal">Robust Authentication</span>
+      <span class="badge badge-blue">Network Segmentation</span>
+      <span class="badge badge-blue">Guest Network Segmentation</span>
+      <span class="badge badge-red">Access Control Lists</span>
+      <span class="badge badge-gold">Network Monitoring</span>
+    </div>
+    <p style="margin-top:12px; font-size:13px; color:var(--ink3);">Fortinet secure wireless LAN products: <strong>FortiAP™, FortiSwitch™, FortiWiFi®, FortiGate®</strong></p>
+  </div>
+
+</div><!-- /l7 -->
+
+
+<!-- ═══════════════════════════════════════════ LESSON 8 -->
+<div class="section" id="l8">
+  <div class="lesson-header">
+    <div class="lesson-num">08</div>
+    <div class="lesson-title-block">
+      <div class="lesson-label">Lesson Eight</div>
+      <h2 class="lesson-title">Endpoint Hardening Techniques</h2>
+    </div>
+  </div>
+
+  <div class="card card-accent content-full" style="margin-bottom:24px;">
+    <h4>Why Endpoint Hardening Matters</h4>
+    <p>With the spread of IoT devices, the number of endpoints that need to be secured has increased exponentially. There are many strategies and policies to secure not only traditional client and server endpoints, but the newer network-connected devices that have proliferated across all aspects of life.</p>
+    <p>One of the greatest threats caused by the spread of endpoints: an <strong>unsecured device allowing unauthorized access to a network</strong> that can be exploited to gather information or compromise other devices.</p>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Four Categories of Endpoint Hardening</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid">
+    <div class="card card-accent">
+      <h3>Category 1: Administrative Controls</h3>
+      <p>Enforcing <strong>secure passwords</strong> and restricting user and network access using the <strong>Principle of Least Privilege (PoLP)</strong>.</p>
+      <div class="callout callout-red" style="margin-top:10px;">
+        <strong>PoLP:</strong> Enforcement of permissions based on need. Users, especially administrators, should only have access to permissions they need to perform their duties.
+      </div>
+    </div>
+    <div class="card card-teal">
+      <h3>Category 2: Local Endpoint Protection</h3>
+      <p>Hardening local endpoint protection through a combination of:</p>
+      <div class="badge-list" style="margin-top:8px;">
+        <span class="badge badge-teal">OS Security</span>
+        <span class="badge badge-teal">Boot Management</span>
+        <span class="badge badge-blue">Local Disk Encryption</span>
+        <span class="badge badge-gold">DLP Techniques</span>
+      </div>
+    </div>
+    <div class="card card-blue">
+      <h3>Category 3: Endpoint Maintenance</h3>
+      <p>Ensuring all devices are:</p>
+      <ul style="margin-left:16px; font-size:13px; color:var(--ink2); margin-top:8px;">
+        <li style="margin-bottom:5px;">Patched and updated regularly</li>
+        <li style="margin-bottom:5px;">Subject to regular policy checkups</li>
+        <li style="margin-bottom:5px;">Backed up accurately for easy recovery</li>
+      </ul>
+    </div>
+    <div class="card card-gold">
+      <h3>Category 4: Endpoint Monitoring</h3>
+      <p>Monitoring endpoint devices locally through an <strong>EPP (Endpoint Protection Platform)</strong> client if available, or over networks using <strong>IDS (Intrusion Detection Systems)</strong>. Also implementing <strong>EDR (Endpoint Detection and Response)</strong> platforms.</p>
+      <p><em>(Covered in detail in Lesson 9)</em></p>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Passwords &amp; Principle of Least Privilege</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid">
+    <div class="card card-teal">
+      <h3>Secure Passwords — First Line of Defense</h3>
+      <p>The simplest way to harden and protect endpoints and IoT devices is to ensure the device has a <strong>secure password</strong>. Household IoT devices regularly ship with a default password that the user is not required to change on installation.</p>
+      <p>A common first attack strategy: scan a network for devices and attempt to log in using <strong>default passwords</strong>. Tracking down and enforcing secure passwords on all connected devices is a simple first step that can help reduce overall risk.</p>
+    </div>
+    <div class="card card-accent">
+      <h3>Principle of Least Privilege (PoLP)</h3>
+      <p>Another important step: ensure users, especially administrators, have access to only the permissions they need to perform their duties.</p>
+      <p>Many endpoints, even basic IoT devices, grant users the ability to create administrative roles and permission sets. This allows creation of <strong>authenticated roles</strong> that limit access to only needed features on a device.</p>
+      <div class="callout callout-red" style="margin-top:10px;">
+        <strong>Why it matters:</strong> If an attacker gains access to an account with restricted access, it will be much less damaging than if they gain full administrative access. Prevents a weak password or social engineering attack from accidentally granting maximum permissions.
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Firmware, BIOS, and Boot Security</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid">
+    <div class="card card-blue">
+      <h3>What Is Firmware?</h3>
+      <p>Firmware is software that usually runs from a chip on the endpoint. It is responsible for detecting and reporting hardware connected to the device. After performing all hardware checks, firmware assists in loading the operating system.</p>
+      <div class="deflist" style="margin-top:12px;">
+        <div class="deflist-item">
+          <div class="deflist-term">BIOS</div>
+          <div class="deflist-def">Legacy Basic Input Output System — the older firmware interface for traditional computers and laptops.</div>
+        </div>
+        <div class="deflist-item">
+          <div class="deflist-term">UEFI</div>
+          <div class="deflist-def">Unified Extensible Firmware Interface — the newer interface. Usually incorporates a graphical interface and more robust security features. Key advantage: can restrict firmware to load <em>only approved software</em>.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-gold">
+      <h3>Firmware Security Risks</h3>
+      <p>A frequently overlooked area. Threats that attack firmware and boot processes of endpoint devices have been emerging. Hardening firmware and boot processes is especially important for IoT devices, which lack many of the built-in protections that traditional desktops, laptops, and servers have integrated over the years.</p>
+      <p><strong>Physical security</strong> matters too: physically securing devices so attackers do not have physical access is extremely important. Many devices have an administrator account reset procedure that requires only physical access. Locking down the BIOS and other boot-time systems can prevent these attacks.</p>
+      <div class="callout callout-gold" style="margin-top:12px;">
+        <strong>Firmware malware attacks:</strong> Code is inserted into firmware that causes endpoints to load malicious software or whole new operating systems, compromising other devices. Restricting firmware to only approved software (UEFI feature) is a key defense.
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Full Disk Encryption (FDE) &amp; DLP</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid">
+    <div class="card card-accent">
+      <h3>Full Disk Encryption (FDE)</h3>
+      <p>If a laptop is stolen and the data is not encrypted, it is very easy for the thief to extract useful information. An unencrypted corporate laptop can contain a wealth of useful information about the corporate security posture.</p>
+      <p>The most common way to secure devices: <strong>Full Disk Encryption (FDE)</strong> — a software-based solution where the disk is encrypted by the OS. On boot time, the UEFI loads the decrypting information from the OS. Cryptographic keys are stored in a <strong>Trusted Platform Module (TPM)</strong> and protected by a password or other authentication method.</p>
+      <p>Because the entire disk is encrypted, if it is stolen, no useful information can be retrieved except by attempting to brute force the drive encryption — which is very costly.</p>
+    </div>
+    <div class="card card-teal">
+      <h3>Self-Encrypting Drive (SED)</h3>
+      <p>Another way to implement FDE: use a <strong>Self-Encrypting Drive (SED)</strong>. An SED is a hard drive with a built-in module that automatically handles the encryption and decryption of the contents of the hard drive using instructions from the firmware and OS.</p>
+      <p>Using an SED pushes the cryptographic effort onto the built-in module in the hard drive, rather than the device CPU and software.</p>
+    </div>
+  </div>
+
+  <div class="card card-blue" style="margin-top:24px; margin-bottom:24px;">
+    <h3>Data Loss Prevention (DLP) on Endpoints</h3>
+    <p>A final way to protect data on an endpoint is to use <strong>DLP software</strong>. This can detect if someone is trying to copy sensitive information from a device or send it over the network. DLP can block or log the transaction for security.</p>
+    <p>Another common use of DLP: prevent or limit the use of <strong>attachable drives</strong> (USB flash drives, external hard drives) to prevent the copying of large amounts of data. DLP can also be network-based, where devices inspect network traffic to alert administrators to keywords or other sensitive information being transmitted over networks.</p>
+    <div class="callout callout-blue" style="margin-top:12px;">
+      <strong>Note:</strong> Many modern devices like smartphones automatically use full disk encryption, but on some devices, this may be disabled by default. Always check if disk encryption and DLP are available on endpoints, especially IoT devices.
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Patching, Updates &amp; Backups</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid">
+    <div class="card card-gold">
+      <h3>Why Patching Matters</h3>
+      <p>Keeping patches up-to-date is critical because identifying and closing potential vulnerabilities is a key step in preventing large-scale cybersecurity attacks. Updating OSs, firmware, and vulnerable software programs and applications is a simple and effective way to reduce overall risk.</p>
+      <p>Even if a new, unknown attack method compromises a system, having a fully patched infrastructure means further infiltration may be hindered — no other tools in an attacker's toolkit will be effective in pivoting to other systems or collecting and exfiltrating data.</p>
+    </div>
+    <div class="card card-teal">
+      <h3>Backup Strategy</h3>
+      <p>Having a comprehensive backup solution for critical endpoints can greatly assist in recovering from cyberattacks or accidents. Back up critical endpoint devices — smartphones, laptops, servers, databases — frequently.</p>
+      <p>For IoT devices (security cameras, smart locks), having <strong>backup equipment that you can configure easily</strong> to replace damaged, stolen, or compromised devices should be part of a comprehensive disaster recovery plan.</p>
+      <div class="callout callout-teal" style="margin-top:12px;">
+        <strong>Ransomware defense:</strong> Having a regular backup schedule for all your devices — from computers to cameras — is one of the most effective ways to mitigate a ransomware attack.
+      </div>
+    </div>
+  </div>
+
+  <div class="pullquote">"Thorough defense is very important when hardening endpoints. If there are multiple layers of security, it is more difficult to compromise an endpoint and use it to further attack a network."</div>
+
+</div><!-- /l8 -->
+
+
+<!-- ═══════════════════════════════════════════ LESSON 9 -->
+<div class="section" id="l9">
+  <div class="lesson-header">
+    <div class="lesson-num">09</div>
+    <div class="lesson-title-block">
+      <div class="lesson-label">Lesson Nine</div>
+      <h2 class="lesson-title">Endpoint Monitoring</h2>
+    </div>
+  </div>
+
+  <div class="card card-accent content-full" style="margin-bottom:24px;">
+    <h4>The Fourth Category of Endpoint Hardening</h4>
+    <p>Endpoint monitoring is the fourth category in the hardening process. This section includes monitoring of endpoint devices, both locally through an <strong>Endpoint Protection Platform (EPP)</strong> client if available, or over networks using specialized <strong>Network Intrusion Detection Systems (IDS)</strong>. It is also possible to implement <strong>Endpoint Detection and Response (EDR)</strong> platforms that can preemptively block new, undiscovered attacks and take immediate action against suspicious files and programs.</p>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Endpoint Solutions — EPP, IDS, and EDR</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid">
+    <div class="card card-blue">
+      <h3>Endpoint Protection Platform (EPP)</h3>
+      <p>Many companies have created endpoint solutions to help manage and protect various types of endpoints from cyberthreats. Most endpoint solutions support servers, desktops, laptops, and smartphones, with additional plugins and support for the proliferation of new, unknown, and IoT devices.</p>
+      <p>EPP clients can monitor endpoint behavior locally and report findings to a central management system.</p>
+    </div>
+    <div class="card card-teal">
+      <h3>Intrusion Detection System (IDS)</h3>
+      <p>Specialized network intrusion detection systems monitor network traffic for suspicious patterns or known attack signatures. IDS can detect unusual activity — unauthorized scans, suspicious connections, known malware signatures — and generate alerts for security teams.</p>
+      <p>IDS monitors but does not automatically block; it raises alerts for human review.</p>
+    </div>
+  </div>
+
+  <div class="card card-accent" style="margin-top:24px; margin-bottom:24px;">
+    <h3>Endpoint Detection and Response (EDR)</h3>
+    <p><strong>EDR</strong> is a more proactive security solution that constantly scans a device to detect <strong>Indicators of Compromise (IoC)</strong>. If the EDR client detects a suspicious connection, program, or behavior, it can <strong>block the action and send an alert</strong>. This can help identify and stop threats like ransomware and zero-day attacks that may not have an established signature that would be detected by traditional anti-malware systems.</p>
+
+    <div class="deflist" style="margin-top:14px;">
+      <div class="deflist-item">
+        <div class="deflist-term">IoC Detection</div>
+        <div class="deflist-def">EDR leverages AI and large comprehensive databases of known attacks to predict and recognize suspicious files and programs.</div>
+      </div>
+      <div class="deflist-item">
+        <div class="deflist-term">Immediate Response</div>
+        <div class="deflist-def">Can trigger alerts to other connected endpoints and allow other endpoints to immediately block the suspicious program or file, even before it can be opened or executed.</div>
+      </div>
+      <div class="deflist-item">
+        <div class="deflist-term">Zero-day &amp; Unknown Attacks</div>
+        <div class="deflist-def">Provides an immediate response against zero-day and other previously unidentified attacks that traditional anti-malware cannot detect.</div>
+      </div>
+      <div class="deflist-item">
+        <div class="deflist-term">Investigation Tools</div>
+        <div class="deflist-def">EDR systems have tools to help security investigators gather data on new threats and quarantine systems suspected of compromise.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Hardening Unknown &amp; Hard-to-Secure Devices</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid">
+    <div class="card card-gold">
+      <h3>Isolate Hard-to-Secure Devices</h3>
+      <p>With hard-to-secure devices and unknown endpoints, enforce the <strong>principle of least privilege</strong>. If these devices need access only to a specific internet or internal server, <strong>isolate them on a unique network</strong> and allow only that specific connection through firewalls and routers.</p>
+      <p>That way, if the device does not meet network compliance because it is not running an appropriate endpoint security solution, it has as limited access to other resources as possible.</p>
+    </div>
+    <div class="card card-teal">
+      <h3>Lock Down Known Devices</h3>
+      <p>Once all known devices are registered, configure many network security devices — wireless access points, switches, routers, firewalls, and other connectivity points — to lock down and not allow unauthorized devices to connect through the network.</p>
+      <p>Disabling ports for devices that are not monitored forces users with unknown devices to register and prevents attackers from attempting to insert their own devices onto the network remotely or by physically plugging in a device locally.</p>
+    </div>
+  </div>
+
+  <div class="deflist" style="margin-top:24px;">
+    <div class="deflist-item">
+      <div class="deflist-term">EPP</div>
+      <div class="deflist-def">Endpoint Protection Platform — monitors and protects endpoints, supports servers, desktops, laptops, smartphones, and IoT devices.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">IDS</div>
+      <div class="deflist-def">Intrusion Detection System — monitors network traffic for suspicious patterns; generates alerts but does not automatically block.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">EDR</div>
+      <div class="deflist-def">Endpoint Detection and Response — proactive; scans for IoC, can block threats and alert other endpoints; uses AI/ML; effective against zero-day attacks.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">IoC</div>
+      <div class="deflist-def">Indicator of Compromise — evidence (file, behavior, connection) suggesting that a system may have been breached or is under attack.</div>
+    </div>
+  </div>
+
+</div><!-- /l9 -->
+
+
+<!-- ═══════════════════════════════════════════ LESSON 10 -->
+<div class="section" id="l10">
+  <div class="lesson-header">
+    <div class="lesson-num">10</div>
+    <div class="lesson-title-block">
+      <div class="lesson-label">Lesson Ten</div>
+      <h2 class="lesson-title">SOAR</h2>
+    </div>
+  </div>
+
+  <div class="card card-accent content-full" style="margin-bottom:24px;">
+    <h4>What Is SOAR?</h4>
+    <p><strong>SOAR</strong> (Security Orchestration, Automation, and Response) connects tools in your security stack together into defined workflows, which can run automatically. SOAR lets you increase your team's efficiency by <strong>automating repetitive manual processes</strong>.</p>
+    <p>SOAR is a hot term in the security industry. It is essential because security teams are overwhelmed — as new tools are developed to address an evolving threat landscape, analysts must switch between them to accomplish day-to-day tasks.</p>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">The Problem SOAR Solves — Alert Fatigue</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid">
+    <div class="card card-blue">
+      <h3>Alert Fatigue</h3>
+      <p>One common day-to-day task is responding to alerts. With more security tools come more alerts, which are addressed through a series of manual processes and <strong>context switches</strong> — switching from one tool to another.</p>
+      <p>Having more alerts to respond to each day means less time to spend on each alert, which increases the likelihood of making mistakes. Performance degradation in the face of a flood of alerts is called <strong>"alert fatigue."</strong></p>
+      <p>One way to mitigate alert fatigue is to hire more analysts — however, there just aren't enough qualified analysts to hire. SOAR offers an alternative solution.</p>
+    </div>
+    <div class="card card-teal">
+      <h3>How SOAR Reduces Alert Fatigue</h3>
+      <p>SOAR ties together the tools in your security stack. By pulling data from these sources, SOAR reduces the amount of context switching analysts have to deal with. Analysts can perform all their usual investigative processes directly from the source interface.</p>
+      <p>Additionally, you can automatically or manually translate processes into a <strong>playbook</strong> — a flowchart-like set of steps that can be repeated on demand. By using a playbook, you ensure every step in your standard operating procedure is followed, and you have access to data about exactly who did what and when. This capability is called <strong>orchestration and automation</strong>.</p>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Three Core SOAR Capabilities</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid three">
+    <div class="card card-accent">
+      <h3>1. Orchestration &amp; Automation</h3>
+      <p>SOAR connects all security tools into a unified workbench. Processes are translated into <strong>playbooks</strong> that can run automatically. This replaces repetitive, time-consuming manual processes with automation at machine speed — freeing analysts to focus on investigating critical alerts.</p>
+    </div>
+    <div class="card card-teal">
+      <h3>2. Investigation</h3>
+      <p>Another crucial SOAR capability. When a suspicious alert appears, teams can perform investigative tasks — checking threat intelligence sources for a reputation, or querying a <strong>Security Information Management (SIM)</strong> system for related events — from within the SOAR platform. Findings determine required mitigation steps.</p>
+    </div>
+    <div class="card card-blue">
+      <h3>3. Response &amp; Collaboration</h3>
+      <p>Since SOAR is a unified workbench of all security tools, mitigation steps can also be taken from within it. Example: block traffic from a malicious IP in your firewall, or delete a phishing email from your email server.</p>
+      <p>SOAR allows users to <strong>assign alerts to different analysts or teams</strong> at different stages of the response process, and allows assigned users to add information to alerts as they work on them — so anyone who references those alerts later has additional context.</p>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Playbooks — SOAR's Key Mechanism</div><div class="sec-divider-line"></div></div>
+
+  <div class="card card-gold" style="margin-bottom:24px;">
+    <h3>What Is a Playbook?</h3>
+    <p>Teams use <strong>playbooks</strong> (sometimes called workflows) to respond to alerts or incidents the same way every time. Playbooks work in unison with security teams by taking the steps an analyst would typically implement when responding to an incident.</p>
+    <div class="deflist" style="margin-top:12px;">
+      <div class="deflist-item">
+        <div class="deflist-term">Repetitive Tasks</div>
+        <div class="deflist-def">Playbooks do the repetitive tasks — compiling data into a report, sending emails — automatically.</div>
+      </div>
+      <div class="deflist-item">
+        <div class="deflist-term">Human Oversight</div>
+        <div class="deflist-def">Playbooks can pause when human oversight is needed (e.g., when a firewall block is being implemented).</div>
+      </div>
+      <div class="deflist-item">
+        <div class="deflist-term">Consistency</div>
+        <div class="deflist-def">Ensures every step in the standard operating procedure is followed, improving response speed and consistency.</div>
+      </div>
+      <div class="deflist-item">
+        <div class="deflist-term">Reduced Error</div>
+        <div class="deflist-def">Ultimately can lead to reduced analyst workload and reduced chance of error.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phishing example -->
+  <div class="card card-blue" style="margin-bottom:24px;">
+    <h3>Phishing Investigation Playbook — Real-World Example</h3>
+    <p>Phishing investigations are one of the most common use cases for SOAR. Without SOAR, an analyst must manually investigate the sender, key indicators in the email headers or body, enter domains and URLs into a threat intelligence platform, investigate their email server and SIM, determine who received the email, determine who clicked on it, delete it, and so on.</p>
+    <p><strong>With a SOAR phishing investigation playbook:</strong></p>
+    <ol style="margin-left:16px; font-size:13px; color:var(--ink2); margin-top:8px;">
+      <li style="margin-bottom:6px;">Initial investigation steps are taken <strong>automatically</strong> as soon as the phishing email is reported.</li>
+      <li style="margin-bottom:6px;">The analyst is alerted only to emails that the playbook determines are suspicious.</li>
+      <li style="margin-bottom:6px;">After the analyst confirms the email warrants further action, the playbook continues — making additional SIM queries, <strong>deleting the email from all user inboxes</strong>, sending an email to all recipients alerting them of the action taken, and providing helpful tips on what to do if they receive similar phishing messages in the future.</li>
+    </ol>
+  </div>
+
+  <!-- Benefits -->
+  <div class="card card-teal" style="margin-bottom:24px;">
+    <h3>SOAR Business Benefits</h3>
+    <p>Implementing SOAR into your ecosystem does more than just centralize incident response processes — it optimizes an entire operation. Optimization results in:</p>
+    <div class="badge-list" style="margin-top:10px;">
+      <span class="badge badge-teal">Streamlined responses at machine speed</span>
+      <span class="badge badge-blue">Improved team collaboration</span>
+      <span class="badge badge-red">Better alert fatigue management</span>
+      <span class="badge badge-gold">Consistent standard operating procedures</span>
+      <span class="badge badge-ink">Full audit trail (who did what, when)</span>
+      <span class="badge badge-ink">Faster incident resolution</span>
+    </div>
+  </div>
+
+  <div class="deflist" style="margin-bottom:24px;">
+    <div class="deflist-item">
+      <div class="deflist-term">SOAR</div>
+      <div class="deflist-def">Security Orchestration, Automation, and Response — connects security tools, automates workflows, enables faster and more consistent incident response.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">Playbook</div>
+      <div class="deflist-def">A flowchart-like set of steps in SOAR that can be repeated on demand. Automates repetitive tasks while pausing for human oversight when needed.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">Alert Fatigue</div>
+      <div class="deflist-def">Performance degradation caused by receiving an excessive volume of security alerts, increasing likelihood of missed threats or errors.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">Context Switching</div>
+      <div class="deflist-def">The manual process of switching from one security tool to another to complete a task — a major cause of analyst inefficiency and error.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">Orchestration</div>
+      <div class="deflist-def">The coordination and management of automated processes across multiple security tools from a single platform.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">SIM</div>
+      <div class="deflist-def">Security Information Management — a system queried by SOAR during investigations to find related events.</div>
+    </div>
+  </div>
+
+  <div class="pullquote">"SOAR ties together the tools in your security stack. By pulling data from these sources, SOAR reduces the amount of context switching that analysts have to deal with — analysts can perform all their usual investigative processes directly from the source interface."</div>
+
+</div><!-- /l10 -->
+
+</main>
+
+<footer class="footer">
+  CYBERSECURITY FUNDAMENTALS REVIEWER · LESSONS 6–10 · CONTENT FILTERING, WIRELESS, ENDPOINT &amp; SOAR
+</footer>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

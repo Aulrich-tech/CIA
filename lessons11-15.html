@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lessons 11–15 — Cybersecurity Reviewer</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-top">
+    <span>SIEM · SD-WAN · ZTNA · CLOUD SECURITY · SASE</span>
+    <span>LESSONS 11–15</span>
+  </div>
+  <div class="masthead-main">
+    <div class="masthead-title">
+      <div class="masthead-eyebrow">Cybersecurity Fundamentals</div>
+      <h1 class="masthead-h1">Lessons <em>11–15</em></h1>
+      <p class="masthead-sub">SIEM · SD-WAN · Zero Trust Network Access · Cloud Security · SASE</p>
+    </div>
+    <div class="masthead-meta">
+      <strong>5</strong>
+      Lessons
+    </div>
+  </div>
+</header>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-btn">Overview</a>
+    <a href="lessons1-5.html" class="nav-btn">Lessons 1–5</a>
+    <a href="lessons6-10.html" class="nav-btn">Lessons 6–10</a>
+    <a href="lessons11-15.html" class="nav-btn active">Lessons 11–15</a>
+    <a href="quiz.html" class="nav-btn">Quiz</a>
+    <button class="nav-btn" onclick="show('l11', this)">L11: SIEM</button>
+    <button class="nav-btn" onclick="show('l12', this)">L12: SD-WAN</button>
+    <button class="nav-btn" onclick="show('l13', this)">L13: ZTNA</button>
+    <button class="nav-btn" onclick="show('l14', this)">L14: Cloud Security</button>
+    <button class="nav-btn" onclick="show('l15', this)">L15: SASE</button>
+  </div>
+</nav>
+
+<main class="page">
+
+<!-- ══════════════════════════════════════════════════════ LESSON 11 -->
+<div class="section active" id="l11">
+  <div class="lesson-header">
+    <div class="lesson-num">11</div>
+    <div class="lesson-title-block">
+      <div class="lesson-label">Lesson Eleven</div>
+      <h2 class="lesson-title">SIEM — Security Information and Event Management</h2>
+    </div>
+  </div>
+
+  <div class="card card-accent content-full" style="margin-bottom:24px;">
+    <h4>What Is SIEM?</h4>
+    <p>Introduced in 2005, <strong>SIEM (Security Information and Event Management)</strong> analyzes security alerts in real time. It is a technology that has evolved from a simple log aggregator into a fully integrated and automated center for security and network operations.</p>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Three Things SIEM Does</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid three">
+    <div class="card card-accent">
+      <h3>1 — Collect &amp; Store</h3>
+      <p>Collect, normalize, and store events and alerts from the organization's network and security devices, servers, databases, applications, and endpoints in a <strong>secure, central location</strong>.</p>
+      <p>SIEM collects information from physical and virtual devices, both on-premises and in the cloud. Logging in to every system individually was increasingly impossible — and unsecured logs could be deleted by attackers to hide their activities.</p>
+    </div>
+    <div class="card card-teal">
+      <h3>2 — Analyze</h3>
+      <p>Run <strong>advanced analytics</strong> on data — both in real time and across historical data — to identify potential security incidents to be investigated by a human. Potential incidents are <strong>prioritized by risk, severity, and impact</strong>.</p>
+      <p>Security analytics have grown from simple cross-correlation rules to monitoring for user-behavioral anomalies, watching for known <strong>Indicators of Compromise (IoC)</strong>, and applying sophisticated machine learning models.</p>
+    </div>
+    <div class="card card-blue">
+      <h3>3 — Prove Compliance</h3>
+      <p>Prove that all the security controls under the purview of the SIEM are in place and effective. The <strong>primary driver for purchasing SIEM has been regulatory compliance</strong>.</p>
+      <div class="badge-list" style="margin-top:10px;">
+        <span class="badge badge-red">PCI Standard</span>
+        <span class="badge badge-red">Sarbanes-Oxley</span>
+        <span class="badge badge-red">HIPAA</span>
+        <span class="badge badge-red">GDPR</span>
+      </div>
+      <p style="margin-top:10px; font-size:13px; color:var(--ink2);">Businesses, hospitals, and other organizations that ignore compliance requirements face punitive fines.</p>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">SIEM Evolution</div><div class="sec-divider-line"></div></div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-head">Phase 1 — Information Platform</div>
+      <div class="tl-body">Early SIEM centralized logs for compliance. It was the primary driver for purchasing. Organizations needed proof that security controls were in place. However, the technology was complex, difficult to tune, and demanded a high level of skill from users.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--teal);box-shadow:0 0 0 2px var(--teal);"></div>
+      <div class="tl-head">Phase 2 — Threat Intelligence Center</div>
+      <div class="tl-body">As cyberattacks became stealthier and more sophisticated, demands for information about attacks grew more urgent. Security teams very often did not discover breaches until many months after they occurred — and more often by a third party than internally. SIEM vendors added threat detection: built-in threat intelligence, historical and real-time analytics, and <strong>User and Entity Behavior Analytics (UEBA)</strong>. Machine learning became part of the toolkit, especially for sifting through big data.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--blue);box-shadow:0 0 0 2px var(--blue);"></div>
+      <div class="tl-head">Phase 3 — Integrated NOC &amp; SOC (Modern SIEM)</div>
+      <div class="tl-body">Recent SIEM development integrates <strong>NOC (Network Operations Center) and SOC (Security Operations Center)</strong>, establishing SIEM as the nerve center of all network and security operations. From a single pane of glass, IT security gains visibility into the entire network. SIEM uses a self-learning, real-time asset discovery and device configuration engine that builds a topology of all connected objects. By establishing a baseline of normal behavior, machine learning can alert analysts to abnormal activity before a breach occurs.</div>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Challenges &amp; Limitations</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid">
+    <div class="card card-gold">
+      <h3>What Held SIEM Back</h3>
+      <p>SIEM was not a set-and-forget technology. Two compounding problems: (1) IT security suffers from an insufficient number of qualified professionals; (2) the siloed approach used in typical NOCs and SOCs increases complexity and causes a lack of network visibility.</p>
+      <p>An environment of multivendor, single-point solutions with different operating systems, patch cycles, protocols, and logic worked counter to interoperability. The result: greater demand on sparse IT resources, increased human error, and reduced network security visibility.</p>
+    </div>
+    <div class="card card-blue">
+      <h3>More Automation — The Solution</h3>
+      <p>The systemic shortage of trained personnel was the impetus for more <strong>automation and machine learning</strong> in later SIEM devices. AI more quickly detects trends and patterns in enormous payloads of data than even the cleverest human.</p>
+      <p>Moreover, time and accuracy are gained by configuring SIEM to <strong>automatically respond and remediate</strong>. SIEM evolved from an information platform → a threat intelligence center → a <strong>fully integrated and automated center for security and network operations</strong>.</p>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Key Terms</div><div class="sec-divider-line"></div></div>
+
+  <div class="deflist">
+    <div class="deflist-item">
+      <div class="deflist-term">SIEM</div>
+      <div class="deflist-def">Security Information and Event Management — introduced 2005; collects, normalizes, stores, and analyzes security events in real time; proves compliance; evolved into a unified NOC/SOC platform.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">UEBA</div>
+      <div class="deflist-def">User and Entity Behavior Analytics — monitors behavior of users and entities to detect anomalies that could indicate a security incident.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">NOC</div>
+      <div class="deflist-def">Network Operations Center — monitors and manages network infrastructure for performance and availability.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">SOC</div>
+      <div class="deflist-def">Security Operations Center — monitors, detects, and responds to cybersecurity incidents in real time.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">IoC</div>
+      <div class="deflist-def">Indicators of Compromise — evidence that a system has been breached or attacked; detected by SIEM analytics.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">Single Pane of Glass</div>
+      <div class="deflist-def">A unified management interface providing full visibility into the entire network and security environment from one place.</div>
+    </div>
+  </div>
+
+</div><!-- /l11 -->
+
+
+<!-- ══════════════════════════════════════════════════════ LESSON 12 -->
+<div class="section" id="l12">
+  <div class="lesson-header">
+    <div class="lesson-num">12</div>
+    <div class="lesson-title-block">
+      <div class="lesson-label">Lesson Twelve</div>
+      <h2 class="lesson-title">SD-WAN — Software-Defined Wide Area Network</h2>
+    </div>
+  </div>
+
+  <div class="card card-accent content-full" style="margin-bottom:24px;">
+    <h4>What Is SD-WAN?</h4>
+    <p><strong>SD-WAN (Software-Defined Wide Area Network)</strong> is a technology that uses <strong>software-defined networking (SDN) principles</strong> to improve how wide-area networks (WANs) connect across different locations. It helps organizations link users, apps, and data securely, providing better performance and making network management easier through <strong>centralized control</strong>.</p>
+    <p>As the use of business-critical, cloud-based applications continues to increase, organizations with distributed infrastructure and an expanding remote workforce need to adapt. The most effective solution is to switch from static, performance-inhibited traditional WANs to SD-WAN architectures.</p>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">How SD-WAN Works</div><div class="sec-divider-line"></div></div>
+
+  <div class="card card-blue content-full" style="margin-bottom:24px;">
+    <h3>Traffic Monitoring &amp; Routing</h3>
+    <p>SD-WAN monitors the performance of WAN connections and regulates various types of traffic to ensure consistently high speeds and optimize overall connectivity. It allows <strong>application-aware traffic routing</strong> and enables fine-tuning such as reserving costly high-speed links for business-critical applications.</p>
+    <p>Unlike the traditional router-centric WAN structure, the SD-WAN model fully supports applications located in on-premises data centers, public or private clouds, and SaaS services like Salesforce, Dropbox, AWS, and others.</p>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Six Advantages of SD-WAN</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid three">
+    <div class="card card-accent">
+      <h3>Centralized Orchestration</h3>
+      <p>SD-WAN centrally manages deployments, configurations, and operations. Network administrators can generate and modify security rules in real time according to evolving network demands — reducing complexity and resources needed to manage networks.</p>
+    </div>
+    <div class="card card-teal">
+      <h3>Direct Cloud Access</h3>
+      <p>Eliminates the need for <strong>backhauling</strong>. Enables direct access to critical cloud services for all users regardless of location — no need to route branch office traffic through a data center regardless of the actual destination.</p>
+    </div>
+    <div class="card card-blue">
+      <h3>Better App Performance</h3>
+      <p>Can be configured to prioritize business-critical traffic and real-time services like <strong>VoIP</strong>, steering it over the most efficient route. Reduces packet loss from overloaded circuits and latency due to heavy traffic.</p>
+    </div>
+    <div class="card card-gold">
+      <h3>Increased Business Agility</h3>
+      <p>Network planners can deploy updates to all networks simultaneously, allowing organizations to respond to changing business needs swiftly and without delay.</p>
+    </div>
+    <div class="card card-accent">
+      <h3>Cost Saving</h3>
+      <p>Routes traffic efficiently over multiple channels including existing <strong>MPLS circuits</strong> and the public internet over LTE and broadband. Reduces the need to increase bandwidth on costly links.</p>
+    </div>
+    <div class="card card-teal">
+      <h3>Improved Security</h3>
+      <p>Built-in security features and access restrictions protect against internal and external threats. Recommended to use SD-WAN solutions with integrated <strong>NGFW, IPS, encryption, AV, and sandboxing</strong> capabilities.</p>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Three Phases of SD-WAN Evolution</div><div class="sec-divider-line"></div></div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-head">Phase 1 — Need for Higher Bandwidth</div>
+      <div class="tl-body">SD-WAN was developed as a response to the <strong>high cost and limited bandwidth</strong> of the traditional WAN. A workaround: add multiple dedicated carrier links and load-balance per-application traffic based on available bandwidth. Adding multiple products from multiple vendors — each with a different management console — significantly increased infrastructure complexity. Still, the first generation solved a pressing need: basic load-balancing techniques allowed networks to make application-intelligent decisions on hybrid WAN links (service provider, broadband, LTE).</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--teal);box-shadow:0 0 0 2px var(--teal);"></div>
+      <div class="tl-head">Phase 2 — Need for High Performance</div>
+      <div class="tl-body">New capabilities such as <strong>virtualization failover/failback and application-aware routing</strong> were developed, driven by demand for enhanced performance and agility. This addressed delays associated with MPLS installation. Virtualization enabled network administrators to manage paths from a <strong>unified control panel</strong>, simplifying operational processes.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--blue);box-shadow:0 0 0 2px var(--blue);"></div>
+      <div class="tl-head">Phase 3 — Need for Unified Security Infrastructure</div>
+      <div class="tl-body">SD-WAN technology evolved beyond connecting remote branch offices to a <strong>unified infrastructure for cloud, mobility, and "as-a-service" technologies</strong> by integrating security and networking functionalities into a single, secure SD-WAN appliance. Businesses can now replace multiple-point products with one powerful security appliance — at reduced cost and with increased ease of management. This is the basis for <strong>Secure SD-WAN</strong>.</div>
+    </div>
+  </div>
+
+  <div class="card card-gold" style="margin-top:24px; margin-bottom:24px;">
+    <h3>Secure SD-WAN (Fortinet)</h3>
+    <p><strong>Secure SD-WAN</strong> is the combination of a firewall and SD-WAN functions in one device — providing increased network security and simplified network administrator tasks. <em>Fortinet introduced the term "Secure SD-WAN."</em></p>
+    <div class="deflist" style="margin-top:12px;">
+      <div class="deflist-item">
+        <div class="deflist-term">Application Management</div>
+        <div class="deflist-def">Prioritizes business-critical applications and allocates bandwidth per operational requirements, reducing operational cost.</div>
+      </div>
+      <div class="deflist-item">
+        <div class="deflist-term">Single Pane of Glass</div>
+        <div class="deflist-def">Centralized management console provides visibility and telemetry to identify, troubleshoot, and resolve network issues with minimal IT staff.</div>
+      </div>
+      <div class="deflist-item">
+        <div class="deflist-term">Comprehensive Analytics</div>
+        <div class="deflist-def">Analytics on bandwidth utilization, application definition, path selection, and the security threat landscape help admins quickly redesign policies based on historical statistics.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Key Terms</div><div class="sec-divider-line"></div></div>
+
+  <div class="deflist">
+    <div class="deflist-item">
+      <div class="deflist-term">SD-WAN</div>
+      <div class="deflist-def">Software-Defined Wide Area Network — uses SDN principles to improve WAN connectivity with application-aware routing and centralized management.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">WAN</div>
+      <div class="deflist-def">Wide Area Network — connects networks across large geographic areas, such as branch offices to headquarters.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">MPLS</div>
+      <div class="deflist-def">Multiprotocol Label Switching — a traditional, expensive WAN technology that SD-WAN can supplement or replace with cheaper broadband or LTE links.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">Backhauling</div>
+      <div class="deflist-def">Routing all branch office traffic through a central data center before sending it to its destination. SD-WAN eliminates this inefficiency with direct cloud access.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">Secure SD-WAN</div>
+      <div class="deflist-def">A firewall and SD-WAN combined in a single device. Term introduced by Fortinet — provides both network performance and integrated security.</div>
+    </div>
+  </div>
+
+</div><!-- /l12 -->
+
+
+<!-- ══════════════════════════════════════════════════════ LESSON 13 -->
+<div class="section" id="l13">
+  <div class="lesson-header">
+    <div class="lesson-num">13</div>
+    <div class="lesson-title-block">
+      <div class="lesson-label">Lesson Thirteen</div>
+      <h2 class="lesson-title">Zero Trust Network Access (ZTNA)</h2>
+    </div>
+  </div>
+
+  <div class="card card-accent content-full" style="margin-bottom:24px;">
+    <h4>What Is ZTNA?</h4>
+    <p><strong>ZTNA (Zero Trust Network Access)</strong> establishes a secure session between an end entity and a network, while ensuring granular control over access to resources and exercising <strong>zero trust</strong>, regardless of the location of either the end entity or the network.</p>
+    <p>As a network security concept, zero trust operates under the premise that <strong>no user or device inside or outside the network should be trusted</strong>, unless their identification and security status have been thoroughly checked. Zero trust assumes that threats — both outside and inside the network — are omnipresent, and that every attempt to access a network or application is a threat.</p>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Core Zero Trust Principles</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid">
+    <div class="card card-blue">
+      <h3>Least Privilege Access</h3>
+      <p>Part of the zero trust principle is the practice of <strong>least privilege access</strong>: users are only granted access to the resources necessary to fulfill their job requirements — and no more.</p>
+      <p>This limits the potential damage if a user's credentials are compromised, since the attacker can only access what that user was permitted to access.</p>
+    </div>
+    <div class="card card-teal">
+      <h3>Always Verify — Never Trust</h3>
+      <p>Regardless of whether the end entity is remote or on-premises, the connecting computing device automatically establishes an <strong>encrypted session</strong> with the network.</p>
+      <p>This connection takes place between a <strong>ZTNA client</strong> at the end entity and the <strong>ZTNA access proxy</strong> (e.g., a firewall). The proxy hides the locations of requested applications from the outside, and only directs the client's request to the application <strong>if the user meets access requirements</strong>.</p>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">ZTNA Components</div><div class="sec-divider-line"></div></div>
+
+  <div class="card card-accent" style="margin-bottom:24px;">
+    <div class="deflist">
+      <div class="deflist-item">
+        <div class="deflist-term">ZTNA Client</div>
+        <div class="deflist-def">Software on the end entity's device that initiates the encrypted connection to the ZTNA access proxy. In Fortinet's implementation: <strong>FortiClient</strong>.</div>
+      </div>
+      <div class="deflist-item">
+        <div class="deflist-term">ZTNA Access Proxy</div>
+        <div class="deflist-def">Typically a firewall (e.g., <strong>FortiGate</strong>). Receives the encrypted session, verifies device identity and security posture, and directs requests to the appropriate application. Hides application locations from the outside world.</div>
+      </div>
+      <div class="deflist-item">
+        <div class="deflist-term">ZTNA Policy Server</div>
+        <div class="deflist-def">Enforces policy-to-control access to applications. In Fortinet's implementation: <strong>FortiClient EMS (Endpoint Management Server)</strong>. Policies can include geolocation — if a device connects from an unexpected location, access can be denied or privileges reduced.</div>
+      </div>
+      <div class="deflist-item">
+        <div class="deflist-term">Authentication Server</div>
+        <div class="deflist-def">The user is identified via authentication against an <strong>Active Directory, LDAP directory, database, or IDaaS (Identity-as-a-Service)</strong>. Policy is then applied based on the user's roles.</div>
+      </div>
+    </div>
+    <div class="callout callout-blue" style="margin-top:14px;">
+      <strong>ZTNA vs. VPN:</strong> Unlike IPsec VPN (an open standard), ZTNA is vendor-specific — like SSL VPN. Each vendor implements ZTNA in a way that best suits their requirements.
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">How Fortinet ZTNA Works — Step by Step</div><div class="sec-divider-line"></div></div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-head">Step 1 — Device Registration via FortiClient EMS</div>
+      <div class="tl-body">When an endpoint device with FortiClient connects to the network for the first time, it is directed to <strong>FortiClient EMS</strong> to register. During registration, FortiClient provides the server with information about the device, the user, and the <strong>security posture</strong> of the device. This information is written to <strong>tags</strong> and shared with FortiGate.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--teal);box-shadow:0 0 0 2px var(--teal);"></div>
+      <div class="tl-head">Step 2 — Tag-Based Rules Applied by FortiGate</div>
+      <div class="tl-body">Based on the information in the tags, the device can be grouped and certain <strong>rules</strong> applied. The rules act as instructions for FortiGate each time the device connects. Example: a device with Windows 10 + antivirus is allowed access; a device with Windows 10 and no antivirus is denied access.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--blue);box-shadow:0 0 0 2px var(--blue);"></div>
+      <div class="tl-head">Step 3 — Digital Certificate Issued</div>
+      <div class="tl-body">At the end of registration, FortiClient EMS generates a <strong>digital certificate</strong> for the device, sends it to the device, and shares it with FortiGate. From this point, the device submits the certificate to FortiGate each time it needs to identify itself.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--gold);box-shadow:0 0 0 2px var(--gold);"></div>
+      <div class="tl-head">Step 4 — Continuous Network Telemetry</div>
+      <div class="tl-body">FortiClient is in <strong>continuous communication</strong> with FortiClient EMS. If endpoint information changes (e.g., antivirus is disabled), the server updates the client tags and resynchronizes with FortiGate. This ongoing communication is called <strong>network telemetry</strong> — providing agile and dynamic responses to enhance network security.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--red);box-shadow:0 0 0 2px var(--red);"></div>
+      <div class="tl-head">Step 5 — Encrypted Session Established (or Denied)</div>
+      <div class="tl-body">When the endpoint connects to the ZTNA access proxy, FortiGate challenges for <strong>device identification</strong> (certificate), then <strong>user authentication</strong> (credentials). Credentials are sent to the backend for authentication. The ZTNA access proxy retrieves the user's identity and role. If device tags, rules, and user roles all allow access, an <strong>encrypted session</strong> is initiated and the user gains access to the application.</div>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Key Terms</div><div class="sec-divider-line"></div></div>
+
+  <div class="deflist">
+    <div class="deflist-item">
+      <div class="deflist-term">Zero Trust</div>
+      <div class="deflist-def">Security principle: no user or device inside or outside the network should be trusted unless their identification and security status have been thoroughly checked.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">ZTNA</div>
+      <div class="deflist-def">Zero Trust Network Access — establishes secure, encrypted sessions while enforcing granular, role-based access control regardless of user or device location.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">Network Telemetry</div>
+      <div class="deflist-def">Continuous communication between the ZTNA client (FortiClient) and policy server (FortiClient EMS) to keep device tags and security posture current and synchronized with the firewall.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">IDaaS</div>
+      <div class="deflist-def">Identity-as-a-Service — cloud-based identity management and authentication used by ZTNA to verify user identity.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">Least Privilege Access</div>
+      <div class="deflist-def">Users and devices are granted only the minimum permissions necessary to perform their role — limiting damage if credentials are compromised.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">FortiClient EMS</div>
+      <div class="deflist-def">FortiClient Endpoint Management Server — acts as the ZTNA policy server; manages device registration, tags, rules, and digital certificates.</div>
+    </div>
+  </div>
+
+</div><!-- /l13 -->
+
+
+<!-- ══════════════════════════════════════════════════════ LESSON 14 -->
+<div class="section" id="l14">
+  <div class="lesson-header">
+    <div class="lesson-num">14</div>
+    <div class="lesson-title-block">
+      <div class="lesson-label">Lesson Fourteen</div>
+      <h2 class="lesson-title">Cloud Security</h2>
+    </div>
+  </div>
+
+  <div class="card card-accent content-full" style="margin-bottom:24px;">
+    <h4>How the Cloud Was Born</h4>
+    <p>Before the cloud, organizations purchased their own computer systems to run application software. These were located in the organization's facilities and managed by teams of experts — often more than one server per major application. Most systems were idle most of the time, waiting for the next transaction: <strong>wasted resources</strong>.</p>
+    <p><strong>Virtualization</strong> — technology from mainframe computing — lets a single server run operating systems and applications from multiple servers at the same time, consolidating workloads onto fewer servers and saving money. Entrepreneurs then built enormous data centers filled with generalized hardware and offered to rent out portions of this infrastructure. <em>With that, the cloud was born.</em></p>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Three Cloud Service Models</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid three">
+    <div class="card card-accent">
+      <h3>IaaS</h3>
+      <p><strong>Infrastructure-as-a-Service</strong> — provides organizations with networking, storage, physical servers, and virtualization. Users must still provide operating systems, middleware, data, and applications.</p>
+      <p>Used when demand varies — e.g., seasonal holidays increasing workloads.</p>
+      <div class="badge-list" style="margin-top:8px;">
+        <span class="badge badge-red">Amazon Web Services</span>
+        <span class="badge badge-red">Microsoft Azure</span>
+        <span class="badge badge-red">Google Cloud Platform</span>
+      </div>
+    </div>
+    <div class="card card-teal">
+      <h3>PaaS</h3>
+      <p><strong>Platform-as-a-Service</strong> — service providers rent cloud-based platforms for software developers to develop and deliver applications. Provides the OS and middleware in addition to IaaS elements.</p>
+      <p>Makes it easier, more efficient, and cheaper to <strong>build, test, and deploy applications</strong>.</p>
+    </div>
+    <div class="card card-blue">
+      <h3>SaaS</h3>
+      <p><strong>Software-as-a-Service</strong> — the software is hosted by a third party. The end user typically connects using their browser.</p>
+      <div class="badge-list" style="margin-top:8px;">
+        <span class="badge badge-blue">Google Mail</span>
+        <span class="badge badge-blue">Salesforce</span>
+        <span class="badge badge-blue">DocuSign</span>
+        <span class="badge badge-blue">Netflix</span>
+      </div>
+      <p style="margin-top:10px; font-size:13px; color:var(--ink2);">Moving from expensive capital assets to a recurring operating cost model is very attractive to most organizations.</p>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Shared Responsibility Model</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid">
+    <div class="card card-gold">
+      <h3>Security Is Divided</h3>
+      <p>When applications are hosted in a company's own data center, the security picture is straightforward. In the cloud, however, <strong>security is a shared responsibility</strong> between the cloud provider and the customer.</p>
+      <p>From an availability perspective, the infrastructure is designed by the vendor to be highly available — <strong>infrastructure uptime is the vendor's responsibility</strong>. From a security perspective, the vendor is responsible only for securing the infrastructure it provides.</p>
+      <p>As a customer, when you install virtualized applications in the vendor's cloud infrastructure, <strong>you are responsible for securing the access, network traffic, and data applications</strong>.</p>
+    </div>
+    <div class="card card-teal">
+      <h3>The Multicloud Problem</h3>
+      <p>Many organizations operate in a hybrid world where some applications remain hosted in their own data centers, some in Vendor-A IaaS, some in Vendor-B, and others with multiple SaaS vendors.</p>
+      <p>This is called a <strong>"multicloud" environment</strong> — and it comes with a multicloud problem: multiple, independent, uncoordinated security solutions. Complexity scales geometrically with the number of cloud vendors involved.</p>
+      <div class="callout callout-teal" style="margin-top:12px;">
+        <strong>Additional challenge:</strong> Vendor-supplied security tools tend to provide only a few basic security functions — the same tools used to secure the underlying infrastructure. If an attacker bypasses them at the infrastructure layer, they would likely bypass them at the customer's application level as well.
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-blue" style="margin-top:24px; margin-bottom:24px;">
+    <h3>Fortinet's Answer</h3>
+    <p>Fortinet has a portfolio of security solutions that are at home in a company's data center, providing the same consistent security, and also <strong>optimized for all the leading IaaS cloud providers</strong>. This allows organizations to maintain uniform security policies across on-premises and multicloud environments.</p>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Key Terms</div><div class="sec-divider-line"></div></div>
+
+  <div class="deflist">
+    <div class="deflist-item">
+      <div class="deflist-term">Virtualization</div>
+      <div class="deflist-def">Technology that lets a single server run operating systems and applications from multiple servers simultaneously — the foundation of cloud computing.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">IaaS</div>
+      <div class="deflist-def">Infrastructure-as-a-Service — vendor provides networking, storage, servers, and virtualization. Customer provides OS, middleware, data, and applications.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">PaaS</div>
+      <div class="deflist-def">Platform-as-a-Service — vendor provides IaaS elements plus OS and middleware. Customer provides data and applications.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">SaaS</div>
+      <div class="deflist-def">Software-as-a-Service — vendor provides and hosts the full application. Customer accesses via browser.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">Middleware</div>
+      <div class="deflist-def">Software that acts as a bridge between the operating system and applications.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">Shared Responsibility Model</div>
+      <div class="deflist-def">In cloud security: vendor secures the infrastructure; customer secures their access, network traffic, and applications running on it.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">Multicloud</div>
+      <div class="deflist-def">An environment using multiple cloud providers simultaneously. Creates a security coordination challenge where complexity scales geometrically.</div>
+    </div>
+  </div>
+
+</div><!-- /l14 -->
+
+
+<!-- ══════════════════════════════════════════════════════ LESSON 15 -->
+<div class="section" id="l15">
+  <div class="lesson-header">
+    <div class="lesson-num">15</div>
+    <div class="lesson-title-block">
+      <div class="lesson-label">Lesson Fifteen</div>
+      <h2 class="lesson-title">SASE — Secure Access Service Edge</h2>
+    </div>
+  </div>
+
+  <div class="card card-accent content-full" style="margin-bottom:24px;">
+    <h4>What Is SASE?</h4>
+    <p><strong>SASE (Secure Access Service Edge)</strong> technology addresses the needs of complex network infrastructure by combining <strong>Network-as-a-Service with Security-as-a-Service</strong> capabilities. Delivered through the cloud as an as-a-service consumption model, SASE supports secure access for today's distributed and hybrid enterprise networks.</p>
+    <p>SASE is composed of <strong>Security Service Edge (SSE)</strong> and <strong>SD-WAN</strong>. It lets work-from-anywhere and remote workers take advantage of Firewall-as-a-Service (FWaaS), Secure Web Gateway (SWG), Zero Trust Network Access (ZTNA), and a medley of threat detection functions.</p>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Why SASE Was Needed</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid">
+    <div class="card card-blue">
+      <h3>The Modern Access Problem</h3>
+      <p>As work environments have evolved, so too have user behavior and endpoint protection requirements. Organizations today require that their users have <strong>immediate, continuous secure access</strong> to network and cloud-based resources and data — regardless of location, on any device, and at any time.</p>
+      <p>Organizations must provide this access in a <strong>scalable and elastic way</strong> that integrates thin edge network sites and remote users into the central infrastructure, and that favors a lean operational, as-a-service model.</p>
+    </div>
+    <div class="card card-teal">
+      <h3>What SASE Delivers</h3>
+      <p>When properly implemented, SASE allows organizations to apply secure access no matter where their users, workloads, devices, or applications are located. This is critically important for <strong>remote worker security</strong>.</p>
+      <div class="badge-list" style="margin-top:10px;">
+        <span class="badge badge-teal">Flexible &amp; Consistent Security</span>
+        <span class="badge badge-teal">Reduced IT Cost &amp; Complexity</span>
+        <span class="badge badge-blue">Fast, Seamless User Experience</span>
+        <span class="badge badge-gold">Cloud-Delivered at Scale</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Six Key Features of SASE</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid three">
+    <div class="card card-accent">
+      <h3>1 — SD-WAN</h3>
+      <p>Employs an overlay structure to streamline operations and enhance user satisfaction by intelligently directing traffic to the most efficient routes for internet, cloud applications, and data centers. Facilitates swift deployment of new applications and services while efficiently managing policies across numerous locations.</p>
+    </div>
+    <div class="card card-teal">
+      <h3>2 — Secure Web Gateway (SWG)</h3>
+      <p>Provides a secure web experience to <strong>protect users, devices, and applications from online threats</strong>. Filters malware, prevents data loss, and enforces internet policy compliance.</p>
+    </div>
+    <div class="card card-blue">
+      <h3>3 — Firewall-as-a-Service (FWaaS)</h3>
+      <p>Enables the substitution of physical firewall appliances with <strong>cloud-based counterparts</strong>, offering advanced NGFW security capabilities — IPS, Anti-Malware, SSL Inspection, and Sandbox.</p>
+    </div>
+    <div class="card card-gold">
+      <h3>4 — CASB</h3>
+      <p><strong>Cloud Access Security Broker</strong> — prevents data leaks, malware infection, regulatory noncompliance, and lack of visibility by ensuring safe use of cloud apps and services. Secures cloud applications hosted in public clouds (IaaS), private clouds, or delivered as SaaS.</p>
+    </div>
+    <div class="card card-accent">
+      <h3>5 — ZTNA</h3>
+      <p>Provides secure access to internal applications for remote users. Ensures no user or device is automatically trusted. Every attempt to access a system — from inside or outside — is <strong>challenged and verified</strong> before granting access. Consists of multiple technologies: MFA, secure NAC, and access policy enforcement.</p>
+    </div>
+    <div class="card card-teal">
+      <h3>6 — Centralized Management</h3>
+      <p>Centralizing management of all security features within a single console enables streamlining of change control, patch management, coordination of outage windows, and policy administration — ensuring <strong>consistent policies across the organization</strong> regardless of where users connect from.</p>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">SASE Architecture — SSE + SD-WAN</div><div class="sec-divider-line"></div></div>
+
+  <div class="content-grid">
+    <div class="card card-blue">
+      <h3>SASE = SSE + SD-WAN</h3>
+      <div class="deflist" style="margin-top:12px;">
+        <div class="deflist-item">
+          <div class="deflist-term">SSE (Security Service Edge)</div>
+          <div class="deflist-def">The security component of SASE — includes SWG, CASB, FWaaS, and ZTNA. Delivered from the cloud to protect users accessing the internet, SaaS, and private applications.</div>
+        </div>
+        <div class="deflist-item">
+          <div class="deflist-term">SD-WAN</div>
+          <div class="deflist-def">The networking component of SASE — connects distributed sites and users with optimized, application-aware routing and centralized management.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-gold">
+      <h3>FortiSASE (Fortinet)</h3>
+      <p>Fortinet's SASE solution — <strong>FortiSASE</strong> — seamlessly integrates essential networking and security technologies delivered through the cloud. Its innovative approach ensures secure access for a hybrid workforce and safeguards applications and data on any cloud.</p>
+      <p>FortiSASE integrates cloud-delivered SD-WAN connectivity with SSE, extending the convergence of networking and security from the edge to remote users. <strong>Fortinet is the first vendor to deliver a comprehensive SASE solution.</strong></p>
+    </div>
+  </div>
+
+  <div class="pullquote" style="margin-top:32px;">"SASE addresses the reality that users, workloads, devices, and applications can be located anywhere — security must follow the user, not be tied to a physical perimeter."</div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Key Terms — Lessons 11–15 Master Glossary</div><div class="sec-divider-line"></div></div>
+
+  <div class="deflist" style="margin-bottom:32px;">
+    <div class="deflist-item">
+      <div class="deflist-term">SIEM</div>
+      <div class="deflist-def">Security Information and Event Management — collects, analyzes, and reports on security events in real time; evolved into a unified NOC/SOC platform.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">UEBA</div>
+      <div class="deflist-def">User and Entity Behavior Analytics — detects anomalous behavior patterns that may indicate a security incident.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">SD-WAN</div>
+      <div class="deflist-def">Software-Defined Wide Area Network — uses SDN principles to improve WAN connectivity and enable centralized, application-aware network management.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">Secure SD-WAN</div>
+      <div class="deflist-def">Firewall + SD-WAN in one device (term introduced by Fortinet) — integrated security and networking in a single appliance.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">ZTNA</div>
+      <div class="deflist-def">Zero Trust Network Access — grants access only after thorough verification of identity and security posture, regardless of location.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">Network Telemetry</div>
+      <div class="deflist-def">Continuous communication between ZTNA client and policy server to keep device security posture current and synchronized.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">IaaS / PaaS / SaaS</div>
+      <div class="deflist-def">Cloud service models. IaaS = infrastructure only; PaaS = platform + infrastructure; SaaS = full application hosted and delivered by vendor.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">Shared Responsibility Model</div>
+      <div class="deflist-def">Vendor secures infrastructure; customer secures their access, network traffic, and applications running on it.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">Multicloud</div>
+      <div class="deflist-def">Using multiple cloud providers simultaneously — creates uncoordinated security solutions where complexity scales geometrically.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">SASE</div>
+      <div class="deflist-def">Secure Access Service Edge — combines Network-as-a-Service with Security-as-a-Service (SSE + SD-WAN), delivered from the cloud.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">SSE</div>
+      <div class="deflist-def">Security Service Edge — the security component of SASE; includes SWG, CASB, FWaaS, and ZTNA, delivered from the cloud.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">SWG</div>
+      <div class="deflist-def">Secure Web Gateway — filters malware, prevents data loss, and enforces internet policy compliance for users accessing the web.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">FWaaS</div>
+      <div class="deflist-def">Firewall-as-a-Service — cloud-based NGFW capabilities (IPS, Anti-Malware, SSL Inspection, Sandbox) without physical appliances.</div>
+    </div>
+    <div class="deflist-item">
+      <div class="deflist-term">CASB</div>
+      <div class="deflist-def">Cloud Access Security Broker — ensures safe use of cloud apps; prevents data leaks, malware, and noncompliance across IaaS, private cloud, and SaaS.</div>
+    </div>
+  </div>
+
+</div><!-- /l15 -->
+
+</main>
+
+<footer class="footer">
+  CYBERSECURITY FUNDAMENTALS REVIEWER · LESSONS 11–15 · SIEM · SD-WAN · ZTNA · CLOUD SECURITY · SASE
+</footer>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('button.nav-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
