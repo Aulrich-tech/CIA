@@ -856,11 +856,186 @@ body {
   border-top: 1px solid var(--border);
 }
 
-/* ── RESPONSIVE ───────────────────────────────── */
-@media (max-width: 600px) {
-  .hero { padding: 40px 20px 32px; }
-  .page { padding: 24px 16px 60px; }
-  .nav-inner { padding: 0 16px; }
-  .hero-stats { gap: 12px; }
-  .masthead-main { padding: 28px 20px 20px; }
+/* ══════════════════════════════════════════════
+   RESPONSIVE — TABLET  (≤ 900px)
+══════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .page { padding: 36px 28px 72px; }
+
+  .masthead-main { padding: 36px 28px 28px; gap: 20px; }
+
+  .content-grid { gap: 16px; }
+  .content-grid.three { grid-template-columns: 1fr 1fr; }
+
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+
+  .deflist-item { grid-template-columns: 160px 1fr; }
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE — PHONE  (≤ 640px)
+══════════════════════════════════════════════ */
+@media (max-width: 640px) {
+
+  /* Body base */
+  body { font-size: 14px; }
+
+  /* ── Masthead ── */
+  .masthead-top {
+    padding: 8px 16px;
+    font-size: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+  .masthead-main {
+    padding: 24px 16px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .masthead-h1 { font-size: clamp(1.7rem, 8vw, 2.4rem); letter-spacing: -0.5px; }
+  .masthead-eyebrow { font-size: 10px; padding: 3px 10px; }
+  .masthead-sub { font-size: 13px; margin-top: 8px; }
+  .masthead-meta {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .masthead-meta strong { font-size: 1.6rem; display: inline; }
+
+  /* ── Nav ── */
+  .nav-inner {
+    padding: 0 8px;
+    display: flex;
+  }
+  .nav-btn {
+    padding: 13px 12px;
+    font-size: 12px;
+  }
+
+  /* ── Layout ── */
+  .page { padding: 20px 14px 56px; }
+
+  /* ── Lesson header ── */
+  .lesson-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding-bottom: 14px;
+    margin-bottom: 24px;
+  }
+  .lesson-num { font-size: 2.2rem; }
+  .lesson-title { font-size: 1.5rem; }
+
+  /* ── Section title ── */
+  .sec-title { font-size: 1.35rem; }
+
+  /* ── Grids → single column ── */
+  .content-grid,
+  .content-grid.three,
+  .grid-2 { grid-template-columns: 1fr; gap: 12px; }
+
+  /* ── Cards ── */
+  .card { padding: 18px 16px; border-radius: 12px; }
+  .card h3 { font-size: 0.88rem; }
+
+  /* ── Definition list ── */
+  .deflist-item { grid-template-columns: 1fr; }
+  .deflist-term { border-right: none; border-bottom: 1px solid var(--border); }
+
+  /* ── Tables: horizontal scroll ── */
+  .gen-table,
+  .tbl {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+  .gen-table th,
+  .gen-table td,
+  .tbl th,
+  .tbl td { padding: 8px 10px; font-size: 12px; }
+
+  /* ── Timeline ── */
+  .timeline { padding-left: 22px; }
+  .tl-dot { left: -18px; }
+
+  /* ── Badges ── */
+  .badge-list { gap: 6px; }
+  .badge { font-size: 10px; padding: 3px 8px; }
+
+  /* ── Tags ── */
+  .tag { font-size: 10px; padding: 2px 8px; }
+
+  /* ── Callout / Highlight ── */
+  .callout,
+  .highlight { padding: 12px 14px; font-size: 13px; }
+
+  /* ── Pullquote ── */
+  .pullquote { font-size: 0.92rem; padding: 12px 14px; }
+
+  /* ── Accordion ── */
+  .accord-btn { font-size: 13px; padding: 12px 14px; }
+  .accord-body { padding: 12px 14px; font-size: 13px; }
+
+  /* ── Collapsible ── */
+  .coll-btn { font-size: 13px; padding: 12px 14px; }
+  .coll-body { padding: 12px 14px; font-size: 13px; }
+
+  /* ── Quiz ── */
+  .quiz-block { padding: 18px 14px; border-radius: 12px; }
+  .quiz-q { font-size: 14px; }
+  .quiz-option,
+  .quiz-opt { padding: 9px 12px; font-size: 13px; border-radius: 8px; }
+  .quiz-ctrl { gap: 8px; }
+  .quiz-ctrl-btn { padding: 9px 16px; font-size: 10px; }
+  .quiz-score-bar { flex-direction: column; align-items: flex-start; gap: 10px; padding: 14px 16px; }
+  .quiz-score-num { font-size: 1.8rem; }
+  .quiz-score .big-num { font-size: 2.4rem; }
+  .reset-btn { padding: 9px 20px; }
+
+  /* ── Stat chips (hero) ── */
+  .hero-stats { gap: 8px; }
+  .stat-chip { padding: 8px 14px; border-radius: 8px; }
+  .stat-chip strong { font-size: 1.2rem; }
+  .stat-chip span { font-size: 10px; }
+
+  /* ── Footer ── */
+  .footer { padding: 18px 16px; font-size: 10px; }
+
+  /* ── Section divider ── */
+  .sec-divider { margin: 24px 0 14px; }
+  .sec-divider-label { font-size: 9px; }
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE — SMALL PHONE  (≤ 380px)
+══════════════════════════════════════════════ */
+@media (max-width: 380px) {
+  .masthead-h1 { font-size: 1.55rem; }
+  .lesson-title { font-size: 1.3rem; }
+  .page { padding: 16px 12px 48px; }
+  .card { padding: 14px 12px; }
+  .nav-btn { padding: 12px 9px; font-size: 11px; }
+}
+
+/* ══════════════════════════════════════════════
+   TOUCH — Better tap targets on mobile
+══════════════════════════════════════════════ */
+@media (hover: none) and (pointer: coarse) {
+  .nav-btn { min-height: 44px; }
+  .quiz-option,
+  .quiz-opt { min-height: 44px; }
+  .accord-btn,
+  .coll-btn { min-height: 48px; }
+  .quiz-ctrl-btn,
+  .reset-btn { min-height: 44px; }
+
+  /* Remove hover glows on touch (they stick on mobile) */
+  .card:hover { border-color: var(--border); }
+  .nav-btn:hover { color: var(--muted); }
+  .quiz-option:hover,
+  .quiz-opt:hover { background: rgba(255,255,255,0.03); border-color: var(--border); }
 }
