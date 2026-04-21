@@ -617,6 +617,9 @@ let submitted = false;
 let timerInterval;
 let timeLeft = 90 * 60; // 90 minutes in seconds
 
+// Global map: question number → shuffled options array for that matching card
+const matchingOptions = {};
+
 function buildExam() {
   const container = document.getElementById('questions-container');
   const nav = document.getElementById('question-nav');
@@ -715,14 +718,16 @@ function buildMatchingCard(set, n, setIdx) {
   card.className = 'question-card';
   card.id = `q-${n}`;
 
-  // Build shuffled options
+  // Build shuffled options and store in global map so grading always references same order
   const options = [...set.terms.map(t => t.def)].sort(() => Math.random() - 0.5);
+  matchingOptions[n] = options; // <-- key fix: persist in global
+
   const optionsHTML = options.map((o, i) =>
-    `<option value="${i}">${i+1}. ${o.substring(0, 70)}${o.length > 70 ? '…' : ''}</option>`
+    `<option value="${i}">${i+1}. ${o.substring(0, 72)}${o.length > 72 ? '…' : ''}</option>`
   ).join('');
 
   const rowsHTML = set.terms.map((t, i) => {
-    const termLetter = String.fromCharCode(65 + i); // A, B, C...
+    const termLetter = String.fromCharCode(65 + i);
     return `
       <div class="matching-pair">
         <div class="matching-term">
@@ -731,8 +736,8 @@ function buildMatchingCard(set, n, setIdx) {
         </div>
         <div class="matching-select-cell">
           <select class="matching-select" id="match-${n}-${i}"
-            data-set="${setIdx}" data-row="${i}"
-            onchange="selectMatch(${n}, ${setIdx}, ${i}, this, ${JSON.stringify(options)})">
+            data-qn="${n}" data-set="${setIdx}" data-row="${i}"
+            onchange="selectMatch(${n}, ${setIdx}, ${i}, this)">
             <option value="">— Select —</option>
             ${optionsHTML}
           </select>
@@ -758,17 +763,18 @@ function buildMatchingCard(set, n, setIdx) {
     <div class="answer-feedback" id="fb-${n}"></div>
   `;
 
-  answered[n] = { type: 'matching', setIdx, selections: Array(set.terms.length).fill(null), options };
+  // Initialize answered state (options stored globally, not here)
+  answered[n] = { type: 'matching', setIdx, selections: Array(set.terms.length).fill(null) };
   return card;
 }
 
-function selectMatch(n, setIdx, rowIdx, selectEl, options) {
+function selectMatch(n, setIdx, rowIdx, selectEl) {
   if (submitted) return;
   const chosenIdx = parseInt(selectEl.value);
   if (isNaN(chosenIdx)) return;
 
   if (!answered[n] || answered[n].type !== 'matching') {
-    answered[n] = { type: 'matching', setIdx, selections: Array(MATCHING_SETS[setIdx].terms.length).fill(null), options };
+    answered[n] = { type: 'matching', setIdx, selections: Array(MATCHING_SETS[setIdx].terms.length).fill(null) };
   }
   answered[n].selections[rowIdx] = chosenIdx;
   selectEl.classList.add('answered-select');
@@ -854,33 +860,33 @@ function submitExam() {
   MATCHING_SETS.forEach((set, setIdx) => {
     const n = MC_QUESTIONS.length + setIdx + 1;
     const a = answered[n];
+    const options = matchingOptions[n]; // always use the globally stored shuffled order
     let setCorrect = 0;
     total++;
 
-    if (a && a.type === 'matching') {
+    if (a && a.type === 'matching' && options) {
       set.terms.forEach((t, rowIdx) => {
-        const correctOptIdx = a.options.findIndex(o => o === t.def);
+        // Find which index in the shuffled options array holds this term's correct definition
+        const correctOptIdx = options.findIndex(o => o === t.def);
         const sel = document.getElementById(`match-${n}-${rowIdx}`);
         const chosen = a.selections[rowIdx];
-        if (chosen !== null && chosen === correctOptIdx) {
+        if (chosen !== null && chosen !== undefined && chosen === correctOptIdx) {
           setCorrect++;
-          if (sel) sel.classList.add('correct-select');
+          if (sel) { sel.classList.remove('answered-select'); sel.classList.add('correct-select'); }
         } else {
-          if (sel) sel.classList.add('incorrect-select');
-          // Show correct
-          if (sel) {
-            const correctText = a.options[correctOptIdx];
-            sel.title = `Correct: ${correctText}`;
+          if (sel) { sel.classList.remove('answered-select'); sel.classList.add('incorrect-select'); }
+          if (sel && correctOptIdx >= 0) {
+            sel.title = `Correct: ${options[correctOptIdx]}`;
           }
         }
       });
-      correct += setCorrect / set.terms.length; // partial credit per item
+      correct += setCorrect / set.terms.length;
     }
-    const pct = a ? Math.round((setCorrect / set.terms.length) * 100) : 0;
-    showFeedback(n, setCorrect === set.terms.length,
-      setCorrect === set.terms.length
+    const setCorrectInt = a && options ? setCorrect : 0;
+    showFeedback(n, setCorrectInt === set.terms.length,
+      setCorrectInt === set.terms.length
         ? `All ${set.terms.length} matches correct!`
-        : `${setCorrect}/${set.terms.length} correct. Incorrect items are highlighted in red.`
+        : `${setCorrectInt}/${set.terms.length} correct. Incorrect items are highlighted in red; hover them to see the correct answer.`
     );
   });
 
