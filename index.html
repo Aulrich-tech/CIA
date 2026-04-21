@@ -3,969 +3,928 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CIA 1101 — Information Assurance Exam</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<title>CIA 1101 – Information Assurance | Exam</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0a0f1a;
-    --surface: #111827;
-    --card: #1a2235;
-    --border: #243050;
-    --accent: #00e5ff;
-    --accent2: #ff4d6d;
-    --accent3: #a8ff78;
-    --text: #e2e8f0;
-    --muted: #64748b;
-    --correct: #22c55e;
-    --wrong: #ef4444;
-    --highlight: #fbbf24;
-    --font-display: 'Syne', sans-serif;
-    --font-mono: 'Space Mono', monospace;
-  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --canvas-red: #e66000;
+    --canvas-dark: #2d3b45;
+    --canvas-blue: #0770a3;
+    --canvas-light-blue: #e8f4fb;
+    --canvas-border: #c7cdd1;
+    --canvas-bg: #f5f5f5;
+    --canvas-white: #ffffff;
+    --canvas-text: #2d3b45;
+    --canvas-muted: #6b7780;
+    --canvas-success: #0b7b03;
+    --canvas-answered: #e8f4fb;
+    --sidebar-w: 240px;
+    --header-h: 56px;
+  }
 
   body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-mono);
-    min-height: 100vh;
-    background-image:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0,229,255,0.07), transparent),
-      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(255,77,109,0.05), transparent);
+    font-family: 'Lato', 'Open Sans', sans-serif;
+    background: var(--canvas-bg);
+    color: var(--canvas-text);
+    font-size: 14px;
+    line-height: 1.6;
   }
 
-  /* HEADER */
-  header {
-    text-align: center;
-    padding: 3rem 2rem 2rem;
-    border-bottom: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
-  }
-
-  header::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 60px,
-      rgba(0,229,255,0.015) 60px,
-      rgba(0,229,255,0.015) 61px
-    );
-    pointer-events: none;
-  }
-
-  .exam-badge {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    padding: 0.3rem 0.8rem;
-    margin-bottom: 1.2rem;
-    animation: pulse-border 3s ease-in-out infinite;
-  }
-
-  @keyframes pulse-border {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(0,229,255,0); }
-    50% { box-shadow: 0 0 10px 2px rgba(0,229,255,0.2); }
-  }
-
-  h1 {
-    font-family: var(--font-display);
-    font-size: clamp(1.8rem, 5vw, 3.2rem);
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    color: var(--text);
-  }
-
-  h1 span { color: var(--accent); }
-
-  .subtitle {
-    margin-top: 0.8rem;
-    font-size: 0.78rem;
-    color: var(--muted);
-    letter-spacing: 0.05em;
-  }
-
-  /* SCORE PANEL */
-  #score-panel {
+  /* ── TOP HEADER ── */
+  .top-header {
+    background: var(--canvas-dark);
+    height: var(--header-h);
     display: flex;
-    justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-    padding: 1.5rem 2rem;
-    border-bottom: 1px solid var(--border);
-    background: rgba(17,24,39,0.6);
-    backdrop-filter: blur(8px);
+    align-items: center;
+    padding: 0 20px;
+    gap: 16px;
     position: sticky;
     top: 0;
     z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,.3);
   }
-
-  .score-item {
-    text-align: center;
-  }
-
-  .score-label {
-    font-size: 0.6rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 0.25rem;
-  }
-
-  .score-value {
-    font-family: var(--font-display);
-    font-size: 1.6rem;
+  .top-header .logo {
+    color: #fff;
+    font-size: 22px;
     font-weight: 700;
-    color: var(--accent);
+    letter-spacing: -0.5px;
   }
-
-  /* MAIN */
-  main {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 2.5rem 1.5rem 5rem;
-  }
-
-  /* SECTION TITLES */
-  .section-header {
+  .top-header .logo span { color: var(--canvas-red); }
+  .breadcrumb {
+    color: #aab;
+    font-size: 13px;
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin: 3rem 0 1.5rem;
-  }
-
-  .section-tag {
-    font-family: var(--font-display);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    background: var(--accent);
-    color: var(--bg);
-    padding: 0.25rem 0.7rem;
-    flex-shrink: 0;
-  }
-
-  .section-line {
+    gap: 6px;
     flex: 1;
-    height: 1px;
-    background: var(--border);
+  }
+  .breadcrumb a { color: #9bc; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb .sep { color: #667; }
+
+  /* ── EXAM HEADER BAND ── */
+  .exam-header-band {
+    background: var(--canvas-white);
+    border-bottom: 1px solid var(--canvas-border);
+    padding: 20px 28px 16px;
+  }
+  .exam-header-band h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--canvas-dark);
+    margin-bottom: 4px;
+  }
+  .exam-meta {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--canvas-muted);
+    margin-top: 8px;
+  }
+  .exam-meta span { display: flex; align-items: center; gap: 4px; }
+  .exam-meta svg { width: 14px; height: 14px; }
+
+  /* ── TIMER BAR ── */
+  .timer-bar {
+    background: var(--canvas-red);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 28px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .timer-bar .time-remaining { font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  /* ── LAYOUT ── */
+  .layout {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 20px;
+    gap: 20px;
+    align-items: flex-start;
   }
 
-  .section-count {
-    font-size: 0.65rem;
-    color: var(--muted);
+  /* ── SIDEBAR ── */
+  .sidebar {
+    width: var(--sidebar-w);
     flex-shrink: 0;
+    position: sticky;
+    top: calc(var(--header-h) + 40px);
   }
-
-  /* QUESTION CARDS */
-  .question-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    margin-bottom: 1rem;
-    padding: 1.4rem 1.6rem;
-    transition: border-color 0.2s;
-    position: relative;
-    animation: fadeUp 0.3s ease both;
+  .sidebar-card {
+    background: var(--canvas-white);
+    border: 1px solid var(--canvas-border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 12px;
   }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .question-card:hover {
-    border-color: rgba(0,229,255,0.25);
-  }
-
-  .q-num {
-    font-size: 0.6rem;
-    color: var(--accent);
-    letter-spacing: 0.15em;
-    margin-bottom: 0.6rem;
+  .sidebar-card-header {
+    background: var(--canvas-dark);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: .6px;
+    padding: 8px 12px;
+  }
+  .question-nav {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 3px;
+    padding: 10px;
+  }
+  .q-nav-btn {
+    width: 100%;
+    aspect-ratio: 1;
+    border: 1px solid var(--canvas-border);
+    background: var(--canvas-white);
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .15s;
+    color: var(--canvas-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .q-nav-btn:hover { background: var(--canvas-light-blue); border-color: var(--canvas-blue); }
+  .q-nav-btn.answered { background: var(--canvas-blue); color: #fff; border-color: var(--canvas-blue); }
+  .q-nav-btn.current { outline: 2px solid var(--canvas-red); outline-offset: 1px; }
+
+  .sidebar-legend { padding: 8px 12px 10px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--canvas-muted); margin-bottom: 4px; }
+  .legend-box { width: 14px; height: 14px; border-radius: 2px; border: 1px solid var(--canvas-border); }
+  .legend-box.answered { background: var(--canvas-blue); border-color: var(--canvas-blue); }
+  .legend-box.unanswered { background: var(--canvas-white); }
+
+  .submit-btn {
+    width: 100%;
+    padding: 10px;
+    background: var(--canvas-red);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s;
+    margin-top: 4px;
+  }
+  .submit-btn:hover { background: #c55200; }
+
+  .score-display {
+    display: none;
+    background: var(--canvas-white);
+    border: 1px solid var(--canvas-border);
+    border-radius: 4px;
+    padding: 16px 12px;
+    text-align: center;
+  }
+  .score-display h3 { font-size: 13px; color: var(--canvas-muted); margin-bottom: 4px; }
+  .score-display .score-number { font-size: 32px; font-weight: 700; color: var(--canvas-dark); }
+  .score-display .score-label { font-size: 12px; color: var(--canvas-muted); }
+  .score-display.visible { display: block; }
+
+  /* ── MAIN CONTENT ── */
+  .main-content { flex: 1; min-width: 0; }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    background: var(--canvas-white);
+    border: 1px solid var(--canvas-border);
+    border-radius: 4px 4px 0 0;
+    padding: 12px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: var(--canvas-dark);
+    border-bottom: 2px solid var(--canvas-red);
+    margin-bottom: 0;
   }
 
-  .q-text {
-    font-size: 0.88rem;
-    line-height: 1.6;
-    color: var(--text);
-    margin-bottom: 1.1rem;
+  /* ── QUESTION CARD ── */
+  .question-card {
+    background: var(--canvas-white);
+    border: 1px solid var(--canvas-border);
+    border-top: none;
+    padding: 20px 24px;
+    transition: background .15s;
   }
+  .question-card:last-of-type { border-radius: 0 0 4px 4px; }
+  .question-card + .question-card { border-top: 1px solid #e9ebed; }
+  .question-card.answered-card { background: #fafcff; }
 
-  /* OPTIONS */
-  .options { display: flex; flex-direction: column; gap: 0.5rem; }
-
-  .option {
+  .question-header {
     display: flex;
     align-items: flex-start;
-    gap: 0.75rem;
-    padding: 0.6rem 0.9rem;
-    border: 1px solid var(--border);
-    cursor: pointer;
-    transition: all 0.15s;
-    background: rgba(255,255,255,0.02);
-    user-select: none;
+    gap: 12px;
+    margin-bottom: 14px;
   }
-
-  .option:hover:not(.locked) {
-    border-color: var(--accent);
-    background: rgba(0,229,255,0.05);
-  }
-
-  .option-letter {
-    font-family: var(--font-display);
-    font-size: 0.7rem;
+  .q-number-badge {
+    background: var(--canvas-dark);
+    color: #fff;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
     font-weight: 700;
-    color: var(--muted);
     flex-shrink: 0;
-    padding-top: 0.05rem;
-    min-width: 1rem;
+    margin-top: 1px;
   }
+  .q-number-badge.answered-badge { background: var(--canvas-blue); }
+  .question-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--canvas-dark);
+    line-height: 1.55;
+    flex: 1;
+  }
+  .q-points { font-size: 11px; color: var(--canvas-muted); font-weight: 400; white-space: nowrap; }
 
-  .option-text {
-    font-size: 0.82rem;
+  /* ── CHOICES ── */
+  .choices { display: flex; flex-direction: column; gap: 6px; margin-left: 38px; }
+  .choice-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 9px 12px;
+    border: 1px solid var(--canvas-border);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .15s;
+    font-size: 13.5px;
+    color: var(--canvas-dark);
     line-height: 1.5;
-    color: var(--text);
   }
+  .choice-label:hover { background: var(--canvas-light-blue); border-color: var(--canvas-blue); }
+  .choice-label input[type="radio"] { margin-top: 2px; flex-shrink: 0; accent-color: var(--canvas-blue); }
+  .choice-label.selected { background: var(--canvas-light-blue); border-color: var(--canvas-blue); }
+  .choice-label.correct { background: #e6f9e6; border-color: var(--canvas-success); color: #0a5e02; }
+  .choice-label.incorrect { background: #fdecea; border-color: #c0392b; }
+  .choice-letter { font-weight: 700; color: var(--canvas-muted); min-width: 14px; }
 
-  .option.selected {
-    border-color: var(--accent);
-    background: rgba(0,229,255,0.08);
+  /* ── MATCHING ── */
+  .matching-container { margin-left: 38px; }
+  .matching-instructions {
+    font-size: 12px;
+    color: var(--canvas-muted);
+    margin-bottom: 10px;
+    font-style: italic;
   }
-
-  .option.selected .option-letter { color: var(--accent); }
-
-  .option.correct {
-    border-color: var(--correct);
-    background: rgba(34,197,94,0.1);
-  }
-
-  .option.correct .option-letter { color: var(--correct); }
-
-  .option.wrong {
-    border-color: var(--wrong);
-    background: rgba(239,68,68,0.1);
-  }
-
-  .option.wrong .option-letter { color: var(--wrong); }
-
-  .option.reveal-correct {
-    border-color: var(--correct);
-    background: rgba(34,197,94,0.06);
-  }
-
-  .option.reveal-correct .option-letter { color: var(--correct); }
-
-  .option.locked { cursor: default; }
-
-  /* FEEDBACK */
-  .feedback {
-    margin-top: 0.75rem;
-    font-size: 0.75rem;
-    display: none;
-    padding: 0.5rem 0.8rem;
-    border-left: 2px solid;
-  }
-
-  .feedback.show { display: block; }
-  .feedback.correct-fb { border-color: var(--correct); color: var(--correct); }
-  .feedback.wrong-fb { border-color: var(--wrong); color: var(--muted); }
-
-  /* STATUS ICON */
-  .q-status {
-    position: absolute;
-    top: 1.1rem;
-    right: 1.2rem;
-    font-size: 0.9rem;
-    display: none;
-  }
-
-  .q-status.show { display: block; }
-
-  /* MATCHING SECTION */
   .matching-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-  }
-
-  @media (max-width: 600px) { .matching-grid { grid-template-columns: 1fr; } }
-
-  .match-col-header {
-    font-size: 0.65rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.5rem;
-    padding-bottom: 0.4rem;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .match-item {
-    background: var(--card);
-    border: 1px solid var(--border);
-    padding: 0.65rem 0.9rem;
-    margin-bottom: 0.45rem;
-    font-size: 0.82rem;
-    cursor: pointer;
-    transition: all 0.15s;
-    user-select: none;
-    position: relative;
-  }
-
-  .match-item:hover:not(.matched):not(.locked) {
-    border-color: var(--accent);
-    background: rgba(0,229,255,0.05);
-  }
-
-  .match-item.selected-term {
-    border-color: var(--highlight);
-    background: rgba(251,191,36,0.08);
-  }
-
-  .match-item.matched {
-    border-color: var(--correct);
-    background: rgba(34,197,94,0.08);
-    cursor: default;
-  }
-
-  .match-item.wrong-match {
-    border-color: var(--wrong);
-    background: rgba(239,68,68,0.08);
-    animation: shake 0.3s ease;
-  }
-
-  @keyframes shake {
-    0%,100% { transform: translateX(0); }
-    25% { transform: translateX(-4px); }
-    75% { transform: translateX(4px); }
-  }
-
-  .match-item .match-key {
-    font-size: 0.65rem;
-    font-weight: 700;
-    color: var(--accent);
-    margin-bottom: 0.2rem;
-  }
-
-  .match-result {
-    display: none;
-    margin-top: 1rem;
-    font-size: 0.8rem;
-    color: var(--muted);
-    border-top: 1px solid var(--border);
-    padding-top: 0.75rem;
-  }
-
-  .match-result.show { display: block; }
-
-  .match-pair {
-    display: flex;
-    gap: 0.5rem;
-    align-items: flex-start;
-    padding: 0.3rem 0;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-  }
-
-  .match-arrow { color: var(--accent); flex-shrink: 0; }
-
-  /* SUBMIT BUTTON */
-  .submit-wrap {
-    text-align: center;
-    margin-top: 3rem;
-  }
-
-  .btn-submit {
-    font-family: var(--font-display);
-    font-size: 0.95rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    background: var(--accent);
-    color: var(--bg);
-    border: none;
-    padding: 1rem 3rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
-  }
-
-  .btn-submit:hover {
-    background: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(0,229,255,0.3);
-  }
-
-  /* FINAL RESULT */
-  #final-result {
-    display: none;
-    margin-top: 2rem;
-    padding: 2rem;
-    background: var(--card);
-    border: 1px solid var(--border);
-    text-align: center;
-  }
-
-  #final-result.show { display: block; }
-
-  .grade-circle {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 3px solid var(--accent);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.2rem;
-    box-shadow: 0 0 30px rgba(0,229,255,0.15);
-  }
-
-  .grade-pct {
-    font-family: var(--font-display);
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: var(--accent);
-    line-height: 1;
-  }
-
-  .grade-label {
-    font-size: 0.6rem;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-  }
-
-  .result-msg {
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-  }
-
-  .result-detail {
-    font-size: 0.78rem;
-    color: var(--muted);
-  }
-
-  .progress-bar-wrap {
-    height: 4px;
-    background: var(--border);
-    margin: 1.2rem 0 0.4rem;
+    gap: 0;
+    border: 1px solid var(--canvas-border);
+    border-radius: 4px;
     overflow: hidden;
   }
+  .matching-col-header {
+    background: var(--canvas-dark);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    padding: 8px 14px;
+    text-align: center;
+  }
+  .matching-pair {
+    display: contents;
+  }
+  .matching-pair:nth-child(odd) .matching-term,
+  .matching-pair:nth-child(odd) .matching-select-cell {
+    background: #fafafa;
+  }
+  .matching-term {
+    padding: 9px 14px;
+    font-size: 13px;
+    border-bottom: 1px solid #e9ebed;
+    border-right: 1px solid var(--canvas-border);
+    color: var(--canvas-dark);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .term-letter { color: var(--canvas-muted); font-weight: 700; font-size: 11px; }
+  .matching-select-cell {
+    padding: 6px 10px;
+    border-bottom: 1px solid #e9ebed;
+    display: flex;
+    align-items: center;
+  }
+  .matching-select {
+    width: 100%;
+    padding: 5px 8px;
+    border: 1px solid var(--canvas-border);
+    border-radius: 3px;
+    font-size: 12px;
+    color: var(--canvas-dark);
+    background: var(--canvas-white);
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .matching-select:focus { outline: none; border-color: var(--canvas-blue); box-shadow: 0 0 0 2px rgba(7,112,163,.2); }
+  .matching-select.answered-select { background: var(--canvas-light-blue); border-color: var(--canvas-blue); }
+  .matching-select.correct-select { background: #e6f9e6; border-color: var(--canvas-success); }
+  .matching-select.incorrect-select { background: #fdecea; border-color: #c0392b; }
 
-  .progress-bar {
-    height: 100%;
-    background: var(--accent);
-    transition: width 1s ease;
-    width: 0;
+  /* ── ANSWER FEEDBACK ── */
+  .answer-feedback {
+    margin-left: 38px;
+    margin-top: 8px;
+    padding: 8px 12px;
+    border-radius: 3px;
+    font-size: 12px;
+    display: none;
+  }
+  .answer-feedback.show { display: block; }
+  .answer-feedback.correct-fb { background: #e6f9e6; color: #0a5e02; border-left: 3px solid var(--canvas-success); }
+  .answer-feedback.incorrect-fb { background: #fdecea; color: #a01919; border-left: 3px solid #c0392b; }
+
+  /* ── SECTION DIVIDER ── */
+  .section-divider {
+    background: var(--canvas-white);
+    border: 1px solid var(--canvas-border);
+    border-top: none;
+    padding: 14px 24px;
+    border-bottom: 2px solid var(--canvas-red);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--canvas-dark);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+
+  /* ── RESULTS SUMMARY ── */
+  #results-summary {
+    display: none;
+    background: var(--canvas-white);
+    border: 1px solid var(--canvas-border);
+    border-radius: 4px;
+    padding: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  #results-summary.visible { display: block; }
+  #results-summary h2 { font-size: 20px; color: var(--canvas-dark); margin-bottom: 8px; }
+  .result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+  .result-stat { padding: 12px; background: var(--canvas-bg); border-radius: 4px; }
+  .result-stat .val { font-size: 28px; font-weight: 700; color: var(--canvas-dark); }
+  .result-stat .lbl { font-size: 11px; color: var(--canvas-muted); text-transform: uppercase; letter-spacing: .5px; }
+  .grade-badge {
+    display: inline-block;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 8px;
+  }
+  .grade-pass { background: #e6f9e6; color: #0a5e02; }
+  .grade-fail { background: #fdecea; color: #a01919; }
+
+  /* ── PROGRESS BAR ── */
+  .progress-wrap { background: #e0e0e0; border-radius: 2px; height: 4px; margin: 0 28px 0; }
+  .progress-fill { height: 100%; background: var(--canvas-red); border-radius: 2px; transition: width .3s; width: 0%; }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 7px; }
+  ::-webkit-scrollbar-track { background: #f0f0f0; }
+  ::-webkit-scrollbar-thumb { background: #bbb; border-radius: 4px; }
+
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .layout { padding: 12px; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="exam-badge">CIA 1101 — Assessment</div>
-  <h1>Information <span>Assurance</span><br>Exam</h1>
-  <p class="subtitle">75 Items &nbsp;|&nbsp; Multiple Choice & Matching Type &nbsp;|&nbsp; Lessons 1–8</p>
+<!-- TOP HEADER -->
+<header class="top-header">
+  <div class="logo">Can<span>vas</span></div>
+  <nav class="breadcrumb">
+    <a href="#">CIA 1101</a>
+    <span class="sep">›</span>
+    <a href="#">Quizzes</a>
+    <span class="sep">›</span>
+    <span>Information Assurance – Unit Exam</span>
+  </nav>
 </header>
 
-<div id="score-panel">
-  <div class="score-item">
-    <div class="score-label">Score</div>
-    <div class="score-value" id="live-score">0</div>
-  </div>
-  <div class="score-item">
-    <div class="score-label">Answered</div>
-    <div class="score-value" id="live-answered">0</div>
-  </div>
-  <div class="score-item">
-    <div class="score-label">Total Items</div>
-    <div class="score-value">75</div>
-  </div>
-  <div class="score-item">
-    <div class="score-label">Accuracy</div>
-    <div class="score-value" id="live-accuracy">—</div>
+<!-- EXAM HEADER BAND -->
+<div class="exam-header-band">
+  <h1>Information Assurance – Unit Exam</h1>
+  <div class="exam-meta">
+    <span>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v3.5l2 1.5"/></svg>
+      Time Limit: 90 Minutes
+    </span>
+    <span>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2H3a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1z"/><path d="M5 6h6M5 9h6M5 12h4"/></svg>
+      70 Questions
+    </span>
+    <span>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1L10 6h5l-4 3 1.5 5L8 11l-4.5 3L5 9 1 6h5z"/></svg>
+      70 Points Total
+    </span>
+    <span>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1v14M1 8h14"/></svg>
+      Allowed Attempts: 1
+    </span>
   </div>
 </div>
 
-<main>
-
-<!-- ========== PART 1: MULTIPLE CHOICE ========== -->
-<div class="section-header">
-  <span class="section-tag">Part I</span>
-  <div class="section-line"></div>
-  <span class="section-count">Items 1–55 · Multiple Choice</span>
+<!-- TIMER BAR -->
+<div class="timer-bar">
+  <span>Time Remaining:</span>
+  <span class="time-remaining" id="timer">1:30:00</span>
+  <span id="progress-text">0 of 70 answered</span>
 </div>
+<div class="progress-wrap"><div class="progress-fill" id="progress-fill"></div></div>
 
-<div id="mc-container"></div>
+<!-- MAIN LAYOUT -->
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">Questions</div>
+      <div class="question-nav" id="question-nav"></div>
+      <div class="sidebar-legend">
+        <div class="legend-item"><div class="legend-box answered"></div> Answered</div>
+        <div class="legend-item"><div class="legend-box unanswered"></div> Not Answered</div>
+      </div>
+    </div>
+    <button class="submit-btn" onclick="submitExam()">Submit Quiz</button>
+    <div class="score-display" id="sidebar-score">
+      <h3>Your Score</h3>
+      <div class="score-number" id="score-num">—</div>
+      <div class="score-label">out of 70 points</div>
+    </div>
+  </aside>
 
-<!-- ========== PART 2: MATCHING TYPE ========== -->
-<div class="section-header">
-  <span class="section-tag">Part II</span>
-  <div class="section-line"></div>
-  <span class="section-count">Items 56–75 · Matching Type</span>
+  <!-- MAIN -->
+  <main class="main-content">
+    <div id="results-summary">
+      <h2>Quiz Results</h2>
+      <div class="result-grid">
+        <div class="result-stat"><div class="val" id="r-score">0</div><div class="lbl">Score</div></div>
+        <div class="result-stat"><div class="val" id="r-pct">0%</div><div class="lbl">Percentage</div></div>
+        <div class="result-stat"><div class="val" id="r-correct">0</div><div class="lbl">Correct</div></div>
+      </div>
+      <div id="r-grade" class="grade-badge">—</div>
+    </div>
+
+    <div id="questions-container"></div>
+  </main>
 </div>
-
-<p style="font-size:0.78rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.7;">
-  Click a term in Column A, then click its matching definition in Column B. Correct pairs will lock in green.
-</p>
-
-<div id="matching-container"></div>
-
-<!-- ========== SUBMIT ========== -->
-<div class="submit-wrap">
-  <button class="btn-submit" onclick="submitExam()">Submit Exam &rarr;</button>
-</div>
-
-<div id="final-result">
-  <div class="grade-circle">
-    <div class="grade-pct" id="final-pct">0%</div>
-    <div class="grade-label">Grade</div>
-  </div>
-  <div class="result-msg" id="result-msg"></div>
-  <div class="result-detail" id="result-detail"></div>
-  <div class="progress-bar-wrap"><div class="progress-bar" id="result-bar"></div></div>
-</div>
-
-</main>
 
 <script>
-// =====================================================================
-// DATA
-// =====================================================================
+// ─────────────────────────────────────────────────────────────
+// EXAM DATA
+// ─────────────────────────────────────────────────────────────
+const MC_QUESTIONS = [
+  // LESSON 1 – Network Infrastructure
+  { q: "What is the primary goal of a Defense-in-Depth security strategy?", choices: ["To rely on a single, highly advanced firewall", "To use multiple layers of security instead of a single defense", "To isolate the network from the internet entirely", "To encrypt all outgoing traffic"], answer: 1 },
+  { q: "Which network segmentation method uses NO physical connection between two switches?", choices: ["VLAN Segmentation", "Physical Segmentation", "Air Gap", "Software-Defined Networking"], answer: 2 },
+  { q: "VLAN stands for:", choices: ["Virtual Link Area Network", "Variable Local Access Node", "Virtual Local Area Network", "Verified LAN Access Node"], answer: 2 },
+  { q: "In Software-Defined Networking (SDN), which plane is responsible for forwarding, trunking, encryption, and NAT?", choices: ["Control Plane", "Management Plane", "Data Plane (Infrastructure Layer)", "Application Plane"], answer: 2 },
+  { q: "The Control Plane in SDN is primarily responsible for:", choices: ["Processing network frames and packets", "Routing decisions and managing routing tables", "Configuring devices via SSH or SNMP", "Encrypting traffic between VLANs"], answer: 1 },
+  { q: "Which perimeter filtering method tracks active connection states?", choices: ["Packet Filtering", "Stateful Inspection", "Proxy Firewall", "Next-Generation Firewall"], answer: 1 },
+  { q: "An Application-Layer (Proxy) Firewall inspects traffic at which OSI layer?", choices: ["Layer 3", "Layer 4", "Layer 7", "Layer 2"], answer: 2 },
+  { q: "What is the 'first line of defense' in a network's security architecture?", choices: ["Internal Segmentation", "Endpoint Security", "Network Perimeter", "VLAN Segmentation"], answer: 2 },
+  { q: "Which of the following BEST describes VLAN segmentation's key advantage?", choices: ["Devices are physically separated into different networks", "Networks are separated logically without physical separation", "Attackers who reach one switch cannot reach any other", "All traffic between VLANs is automatically encrypted"], answer: 1 },
+  { q: "The Management Plane in SDN manages devices via which protocols?", choices: ["TCP/UDP and FTP", "SSH, SNMP, and API", "HTTP and HTTPS", "IPsec and SSL/TLS"], answer: 1 },
 
-const mcQuestions = [
-  // LESSON 1 — Network Infrastructure
-  {q:"What is Defense-in-Depth?", opts:["Using a single strong firewall to protect a network","A cybersecurity strategy using multiple layers of security","Physically isolating servers from external networks","Encrypting all data in transit"], ans:1},
-  {q:"An Air Gap in network segmentation means:", opts:["Devices share the same VLAN","No physical connection exists between two network segments","Devices communicate through an encrypted tunnel","A virtual separation of network traffic"], ans:1},
-  {q:"VLANs (Virtual Local Area Networks) are segmented:", opts:["Physically with separate switches","Logically without physical separation","Using dedicated routers only","Through hardware air gaps"], ans:1},
-  {q:"Which layer of the SDN model is responsible for processing network frames and packets?", opts:["Control Plane","Management Plane","Data Plane","Application Plane"], ans:2},
-  {q:"What does the Control Plane in SDN manage?", opts:["Encrypting traffic between nodes","Routing tables and forwarding decisions","SSH and API configuration","Caching frequently accessed data"], ans:1},
-  {q:"The Management Plane is responsible for:", opts:["Processing real-time network data","Making routing decisions","Configuring and managing devices (SSH, SNMP, API)","Forwarding packets between interfaces"], ans:2},
-  {q:"Which perimeter filtering method tracks active connection states?", opts:["Packet Filtering","Stateful Inspection","Application-Layer Firewall","UTM"], ans:1},
-  {q:"A Next-Generation Firewall combines which capabilities?", opts:["Packet filtering and VPN only","Stateful inspection, application awareness, and IDS/IPS","URL filtering and spam blocking","NAT and content switching"], ans:1},
-  {q:"Which type of firewall inspects packet contents at Layer 7?", opts:["Network-Based Firewall","Packet Filtering Firewall","Application-Layer (Proxy) Firewall","Stateless Firewall"], ans:2},
-  {q:"Internal Segmentation limits an attacker's ability to perform:", opts:["Phishing attacks","Lateral movement inside the network","DDoS attacks","Social engineering"], ans:1},
+  // LESSON 2 – Secure Infrastructure
+  { q: "Which concept refers to everything that can be a potential vulnerability in a system?", choices: ["Security Zone", "Attack Surface", "DMZ", "Defense-in-Depth"], answer: 1 },
+  { q: "Zone-based security technologies provide what advantage over IP address-range policies?", choices: ["They are faster to process", "They are more flexible", "They eliminate the need for firewalls", "They automatically encrypt all traffic"], answer: 1 },
+  { q: "The goal when managing the Attack Surface is to:", choices: ["Expand it to allow more services", "Minimize its size", "Encrypt all attack vectors", "Transfer it to a third party"], answer: 1 },
 
-  // LESSON 2 — Secure Infrastructure
-  {q:"What does 'Attack Surface' refer to in cybersecurity?", opts:["The total area of physical server rooms","All potential vulnerabilities an attacker could exploit","The number of firewalls deployed","The geographic coverage of a network"], ans:1},
-  {q:"Zone-based security is more flexible than:", opts:["Firewall rules","IP address range-based policies","VLAN configurations","Encryption standards"], ans:1},
-  {q:"The goal regarding an organization's attack surface is to:", opts:["Maximize it for redundancy","Minimize it","Keep it constant","Document it only"], ans:1},
-  {q:"Which of the following contributes to overall network connectivity security?", opts:["Application-level encryption only","Network-level encryption only","Secure network cabling, application-level, and network-level encryption","Only physical locks on server rooms"], ans:2},
+  // LESSON 3 – Network Appliances
+  { q: "A Jump Server is considered a significant security concern because:", choices: ["It is located in the DMZ", "Compromise of it represents a significant breach", "It only uses unencrypted connections", "It cannot be monitored"], answer: 1 },
+  { q: "A Transparent Proxy is one where:", choices: ["The user must configure it manually", "The users have no idea the proxy exists", "The proxy only handles HTTPS traffic", "The proxy requires explicit authentication"], answer: 1 },
+  { q: "Which type of proxy handles outbound traffic and protects users accessing the internet?", choices: ["Reverse Proxy", "Open Proxy", "Forward Proxy", "Application Proxy"], answer: 2 },
+  { q: "An Active/Passive Load Balancing configuration means:", choices: ["All servers are active and share traffic evenly", "Some servers are active while others are on standby", "Traffic is alternated round-robin between servers", "All passive servers reject traffic by default"], answer: 1 },
+  { q: "What is a SIEM primarily used for?", choices: ["Encrypting network traffic", "Consolidating security data and correlating events", "Blocking unauthorized access at the perimeter", "Managing user authentication tokens"], answer: 1 },
+  { q: "An Intrusion Detection System (IDS):", choices: ["Actively blocks threats inline", "Monitors traffic and sends alerts but is passive only", "Acts as a middleman between client and internet", "Filters traffic based on IP address and ports"], answer: 1 },
+  { q: "A Reverse Proxy handles:", choices: ["Outbound traffic from internal users to the internet", "Inbound traffic from the internet to internal servers", "Traffic between two internal VLANs", "Only encrypted HTTPS connections"], answer: 1 },
+  { q: "Which device combines URL filtering, malware inspection, spam filtering, and VPN endpoint into one?", choices: ["NGFW", "WAF", "UTM (Unified Threat Management)", "IDS"], answer: 2 },
+  { q: "Open Proxies are often used to:", choices: ["Enforce content filtering policies", "Circumvent existing security controls", "Encrypt internal traffic", "Monitor employee activity"], answer: 1 },
 
-  // LESSON 3 — Network Appliances
-  {q:"A Jump Server is best described as:", opts:["A server that automatically patches vulnerabilities","A highly secured device used to access internal network devices from outside","An uncontrolled third-party proxy","A load balancer managing web traffic"], ans:1},
-  {q:"A Transparent Proxy differs from an Explicit Proxy in that:", opts:["It requires manual configuration","Users are unaware of its existence","It only supports HTTPS traffic","It must be installed on every endpoint"], ans:1},
-  {q:"A Forward Proxy is used to:", opts:["Handle inbound traffic to internal servers","Publicly bypass filtering controls","Manage and protect user access to the internet","Distribute loads among multiple servers"], ans:2},
-  {q:"A Reverse Proxy handles:", opts:["Outbound traffic from users to the internet","Inbound traffic from the internet to internal servers","Traffic between VLANs","Authentication for remote users"], ans:1},
-  {q:"In Active/Active load balancing:", opts:["Some servers are on standby","All connected servers are actively handling traffic","One server handles all requests","Servers switch roles daily"], ans:1},
-  {q:"A SIEM (Security Information and Event Manager) is used to:", opts:["Block malware in real-time","Consolidate security data and correlate events","Encrypt stored data","Provide physical access control"], ans:1},
-  {q:"Which device monitors traffic and sends alerts but is PASSIVE only?", opts:["Intrusion Prevention System (IPS)","Next-Generation Firewall","Intrusion Detection System (IDS)","UTM Device"], ans:2},
-  {q:"A Proxy Server sends requests to the internet on behalf of:", opts:["The firewall","The user","The SIEM","The load balancer"], ans:1},
-  {q:"Which type of proxy is publicly accessible and often used to bypass filtering?", opts:["Forward Proxy","Reverse Proxy","Transparent Proxy","Open Proxy"], ans:3},
-  {q:"A Collector in a monitoring system is used to:", opts:["Block active threats in-line","Aggregate information from many sensors into a central database","Encrypt data in transit","Manage device configuration"], ans:1},
+  // LESSON 4 – Zero Trust
+  { q: "Zero Trust's core principle can be summarized as:", choices: ["Trust but Verify", "Never Trust, Always Verify", "Trust Once, Verify Later", "Verify Once, Trust Forever"], answer: 1 },
+  { q: "Which Zero Trust principle dictates granting only the minimum permissions required?", choices: ["Verify Explicitly", "Least Privilege", "Assume Breach", "Micro-Segmentation"], answer: 1 },
+  { q: "The 'Assume Breach' principle means:", choices: ["Operators must assume all users are malicious", "Operate under the assumption a breach has already occurred", "All traffic must be re-encrypted after a breach", "Network access is denied until breach is confirmed"], answer: 1 },
+  { q: "In Zero Trust, the Policy Enforcement Point acts as:", choices: ["A certificate authority", "A gatekeeper for access requests", "The primary data encryption engine", "The network routing core"], answer: 1 },
+  { q: "How many pillars does the CISA Zero Trust Maturity Model have?", choices: ["3", "4", "5", "6"], answer: 2 },
+  { q: "Which plane in Zero Trust architecture processes frames, packets, and network data in real time?", choices: ["Control Plane", "Data Plane", "Management Plane", "Policy Plane"], answer: 1 },
+  { q: "Traditional security models are characterized by which of the following?", choices: ["Continuous authentication of every request", "Granular security controls at every layer", "Implicit trust for users already inside the network", "Micro-segmentation of all internal zones"], answer: 2 },
 
-  // LESSON 4 — Zero Trust
-  {q:"Zero Trust's core principle can be summarized as:", opts:["Trust but Verify","Never Trust, Always Verify","Trust Internal Networks Fully","Verify Once, Trust Always"], ans:1},
-  {q:"In traditional security, the 'Implicit Trust' model means:", opts:["Every user must re-authenticate hourly","Internal users can move freely between systems without re-verification","All devices are scanned before network access","External threats are constantly monitored"], ans:1},
-  {q:"Which Zero Trust feature evaluates a user's IP address and context for authentication?", opts:["Micro-Segmentation","Adaptive Identity","Continuous Authentication","Endpoint Security"], ans:1},
-  {q:"The 'Least Privilege' principle in Zero Trust means:", opts:["Grant users the maximum possible permissions","Grant only the minimum permissions required to perform a task","Never grant access to contractors","Allow all access within a secure perimeter"], ans:1},
-  {q:"'Assume Breach' in Zero Trust means:", opts:["Accept that some data loss is inevitable","Operate assuming a security breach has already occurred","Only protect high-value assets","Disable unnecessary monitoring to save costs"], ans:1},
-  {q:"Micro-Segmentation in Zero Trust refers to:", opts:["Using small, cheap network switches","Dividing networks into isolated zones","Reducing the number of endpoints","Using minimal encryption"], ans:1},
-  {q:"Which CISA Zero Trust Maturity Model pillar focuses on user verification?", opts:["Network Segmentation","Data Protection","Identity Foundation","Device Security"], ans:2},
-  {q:"The Policy Enforcement Point in Zero Trust acts as a:", opts:["Backup power supply","Gatekeeper controlling access to resources","Data encryption engine","Log storage system"], ans:1},
-  {q:"Multi-Factor Authentication (MFA) ensures that:", opts:["Passwords are changed monthly","Even if credentials are stolen, unauthorized access is still blocked","All users share a single login","Biometrics are the only valid authentication"], ans:1},
-  {q:"What does the Data Plane do in Zero Trust's functional planes?", opts:["Configure security policies","Make routing decisions","Perform the actual security process on frames and packets in real time","Store audit logs"], ans:2},
+  // LESSON 5 – Building a Secure Network
+  { q: "A Next-Generation Firewall (NGFW) operates at which OSI layer?", choices: ["Layer 2", "Layer 4", "Layer 7", "Layer 3"], answer: 2 },
+  { q: "Traditional (Network-Based) Firewalls primarily use which criteria to allow or block traffic?", choices: ["Application content and user identity", "TCP/UDP ports", "SSL certificate validity", "MAC address tables"], answer: 1 },
+  { q: "A WAF (Web Application Firewall) is specifically designed to protect against:", choices: ["Brute-force SSH attacks", "SQL injection and web application attacks", "DDoS volumetric attacks", "Physical access to servers"], answer: 1 },
 
-  // LESSON 5 — Building a Secure Network
-  {q:"A UTM (Unified Threat Management) device is best described as:", opts:["A device dedicated solely to VPN encryption","An all-in-one security system combining multiple security functions","A physical firewall with no software component","A device used only for spam filtering"], ans:1},
-  {q:"Traditional Network-Based Firewalls mainly operate at OSI Layer:", opts:["3","4","5","7"], ans:1},
-  {q:"Next-Generation Firewalls (NGFW) operate at OSI Layer:", opts:["4","5","6","7"], ans:3},
-  {q:"A Web Application Firewall (WAF) protects against attacks such as:", opts:["DDoS attacks only","Physical server intrusion","SQL injection and web application attacks","Network-level port scanning"], ans:2},
-  {q:"UTM devices include which of the following features? (Select best answer)", opts:["URL Filtering and VPN Endpoint","Only firewall capabilities","Only malware inspection","Physical cable management"], ans:0},
-  {q:"Which firewall type can identify the actual application being used on the network?", opts:["Traditional Network-Based Firewall","Packet Filtering Firewall","Next-Generation Firewall (NGFW)","Stateless Firewall"], ans:2},
+  // LESSON 6 – Monitoring and Logs
+  { q: "Which log type monitors all traffic moving in and out of the network perimeter?", choices: ["Endpoint Log", "Application Log", "Firewall Log", "OS Log"], answer: 2 },
+  { q: "Security Content Automation Protocol (SCAP) is maintained by:", choices: ["CISA", "NIST", "IEEE", "ISO"], answer: 1 },
+  { q: "Agent-based scanning differs from Agentless scanning in that it:", choices: ["Runs only during login", "Uses persistent software installed on the host", "Requires no additional software on the endpoint", "Only scans network-level vulnerabilities"], answer: 1 },
+  { q: "NetFlow primarily monitors:", choices: ["Application-layer content and payloads", "Metadata about network conversations (IP, port, protocol)", "CPU and memory usage of network devices", "Vulnerability CVE scores"], answer: 1 },
+  { q: "Data Loss Prevention (DLP) inspects data:", choices: ["Only when at rest on file servers", "Only in transit on the network", "In motion, at rest, and in use", "Only during backup operations"], answer: 2 },
+  { q: "Alert Tuning is described as 'a balancing act' primarily to prevent:", choices: ["Firewall rule conflicts", "Both false positives and false negatives", "Unauthorized SIEM access", "Log data corruption"], answer: 1 },
+  { q: "How long does it take on average for a company to identify and contain a breach, justifying log archiving?", choices: ["3 months", "6 months", "9 months", "12 months"], answer: 2 },
+  { q: "SNMP queries performance metrics from which database on a device?", choices: ["SIEM", "MIB (Management Information Base)", "CVE Database", "ACL Table"], answer: 1 },
 
-  // LESSON 6 — Monitoring and Logs
-  {q:"Security Monitoring is best described as:", opts:["A one-time security audit","The continuous process of collecting, analyzing, and acting on data to detect threats","Installing firewalls and forgetting them","Monthly password resets"], ans:1},
-  {q:"SCAP (Security Content Automation Protocol) is maintained by:", opts:["ISO","NIST","IEEE","CISA"], ans:1},
-  {q:"CIS Benchmarks provide:", opts:["Real-time threat intelligence","Best-practice configuration templates for OS and applications","Malware signature databases","Penetration testing tools"], ans:1},
-  {q:"Agent-Based Scanning uses:", opts:["Temporary checks during login","Persistent software installed on the host","Network probes and collectors","External vulnerability databases only"], ans:1},
-  {q:"NetFlow monitors:", opts:["The content of packets","Metadata about network conversations (IPs, ports, protocols)","Application-layer behavior","DNS queries only"], ans:1},
-  {q:"Alert Tuning involves:", opts:["Increasing alert volume to catch more threats","Balancing alerts to prevent false positives and false negatives","Deleting old log files","Disabling non-critical alerts permanently"], ans:1},
-  {q:"Quarantine as an alert response is used to:", opts:["Permanently delete infected files","Prevent a potential security issue from spreading","Restore systems from backup","Send an alert to the SOC team"], ans:1},
-  {q:"Metadata within files and communications provides:", opts:["Encrypted data content","Descriptive hidden information about files and communications","Real-time threat alerts","Firewall rule configurations"], ans:1},
-  {q:"Archiving security logs is important primarily because:", opts:["Logs take up too much space in real-time systems","Companies take an average of ~9 months to identify a breach, requiring long-term log access","Regulations require daily log deletion","Logs are never useful after 30 days"], ans:1},
-  {q:"SNMP (Simple Network Management Protocol) queries:", opts:["Application-layer content","Low-level performance metrics from a device's MIB","User authentication logs","Vulnerability scan results"], ans:1},
+  // LESSON 7 – Vulnerability Scanning
+  { q: "Static Application Security Testing (SAST) analyzes:", choices: ["Running application behavior in real time", "Application source code from the inside", "Network traffic patterns", "Database query logs"], answer: 1 },
+  { q: "Dynamic Analysis (Fuzzing) tests application robustness by:", choices: ["Reviewing source code manually", "Sending random inputs to the application in real time", "Scanning open network ports", "Monitoring CPU usage during execution"], answer: 1 },
+  { q: "A Compensating Control is best described as:", choices: ["The primary security patch applied to a system", "An alternative measure when the primary defense cannot be applied", "A firewall rule that replaces a VPN", "An audit log generated after a breach"], answer: 1 },
+  { q: "Which consequence of not updating systems involves a hacker locking your files and demanding payment?", choices: ["Data Breach", "Loss of Reputation", "Ransomware", "Financial Loss"], answer: 2 },
+  { q: "Validation of Remediation is the practice of:", choices: ["Documenting vulnerabilities in a risk register", "Confirming a deployed patch actually removed a vulnerability", "Testing firewall rules after configuration changes", "Encrypting sensitive data after a breach"], answer: 1 },
 
-  // LESSON 7 — Vulnerability Scanning and Patching
-  {q:"Static Application Security Testing (SAST) analyzes:", opts:["Running application behavior in real time","Application source code from the inside for vulnerabilities","Network traffic for anomalies","Database query logs"], ans:1},
-  {q:"Dynamic Analysis (Fuzzing) tests an application by:", opts:["Reviewing its source code","Sending random inputs to test robustness in real time","Scanning open ports","Analyzing log files"], ans:1},
-  {q:"Compensating Control is:", opts:["The primary security measure for a vulnerability","An alternative security measure where the primary defense cannot be applied","A legal requirement for compliance","A firewall rule override"], ans:1},
-  {q:"Validation of Remediation involves:", opts:["Applying patches without testing","Confirming a deployed patch removed a vulnerability via a follow-up scan","Deleting vulnerable systems","Notifying users about the vulnerability"], ans:1},
-  {q:"Which of the following is a consequence of NOT updating software?", opts:["Faster system performance","Improved user experience","Data breaches and ransomware attacks","Reduced network traffic"], ans:2},
-  {q:"Package Monitoring is the process of:", opts:["Tracking software licenses","Verifying a package's trustworthiness and origin to ensure no hidden malware","Monitoring CPU and memory usage","Auditing user login sessions"], ans:1},
-
-  // LESSON 8 — Risk Management
-  {q:"Risk Appetite describes:", opts:["How much data an organization stores","The amount of risk accepted before action must be taken","The number of vulnerabilities identified","The total cost of security tools"], ans:1},
-  {q:"Risk Tolerance refers to:", opts:["Maximum data storage capacity","The acceptable level of variation in risk an organization can handle","The number of allowed security incidents per year","The budget allocated for cybersecurity"], ans:1},
-  {q:"Transferring risk means:", opts:["Removing the risk entirely","Moving risk control to a different party, e.g. buying cyber insurance","Ignoring the risk","Reducing the impact of the risk"], ans:1},
-  {q:"Which risk management strategy completely removes a risk from the organization?", opts:["Mitigate the Risk","Accept the Risk","Transfer the Risk","Avoid the Risk"], ans:3},
-  {q:"Risk Probability is:", opts:["A qualitative measurement using words","A quantitative measurement shown through whole numbers","An estimate of the cost of a breach","A list of known vulnerabilities"], ans:1},
+  // LESSON 8 – Risk Management
+  { q: "Risk Appetite is:", choices: ["The quantitative measurement of risk probability", "The acceptable level of variation in risk tolerance", "The amount of risk accepted before action needs to be taken", "The maximum financial loss an organization can sustain"], answer: 2 },
+  { q: "Purchasing cybersecurity insurance is an example of which risk management strategy?", choices: ["Accept the Risk", "Avoid the Risk", "Transfer the Risk", "Mitigate the Risk"], answer: 2 },
+  { q: "Risk Likelihood is measured:", choices: ["Quantitatively through whole numbers", "Qualitatively through descriptive words", "Through financial impact assessments", "By counting historical incidents"], answer: 1 },
+  { q: "Which risk management strategy involves completely removing the risk from the organization?", choices: ["Transfer the Risk", "Mitigate the Risk", "Accept the Risk", "Avoid the Risk"], answer: 3 },
+  { q: "Segmentation as a remediation method works by:", choices: ["Encrypting all data at rest", "Applying the latest security patch", "Isolating devices onto separate networks to limit attack spread", "Transferring risk to a cybersecurity insurer"], answer: 2 },
+  { q: "Software patches can do which of the following? (Select the BEST answer)", choices: ["Only fix security vulnerabilities", "Update features, increase optimization, and fix security vulnerabilities", "Only add new features to software", "Only increase system performance"], answer: 1 },
+  { q: "Password Standards in security frameworks primarily address:", choices: ["Encryption algorithms for data at rest", "Complexity requirements for passwords", "Physical access to server rooms", "VPN configuration guidelines"], answer: 1 },
 ];
 
-const matchGroups = [
+// MATCHING SETS
+const MATCHING_SETS = [
   {
-    title: "Matching Set 1 — Security Concepts (Items 56–63)",
+    title: "Match each term to its correct definition — Network & Security Concepts",
     terms: [
-      {id:"t1", label:"A", text:"Defense-in-Depth"},
-      {id:"t2", label:"B", text:"Air Gap"},
-      {id:"t3", label:"C", text:"VLAN"},
-      {id:"t4", label:"D", text:"Zero Trust"},
-      {id:"t5", label:"E", text:"Jump Server"},
-      {id:"t6", label:"F", text:"SIEM"},
-      {id:"t7", label:"G", text:"Micro-Segmentation"},
-      {id:"t8", label:"H", text:"UTM"},
-    ],
-    defs: [
-      {id:"d1", match:"t1", text:"Multi-layered cybersecurity strategy that uses several defenses instead of one."},
-      {id:"d2", match:"t2", text:"Physical network isolation where no connection exists between two segments."},
-      {id:"d3", match:"t3", text:"Virtual logical network separation that requires a Layer 3 device to communicate between segments."},
-      {id:"d4", match:"t4", text:"Security model where every user, device, and process must always authenticate. 'Never Trust, Always Verify.'"},
-      {id:"d5", match:"t5", text:"Highly secured device used to access internal network resources from outside the network."},
-      {id:"d6", match:"t6", text:"Centralized platform that consolidates security logs, correlates events, and generates reports."},
-      {id:"d7", match:"t7", text:"Dividing networks into small isolated zones to limit lateral movement in a Zero Trust model."},
-      {id:"d8", match:"t8", text:"All-in-one security device combining firewall, URL filtering, malware inspection, VPN, and more."},
+      { term: "Air Gap", def: "No physical connection between two network segments, preventing attackers from moving between them" },
+      { term: "VLAN", def: "A Virtual Local Area Network that separates devices logically rather than physically" },
+      { term: "Control Plane", def: "The SDN layer responsible for routing decisions and managing routing tables" },
+      { term: "DMZ", def: "A demilitarized zone that sits between a trusted internal network and the untrusted internet" },
+      { term: "Jump Server", def: "A hardened, monitored device used to access systems inside the network from outside" },
     ]
   },
   {
-    title: "Matching Set 2 — Proxy & Network Appliance Types (Items 64–71)",
+    title: "Match each security tool to its primary function",
     terms: [
-      {id:"t9",  label:"A", text:"Forward Proxy"},
-      {id:"t10", label:"B", text:"Reverse Proxy"},
-      {id:"t11", label:"C", text:"Open Proxy"},
-      {id:"t12", label:"D", text:"Active/Passive Load Balancing"},
-      {id:"t13", label:"E", text:"SCAP"},
-      {id:"t14", label:"F", text:"NetFlow"},
-      {id:"t15", label:"G", text:"DLP"},
-      {id:"t16", label:"H", text:"Vulnerability Scanner"},
-    ],
-    defs: [
-      {id:"d9",  match:"t9",  text:"Located inside the network; manages outbound user traffic to the internet."},
-      {id:"d10", match:"t10", text:"Handles inbound internet traffic destined for internal servers."},
-      {id:"d11", match:"t11", text:"Publicly accessible, uncontrolled proxy often used to bypass security filters."},
-      {id:"d12", match:"t12", text:"Load balancing approach where standby servers take over only if active servers fail."},
-      {id:"d13", match:"t13", text:"NIST standard that translates security data into a unified machine-readable language."},
-      {id:"d14", match:"t14", text:"Monitors metadata about network conversations using probes and collectors."},
-      {id:"d15", match:"t15", text:"Inspects data in motion, at rest, and in use to identify sensitive patterns like credit card numbers."},
-      {id:"d16", match:"t16", text:"Non-invasive tool that probes services, versions, and configurations to identify known CVEs and open ports."},
+      { term: "SIEM", def: "Consolidates security data from multiple sources into a single centralized database for correlation" },
+      { term: "IDS", def: "Monitors network traffic and sends alerts but does NOT actively block threats" },
+      { term: "WAF", def: "Protects web applications from attacks such as SQL injection at the application layer" },
+      { term: "UTM", def: "An all-in-one security appliance combining firewall, URL filtering, malware inspection, and VPN" },
+      { term: "DLP", def: "Inspects data in motion, at rest, and in use to identify and protect sensitive information patterns" },
     ]
   },
   {
-    title: "Matching Set 3 — Risk & Remediation Terms (Items 72–75)",
+    title: "Match each Zero Trust principle to its description",
     terms: [
-      {id:"t17", label:"A", text:"Patching"},
-      {id:"t18", label:"B", text:"Compensating Control"},
-      {id:"t19", label:"C", text:"Risk Transfer"},
-      {id:"t20", label:"D", text:"Fuzzing (Dynamic Analysis)"},
-    ],
-    defs: [
-      {id:"d17", match:"t17", text:"Applying security updates from a manufacturer to mitigate known vulnerabilities."},
-      {id:"d18", match:"t18", text:"Alternative security measure used when the primary defense cannot be applied."},
-      {id:"d19", match:"t19", text:"Moving risk control to another party, such as purchasing cybersecurity insurance."},
-      {id:"d20", match:"t20", text:"Testing method that sends random inputs into an application to evaluate robustness in real time."},
+      { term: "Verify Explicitly", def: "Authenticate and authorize using all available context for every access request" },
+      { term: "Least Privilege", def: "Grant only the minimum permissions required to perform a task" },
+      { term: "Assume Breach", def: "Operate under the assumption that a breach has already occurred within the network" },
+      { term: "Micro-Segmentation", def: "Divide networks into small isolated zones to limit lateral movement" },
+      { term: "Endpoint Security", def: "Ensure all devices connecting to the network meet defined security requirements" },
+    ]
+  },
+  {
+    title: "Match each risk management strategy to its example scenario",
+    terms: [
+      { term: "Transfer the Risk", def: "A company purchases cybersecurity insurance to cover breach-related financial losses" },
+      { term: "Accept the Risk", def: "Management decides to proceed without additional controls after reviewing a low-impact risk" },
+      { term: "Avoid the Risk", def: "An organization discontinues a legacy system entirely to eliminate its vulnerabilities" },
+      { term: "Mitigate the Risk", def: "Security patches are applied to reduce the impact of a known software vulnerability" },
+      { term: "Risk Reporting", def: "A central log tracking all identified organizational risks, their owners, and statuses" },
     ]
   },
 ];
 
-// =====================================================================
-// STATE
-// =====================================================================
-let score = 0;
-let answered = 0;
-const mcAnswers = new Array(mcQuestions.length).fill(null); // null = unanswered
+// ─────────────────────────────────────────────────────────────
+// BUILD UI
+// ─────────────────────────────────────────────────────────────
+let answered = {};
+let submitted = false;
+let timerInterval;
+let timeLeft = 90 * 60; // 90 minutes in seconds
 
-// Matching state
-let selectedTerm = null;
-const matchState = {}; // termId -> { matched: bool, wrongAttempts: int }
+function buildExam() {
+  const container = document.getElementById('questions-container');
+  const nav = document.getElementById('question-nav');
+  let qIdx = 0;
 
-// =====================================================================
-// BUILD MC
-// =====================================================================
-function buildMC() {
-  const container = document.getElementById('mc-container');
-  mcQuestions.forEach((q, idx) => {
-    const card = document.createElement('div');
-    card.className = 'question-card';
-    card.id = `mc-${idx}`;
-    card.style.animationDelay = `${idx * 0.015}s`;
+  // ── SECTION A: Multiple Choice ──
+  const secAHeader = document.createElement('div');
+  secAHeader.className = 'section-header';
+  secAHeader.innerHTML = 'Section A: Multiple Choice <span style="font-weight:400;color:var(--canvas-muted);font-size:11px;margin-left:8px;">(50 items · 1 pt each)</span>';
+  container.appendChild(secAHeader);
 
-    const letters = ['A','B','C','D'];
-    const optsHTML = q.opts.map((o, oi) => `
-      <div class="option" data-qi="${idx}" data-oi="${oi}" onclick="pickOption(${idx},${oi})">
-        <span class="option-letter">${letters[oi]}.</span>
-        <span class="option-text">${o}</span>
+  MC_QUESTIONS.forEach((q, i) => {
+    qIdx++;
+    container.appendChild(buildMCCard(q, qIdx));
+    const btn = buildNavBtn(qIdx);
+    nav.appendChild(btn);
+  });
+
+  // ── SECTION B: Matching ──
+  const secBHeader = document.createElement('div');
+  secBHeader.className = 'section-divider';
+  secBHeader.innerHTML = 'Section B: Matching Type <span style="font-weight:400;color:var(--canvas-muted);font-size:11px;margin-left:8px;">(20 items · 1 pt each)</span>';
+  container.appendChild(secBHeader);
+
+  MATCHING_SETS.forEach((set, setIdx) => {
+    qIdx++;
+    container.appendChild(buildMatchingCard(set, qIdx, setIdx));
+    const btn = buildNavBtn(qIdx);
+    nav.appendChild(btn);
+  });
+}
+
+function buildNavBtn(n) {
+  const btn = document.createElement('button');
+  btn.className = 'q-nav-btn';
+  btn.id = `nav-${n}`;
+  btn.textContent = n;
+  btn.onclick = () => scrollToQ(n);
+  return btn;
+}
+
+function scrollToQ(n) {
+  const el = document.getElementById(`q-${n}`);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function buildMCCard(q, n) {
+  const card = document.createElement('div');
+  card.className = 'question-card';
+  card.id = `q-${n}`;
+
+  const letters = ['a','b','c','d'];
+  const choicesHTML = q.choices.map((c, i) => `
+    <label class="choice-label" id="cl-${n}-${i}" onclick="selectMC(${n}, ${i}, ${q.answer})">
+      <input type="radio" name="q${n}" value="${i}">
+      <span class="choice-letter">${letters[i]}.</span>
+      <span>${c}</span>
+    </label>
+  `).join('');
+
+  card.innerHTML = `
+    <div class="question-header">
+      <div class="q-number-badge" id="badge-${n}">${n}</div>
+      <div class="question-text">${n}. ${q.q}</div>
+      <div class="q-points">1 pt</div>
+    </div>
+    <div class="choices">${choicesHTML}</div>
+    <div class="answer-feedback" id="fb-${n}"></div>
+  `;
+  return card;
+}
+
+function selectMC(n, chosen, correct) {
+  if (submitted) return;
+  answered[n] = { type: 'mc', chosen, correct, isCorrect: chosen === correct };
+  // Visual
+  const letters = ['a','b','c','d'];
+  for (let i = 0; i < 4; i++) {
+    const lbl = document.getElementById(`cl-${n}-${i}`);
+    if (lbl) lbl.classList.remove('selected');
+  }
+  const selected = document.getElementById(`cl-${n}-${chosen}`);
+  if (selected) selected.classList.add('selected');
+  // Nav
+  const nav = document.getElementById(`nav-${n}`);
+  if (nav) nav.classList.add('answered');
+  const badge = document.getElementById(`badge-${n}`);
+  if (badge) badge.classList.add('answered-badge');
+  const card = document.getElementById(`q-${n}`);
+  if (card) card.classList.add('answered-card');
+  updateProgress();
+}
+
+function buildMatchingCard(set, n, setIdx) {
+  const card = document.createElement('div');
+  card.className = 'question-card';
+  card.id = `q-${n}`;
+
+  // Build shuffled options
+  const options = [...set.terms.map(t => t.def)].sort(() => Math.random() - 0.5);
+  const optionsHTML = options.map((o, i) =>
+    `<option value="${i}">${i+1}. ${o.substring(0, 70)}${o.length > 70 ? '…' : ''}</option>`
+  ).join('');
+
+  const rowsHTML = set.terms.map((t, i) => {
+    const termLetter = String.fromCharCode(65 + i); // A, B, C...
+    return `
+      <div class="matching-pair">
+        <div class="matching-term">
+          <span class="term-letter">${termLetter}.</span>
+          <span>${t.term}</span>
+        </div>
+        <div class="matching-select-cell">
+          <select class="matching-select" id="match-${n}-${i}"
+            data-set="${setIdx}" data-row="${i}"
+            onchange="selectMatch(${n}, ${setIdx}, ${i}, this, ${JSON.stringify(options)})">
+            <option value="">— Select —</option>
+            ${optionsHTML}
+          </select>
+        </div>
       </div>
-    `).join('');
-
-    card.innerHTML = `
-      <div class="q-num">Question ${idx + 1}</div>
-      <div class="q-text">${q.q}</div>
-      <div class="options">${optsHTML}</div>
-      <div class="feedback" id="fb-${idx}"></div>
-      <div class="q-status" id="qs-${idx}"></div>
     `;
-    container.appendChild(card);
-  });
+  }).join('');
+
+  card.innerHTML = `
+    <div class="question-header">
+      <div class="q-number-badge" id="badge-${n}">${n}</div>
+      <div class="question-text">${n}. ${set.title}</div>
+      <div class="q-points">5 pts</div>
+    </div>
+    <div class="matching-container">
+      <p class="matching-instructions">Match each term in Column A to its correct definition in Column B.</p>
+      <div class="matching-grid">
+        <div class="matching-col-header">Column A — Term</div>
+        <div class="matching-col-header">Column B — Definition</div>
+        ${rowsHTML}
+      </div>
+    </div>
+    <div class="answer-feedback" id="fb-${n}"></div>
+  `;
+
+  answered[n] = { type: 'matching', setIdx, selections: Array(set.terms.length).fill(null), options };
+  return card;
 }
 
-function pickOption(qi, oi) {
-  if (mcAnswers[qi] !== null) return; // already answered
+function selectMatch(n, setIdx, rowIdx, selectEl, options) {
+  if (submitted) return;
+  const chosenIdx = parseInt(selectEl.value);
+  if (isNaN(chosenIdx)) return;
 
-  const q = mcQuestions[qi];
-  const isCorrect = oi === q.ans;
-
-  mcAnswers[qi] = oi;
-  answered++;
-
-  if (isCorrect) {
-    score++;
+  if (!answered[n] || answered[n].type !== 'matching') {
+    answered[n] = { type: 'matching', setIdx, selections: Array(MATCHING_SETS[setIdx].terms.length).fill(null), options };
   }
+  answered[n].selections[rowIdx] = chosenIdx;
+  selectEl.classList.add('answered-select');
 
-  updateLiveScore();
-
-  // Lock all options
-  const opts = document.querySelectorAll(`#mc-${qi} .option`);
-  opts.forEach((opt, idx) => {
-    opt.classList.add('locked');
-    if (idx === q.ans) opt.classList.add(isCorrect && idx === oi ? 'correct' : 'reveal-correct');
-    if (idx === oi && !isCorrect) opt.classList.add('wrong');
-  });
-
-  // Feedback
-  const fb = document.getElementById(`fb-${qi}`);
-  fb.className = 'feedback show ' + (isCorrect ? 'correct-fb' : 'wrong-fb');
-  fb.textContent = isCorrect
-    ? '✓ Correct!'
-    : `✗ Incorrect. The correct answer is: ${q.opts[q.ans]}`;
-
-  // Status icon
-  const qs = document.getElementById(`qs-${qi}`);
-  qs.className = 'q-status show';
-  qs.textContent = isCorrect ? '✓' : '✗';
-  qs.style.color = isCorrect ? 'var(--correct)' : 'var(--wrong)';
-}
-
-// =====================================================================
-// BUILD MATCHING
-// =====================================================================
-function buildMatching() {
-  const container = document.getElementById('matching-container');
-
-  matchGroups.forEach((group, gi) => {
-    // Init state
-    group.terms.forEach(t => { matchState[t.id] = { matched: false }; });
-
-    const section = document.createElement('div');
-    section.style.marginBottom = '3rem';
-    section.id = `mg-${gi}`;
-
-    const title = document.createElement('div');
-    title.style.cssText = 'font-family:var(--font-display);font-size:0.8rem;font-weight:700;color:var(--text);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);';
-    title.textContent = group.title;
-    section.appendChild(title);
-
-    const grid = document.createElement('div');
-    grid.className = 'matching-grid';
-
-    // Col A
-    const colA = document.createElement('div');
-    colA.innerHTML = '<div class="match-col-header">Column A — Terms</div>';
-    group.terms.forEach(t => {
-      const item = document.createElement('div');
-      item.className = 'match-item';
-      item.id = `term-${t.id}`;
-      item.dataset.termId = t.id;
-      item.dataset.group = gi;
-      item.innerHTML = `<div class="match-key">${t.label}</div>${t.text}`;
-      item.onclick = () => selectTerm(t.id, gi);
-      colA.appendChild(item);
-    });
-
-    // Col B
-    const colB = document.createElement('div');
-    colB.innerHTML = '<div class="match-col-header">Column B — Definitions</div>';
-    // Shuffle definitions
-    const shuffled = [...group.defs].sort(() => Math.random() - 0.5);
-    shuffled.forEach(d => {
-      const item = document.createElement('div');
-      item.className = 'match-item';
-      item.id = `def-${d.id}`;
-      item.dataset.defId = d.id;
-      item.dataset.match = d.match;
-      item.dataset.group = gi;
-      item.textContent = d.text;
-      item.onclick = () => selectDef(d.id, d.match, gi);
-      colB.appendChild(item);
-    });
-
-    grid.appendChild(colA);
-    grid.appendChild(colB);
-    section.appendChild(grid);
-
-    // Answer key (hidden until all matched)
-    const resultDiv = document.createElement('div');
-    resultDiv.className = 'match-result';
-    resultDiv.id = `match-result-${gi}`;
-    section.appendChild(resultDiv);
-
-    container.appendChild(section);
-  });
-}
-
-function selectTerm(termId, gi) {
-  if (matchState[termId].matched) return;
-
-  // Deselect previous if same group
-  if (selectedTerm && selectedTerm.gi === gi) {
-    const prev = document.getElementById(`term-${selectedTerm.id}`);
-    if (prev) prev.classList.remove('selected-term');
+  // Check if all rows answered
+  const allAnswered = answered[n].selections.every(s => s !== null);
+  const nav = document.getElementById(`nav-${n}`);
+  const badge = document.getElementById(`badge-${n}`);
+  const card = document.getElementById(`q-${n}`);
+  if (allAnswered) {
+    if (nav) nav.classList.add('answered');
+    if (badge) badge.classList.add('answered-badge');
+    if (card) card.classList.add('answered-card');
   }
-
-  if (selectedTerm && selectedTerm.id === termId) {
-    selectedTerm = null;
-    return;
-  }
-
-  selectedTerm = { id: termId, gi };
-  const el = document.getElementById(`term-${termId}`);
-  el.classList.add('selected-term');
+  updateProgress();
 }
 
-let matchScore = 0;
-let matchAnswered = 0;
-const totalMatchItems = matchGroups.reduce((a, g) => a + g.terms.length, 0);
-
-function selectDef(defId, correctTermId, gi) {
-  if (!selectedTerm || selectedTerm.gi !== gi) return;
-
-  const defEl = document.getElementById(`def-${defId}`);
-  if (defEl.classList.contains('matched')) return;
-
-  const isCorrect = selectedTerm.id === correctTermId;
-  const termEl = document.getElementById(`term-${selectedTerm.id}`);
-  termEl.classList.remove('selected-term');
-
-  if (isCorrect) {
-    termEl.classList.add('matched');
-    defEl.classList.add('matched');
-    matchState[selectedTerm.id].matched = true;
-    matchScore++;
-    matchAnswered++;
-    score++;
-    answered++;
-    updateLiveScore();
-    selectedTerm = null;
-
-    // Check if group complete
-    const group = matchGroups[gi];
-    const allDone = group.terms.every(t => matchState[t.id].matched);
-    if (allDone) showMatchResult(gi, group);
-  } else {
-    defEl.classList.add('wrong-match');
-    setTimeout(() => defEl.classList.remove('wrong-match'), 400);
-    selectedTerm = null;
-  }
+function updateProgress() {
+  const total = MC_QUESTIONS.length + MATCHING_SETS.length;
+  const done = Object.keys(answered).filter(k => {
+    const a = answered[k];
+    if (a.type === 'mc') return a.chosen !== undefined;
+    if (a.type === 'matching') return a.selections.every(s => s !== null);
+    return false;
+  }).length;
+  document.getElementById('progress-text').textContent = `${done} of 70 answered`;
+  document.getElementById('progress-fill').style.width = `${(done / total) * 100}%`;
 }
 
-function showMatchResult(gi, group) {
-  const resultDiv = document.getElementById(`match-result-${gi}`);
-  resultDiv.className = 'match-result show';
-  resultDiv.innerHTML = '<div style="font-size:0.7rem;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem;">✓ All pairs matched correctly!</div>' +
-    group.terms.map(t => {
-      const def = group.defs.find(d => d.match === t.id);
-      return `<div class="match-pair"><span class="match-arrow">→</span><span><strong>${t.text}</strong>: ${def.text}</span></div>`;
-    }).join('');
+// ─────────────────────────────────────────────────────────────
+// TIMER
+// ─────────────────────────────────────────────────────────────
+function startTimer() {
+  timerInterval = setInterval(() => {
+    if (timeLeft <= 0) { clearInterval(timerInterval); submitExam(); return; }
+    timeLeft--;
+    const h = Math.floor(timeLeft / 3600);
+    const m = Math.floor((timeLeft % 3600) / 60);
+    const s = timeLeft % 60;
+    document.getElementById('timer').textContent =
+      `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    if (timeLeft <= 300) document.querySelector('.timer-bar').style.background = '#c0392b';
+  }, 1000);
 }
 
-// =====================================================================
-// LIVE SCORE
-// =====================================================================
-function updateLiveScore() {
-  document.getElementById('live-score').textContent = score;
-  document.getElementById('live-answered').textContent = answered;
-  const acc = answered > 0 ? Math.round((score / answered) * 100) : null;
-  document.getElementById('live-accuracy').textContent = acc !== null ? acc + '%' : '—';
-}
-
-// =====================================================================
+// ─────────────────────────────────────────────────────────────
 // SUBMIT
-// =====================================================================
+// ─────────────────────────────────────────────────────────────
 function submitExam() {
-  // Auto-lock any unanswered MC (mark wrong)
-  mcQuestions.forEach((q, idx) => {
-    if (mcAnswers[idx] === null) {
-      // Just reveal correct
-      const opts = document.querySelectorAll(`#mc-${idx} .option`);
-      opts.forEach((opt, oi) => {
-        opt.classList.add('locked');
-        if (oi === q.ans) opt.classList.add('reveal-correct');
-      });
-      const fb = document.getElementById(`fb-${idx}`);
-      fb.className = 'feedback show wrong-fb';
-      fb.textContent = `✗ Not answered. Correct answer: ${q.opts[q.ans]}`;
-      const qs = document.getElementById(`qs-${idx}`);
-      qs.className = 'q-status show';
-      qs.textContent = '—';
-      qs.style.color = 'var(--muted)';
+  if (submitted) return;
+  submitted = true;
+  clearInterval(timerInterval);
+
+  let correct = 0;
+  let total = 0;
+
+  // Grade MC
+  MC_QUESTIONS.forEach((q, i) => {
+    const n = i + 1;
+    total++;
+    const a = answered[n];
+    const letters = ['a','b','c','d'];
+
+    // Reveal correct answer
+    const correctLbl = document.getElementById(`cl-${n}-${q.answer}`);
+    if (correctLbl) correctLbl.classList.add('correct');
+
+    if (a && a.type === 'mc') {
+      if (a.chosen === q.answer) {
+        correct++;
+        showFeedback(n, true, '');
+      } else {
+        const cl = document.getElementById(`cl-${n}-${a.chosen}`);
+        if (cl) cl.classList.add('incorrect');
+        showFeedback(n, false, `Correct answer: ${letters[q.answer]}. ${q.choices[q.answer]}`);
+      }
+    } else {
+      showFeedback(n, false, `Not answered. Correct answer: ${letters[q.answer]}. ${q.choices[q.answer]}`);
     }
   });
 
-  const total = 75;
-  const pct = Math.round((score / total) * 100);
+  // Grade Matching
+  MATCHING_SETS.forEach((set, setIdx) => {
+    const n = MC_QUESTIONS.length + setIdx + 1;
+    const a = answered[n];
+    let setCorrect = 0;
+    total++;
 
-  const resultEl = document.getElementById('final-result');
-  resultEl.className = 'show';
-  resultEl.style.display = 'block';
+    if (a && a.type === 'matching') {
+      set.terms.forEach((t, rowIdx) => {
+        const correctOptIdx = a.options.findIndex(o => o === t.def);
+        const sel = document.getElementById(`match-${n}-${rowIdx}`);
+        const chosen = a.selections[rowIdx];
+        if (chosen !== null && chosen === correctOptIdx) {
+          setCorrect++;
+          if (sel) sel.classList.add('correct-select');
+        } else {
+          if (sel) sel.classList.add('incorrect-select');
+          // Show correct
+          if (sel) {
+            const correctText = a.options[correctOptIdx];
+            sel.title = `Correct: ${correctText}`;
+          }
+        }
+      });
+      correct += setCorrect / set.terms.length; // partial credit per item
+    }
+    const pct = a ? Math.round((setCorrect / set.terms.length) * 100) : 0;
+    showFeedback(n, setCorrect === set.terms.length,
+      setCorrect === set.terms.length
+        ? `All ${set.terms.length} matches correct!`
+        : `${setCorrect}/${set.terms.length} correct. Incorrect items are highlighted in red.`
+    );
+  });
 
-  document.getElementById('final-pct').textContent = pct + '%';
+  const score = Math.round(correct);
+  const pct = Math.round((score / 70) * 100);
 
-  let msg, detail;
-  if (pct >= 90) { msg = '🎉 Excellent Work!'; detail = 'Outstanding mastery of Information Assurance concepts.'; }
-  else if (pct >= 75) { msg = '✅ Great Job!'; detail = 'Good command of the material. Review any missed items.'; }
-  else if (pct >= 60) { msg = '📚 Keep Studying'; detail = 'Review Lessons 1–8, especially the concepts you missed.'; }
-  else { msg = '⚠️ Needs Improvement'; detail = 'Go back through the lecture notes and try again.'; }
+  // Show results
+  document.getElementById('r-score').textContent = score + '/70';
+  document.getElementById('r-pct').textContent = pct + '%';
+  document.getElementById('r-correct').textContent = score;
+  const gradeBadge = document.getElementById('r-grade');
+  if (pct >= 75) {
+    gradeBadge.textContent = `PASSED – ${pct}%`;
+    gradeBadge.className = 'grade-badge grade-pass';
+  } else {
+    gradeBadge.textContent = `FAILED – ${pct}%`;
+    gradeBadge.className = 'grade-badge grade-fail';
+  }
+  document.getElementById('results-summary').classList.add('visible');
+  document.getElementById('results-summary').scrollIntoView({ behavior: 'smooth' });
 
-  document.getElementById('result-msg').textContent = msg;
-  document.getElementById('result-detail').textContent = `Score: ${score} / ${total} — ${detail}`;
+  // Sidebar score
+  document.getElementById('score-num').textContent = score;
+  document.getElementById('sidebar-score').classList.add('visible');
 
-  // Animate bar
-  setTimeout(() => {
-    document.getElementById('result-bar').style.width = pct + '%';
-  }, 100);
-
-  resultEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-  document.querySelector('.btn-submit').disabled = true;
-  document.querySelector('.btn-submit').style.opacity = '0.4';
-  document.querySelector('.btn-submit').style.cursor = 'not-allowed';
+  document.getElementById('timer').textContent = 'Submitted';
+  document.querySelector('.timer-bar').style.background = '#2d3b45';
+  document.querySelector('.submit-btn').disabled = true;
+  document.querySelector('.submit-btn').style.opacity = '.5';
 }
 
-// =====================================================================
+function showFeedback(n, isCorrect, msg) {
+  const fb = document.getElementById(`fb-${n}`);
+  if (!fb) return;
+  fb.classList.add('show');
+  fb.className = 'answer-feedback show ' + (isCorrect ? 'correct-fb' : 'incorrect-fb');
+  fb.textContent = isCorrect ? '✓ Correct!' : (msg ? '✗ ' + msg : '✗ Incorrect');
+}
+
+// ─────────────────────────────────────────────────────────────
 // INIT
-// =====================================================================
-buildMC();
-buildMatching();
+// ─────────────────────────────────────────────────────────────
+buildExam();
+startTimer();
 </script>
 </body>
 </html>
