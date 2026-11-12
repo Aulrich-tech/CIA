@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CIA 1102 Information Assurance and Security 2 – Final Reviewer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Literata:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+<nav class="nav" aria-label="Modules">
+<strong>IAS 2 Final</strong>
+<a href="#m7">7 Web Application Attacks</a>
+<a href="#m8">8 Wireless Attack</a>
+<a href="#m9">9 Mobile Attacks</a>
+<a href="#m10">10 IoT and OT Attacks</a>
+<a href="#m11">11 Cloud Computing</a>
+<a href="#m12">12 Penetration Test</a>
+<a class="btn" href="quiz.html">Take the quiz</a>
+</nav>
+<main>
+<header class="hero">
+<h1>Information Assurance and Security 2: Final Reviewer</h1>
+<p>CIA 1102, Modules 7 to 12. Every term and definition from the reviewer, grouped by module.</p>
+<div class="chips">
+<a class="chip" href="#m7">Web</a><a class="chip" href="#m8">Wireless</a><a class="chip" href="#m9">Mobile</a><a class="chip" href="#m10">IoT/OT</a><a class="chip" href="#m11">Cloud</a><a class="chip" href="#m12">Pen test</a>
+</div>
+<a class="btn" href="quiz.html">Start the 75-question quiz</a>
+</header>
+
+<section class="mod" id="m7">
+<h2>Module 7: Web Application Attacks</h2>
+<p class="note"><b>Web Server Attack:</b> A web server is a computer system that stores, processes, and delivers web pages to clients via HTTP.</p>
+<h3>Web server components</h3>
+<dl>
+<div><dt>Document Root</dt><dd>Stores critical HTML files related to the web pages of a domain.</dd></div>
+<div><dt>Server Root</dt><dd>Stores server configuration.</dd></div>
+<div><dt>Virtual Document Tree</dt><dd>Storage on different machines or disks.</dd></div>
+<div><dt>Web Proxy</dt><dd>Located between the web client and web server to pass all the requests.</dd></div>
+<div><dt>Virtual Hosting</dt><dd>Multiple domains can be placed on the same server.</dd></div>
+</dl>
+<h3>Common web server attacks</h3>
+<dl>
+<div><dt>DNS Server Hijacking</dt><dd>Compromises the DNS server and changes the DNS settings.</dd></div>
+<div><dt>DNS Amplified Attack</dt><dd>Takes advantage of the DNS method to perform amplified attacks. Uses compromised PCs with spoofed IP addresses.</dd></div>
+<div><dt>Directory Traversal Attack</dt><dd>Attackers use the <code>../</code> sequence to access restricted directories. Trial-and-error method to navigate outside.</dd></div>
+<div><dt>Website Defacement</dt><dd>An attacker makes unauthorized changes to a website's content, resulting in changes to the visual appearance of the web page or website.</dd></div>
+<div><dt>Dictionary Attack</dt><dd>Using a predefined file with an automated password cracking program.</dd></div>
+<div><dt>Server Misconfiguration</dt><dd>Configuration weakness in web infrastructure that can be exploited.</dd></div>
+<div><dt>HTTP Response-Splitting Attack</dt><dd>Adding header response data into the input field.</dd></div>
+<div><dt>Web Cache Poisoning Attack</dt><dd>Likely to be performed by the attacker if the web server and application have HTTP response-splitting flaws.</dd></div>
+<div><dt>SSH Brute Force Attack</dt><dd>Create an encrypted SSH tunnel to gain unauthorized access and transmit malware.</dd></div>
+<div><dt>Web Server Password Cracking</dt><dd>Hack using the most common passwords. Manually guess passwords or perform dictionary, brute-force, or hybrid attacks.</dd></div>
+<div><dt>Server-Side Request Forgery (SSRF)</dt><dd>Send a crafted request to internal or back-end servers.</dd></div>
+<div><dt>Hybrid Attack</dt><dd>Employing more than one attack.</dd></div>
+<div><dt>Web Server Attack Tools</dt><dd>Support fully automated exploitation of web servers.</dd></div>
+</dl>
+<h3>Web applications</h3>
+<dl>
+<div><dt>Web Applications</dt><dd>Provide an interface between end users and web servers. Enforce certain security policies.</dd></div>
+<div><dt>Web Service</dt><dd>An app or software deployed over the internet that uses standard messaging protocols to enable communication between applications for different platforms.</dd></div>
+</dl>
+<h3>Vulnerability stack</h3>
+<dl>
+<div><dt>Layer 7: Custom Web Application</dt><dd>Evading alarms when entering malicious traffic.</dd></div>
+<div><dt>Layer 6: Third-Party Components</dt><dd>Exploiting vulnerabilities in third-party components.</dd></div>
+<div><dt>Layer 5: Web Server</dt><dd>Exploiting vulnerabilities in the web server.</dd></div>
+<div><dt>Layer 4: Database</dt><dd>Exploit the target database server.</dd></div>
+<div><dt>Layer 3: Operating System</dt><dd>Exploiting vulnerabilities in the target operating system.</dd></div>
+<div><dt>Layer 2: Network</dt><dd>Flood the switches with requests that exhaust the CAM table.</dd></div>
+<div><dt>Layer 1: Security</dt><dd>Exploiting weaknesses in the security layer.</dd></div>
+</dl>
+<h3>OWASP Top 10</h3>
+<dl>
+<div><dt>A1 Injection Flaws</dt><dd>Occurs when untrusted data is sent to an interpreter as part of a command or query.<ul><li><b>SQL Injection:</b> injecting malicious SQL queries.</li><li><b>Common Injection:</b> injection of malicious code.</li><li><b>LDAP Injection:</b> injection of LDAP statements.</li></ul></dd></div>
+<div><dt>A2 Broken Authentication</dt><dd>Occurs when a sniffer captures the cookie that contains the session ID.</dd></div>
+<div><dt>A3 Sensitive Data Exposure</dt><dd>Occurs when an application uses poorly written encryption code.</dd></div>
+<div><dt>A4 XML External Entity (XXE)</dt><dd>Occurs when a misconfigured XML allows an application to parse XML input from an unreliable source.</dd></div>
+<div><dt>A5 Broken Access Control</dt><dd>Occurs when attackers identify a flaw related to access control and bypass authentication.</dd></div>
+<div><dt>A6 Security Misconfiguration</dt><dd>Unvalidated inputs, parameters/form tampering, improper error handling, or insufficient transport layer protection.</dd></div>
+<div><dt>A7 Cross-Site Scripting (XSS)</dt><dd>Occurs when an application includes untrusted data in a new web page without proper validation.</dd></div>
+<div><dt>A8 Insecure Deserialization</dt><dd>Occurs when attackers inject malicious code into serialized data.</dd></div>
+<div><dt>A9 Using Components with Known Vulnerabilities</dt><dd>Occurs when attackers identify weak components or dependencies by scanning.</dd></div>
+<div><dt>A10 Insufficient Logging and Monitoring</dt><dd>Scenarios where detection software either does not record the malicious events or ignores details.</dd></div>
+</dl>
+<h3>Attack and testing tools</h3>
+<dl>
+<div><dt>Burp Suite</dt><dd>Supports initial mapping and analysis of an application's attack surface.</dd></div>
+<div><dt>OWASP ZAP Attack Proxy</dt><dd>Provides an automated scanner and tools that allow you to find security vulnerabilities manually.</dd></div>
+<div><dt>N-Stalker Web App Security Scanner</dt><dd>Checks for vulnerabilities such as SQL injection, XSS, and other known attacks.</dd></div>
+<div><dt>Fortify WebInspect</dt><dd>An automated dynamic testing solution to identify and prioritize security vulnerabilities.</dd></div>
+</dl>
+<h3>SQL injection</h3>
+<dl>
+<div><dt>Server-Side Technology</dt><dd>Allows developers to create dynamic, data-driven websites and web apps with ease. Easily exploited by hackers.</dd></div>
+<div><dt>SQL Injection</dt><dd>Unsanitized input vulnerabilities that allow SQL commands to pass through a web application, to gain unauthorized access or retrieve information.</dd></div>
+<div><dt>In-Band SQL Injection</dt><dd>Attackers use the same communication channel to perform the attack and retrieve the results.</dd></div>
+<div><dt>Out-of-Band SQL Injection</dt><dd>Uses different communication channels to perform the attack.</dd></div>
+<div><dt>Error-Based SQL Injection</dt><dd>Forces the database to perform operations in which the result will be an error.</dd></div>
+<div><dt>Union SQL Injection</dt><dd>Joins a forged query to the original query.</dd></div>
+<div><dt>Blind/Inferential SQL Injection</dt><dd>No error message and time-intensive.</dd></div>
+<div><dt>SQLmap</dt><dd>Automates the process of detecting and exploiting SQL injection flaws.</dd></div>
+</dl>
+</section>
+
+<section class="mod" id="m8">
+<h2>Module 8: Wireless Attack</h2>
+<p class="note"><b>Wireless Network:</b> Allows devices to access the network anywhere within the AP range.</p>
+<h3>Wireless encryption</h3>
+<dl>
+<div><dt>802.11i</dt><dd>Security mechanisms.</dd></div>
+<div><dt>WEP</dt><dd>Encryption algorithm.</dd></div>
+<div><dt>EAP</dt><dd>Supports multiple authentication methods.</dd></div>
+<div><dt>LEAP</dt><dd>Proprietary version of EAP.</dd></div>
+<div><dt>WPA</dt><dd>Advanced wireless encryption protocol.</dd></div>
+<div><dt>TKIP</dt><dd>Used by WPA as a replacement for WEP.</dd></div>
+<div><dt>WPA2 Encryption</dt><dd>Upgraded version of WPA and includes mandatory support for counter mode.<ul><li><b>WPA2-Personal:</b> uses a setup password to protect unauthorized network access.</li><li><b>WPA2-Enterprise:</b> includes EAP or RADIUS for centralized client authentication.</li></ul></dd></div>
+<div><dt>WPA3 Encryption</dt><dd>Advanced implementation of WPA2.<ul><li><b>WPA3-Personal:</b> password-based authentication using SAE.</li><li><b>WPA3-Enterprise:</b> protects sensitive data using many cryptographic algorithms.</li></ul></dd></div>
+</dl>
+<h3>Wireless attack tools</h3>
+<dl>
+<div><dt>Aircrack-ng Suite</dt><dd>Network software suite that consists of a detector, packet sniffer, WEP and WPA/WPA2-PSK cracker, and analysis tool.</dd></div>
+<div><dt>AirMagnet WiFi Analyzer Pro</dt><dd>Performs reliable WiFi analysis.</dd></div>
+</dl>
+<h3>Wireless network attacks</h3>
+<dl>
+<div><dt>1. Rogue AP Attack</dt><dd>Hijacks the connection of legitimate network users.</dd></div>
+<div><dt>2. Unauthorized Association</dt><dd>Attacks infect the victim machine and an active soft AP, thus allowing them to establish an authorized connection.</dd></div>
+<div><dt>3. Ad-Hoc Connection</dt><dd>Compromises the client in ad hoc mode.</dd></div>
+<div><dt>4. Honeypot AP Attack</dt><dd>An unauthorized AP set up to impersonate a legitimate network.</dd></div>
+<div><dt>5. AP MAC Spoofing</dt><dd>Spoofs the MAC address and connects to the AP.</dd></div>
+<div><dt>6. Key Reinstallation Attack (KRACK)</dt><dd>Uses the 4-way handshake process to join the network.</dd></div>
+<div><dt>7. Jamming Signal Attack</dt><dd>An attacker stakes out the area from a nearby location with a high-gain amplifier.</dd></div>
+</dl>
+<h3>Bluetooth</h3>
+<dl>
+<div><dt>Bluetooth</dt><dd>Short-range wireless communication that replaces cables. Allows devices to share data over short distances. Has discoverable modes and pairing modes.</dd></div>
+<div><dt>Bluetooth Hacking</dt><dd>Exploitation of Bluetooth stack implementation vulnerabilities.</dd></div>
+<div><dt>Bluesmacking</dt><dd>Overflow.</dd></div>
+<div><dt>Bluejacking</dt><dd>Sending unsolicited messages.</dd></div>
+<div><dt>Bluesnarfing</dt><dd>Theft of information.</dd></div>
+<div><dt>Bluesniffing</dt><dd>Wardriving.</dd></div>
+<div><dt>Bluebugging</dt><dd>Remotely accessing a device.</dd></div>
+<div><dt>BluetoothView</dt><dd>Bluetooth attack tool that monitors active Bluetooth devices.</dd></div>
+</dl>
+</section>
+
+<section class="mod" id="m9">
+<h2>Module 9: Mobile Attacks</h2>
+<dl>
+<div><dt>Mobile Attack Vectors</dt><dd><ul><li>Malware</li><li>Data Tampering</li><li>Data Exfiltration</li><li>Data Loss</li></ul></dd></div>
+<div><dt>Mobile Spam</dt><dd>Unsolicited text/email messages with a significant amount of bandwidth wasted.</dd></div>
+<div><dt>SMS Phishing Attack (SMiShing)</dt><dd>The act of trying to acquire personal or financial information by sending SMS.</dd></div>
+<div><dt>Open Connections</dt><dd>Allows attackers to eavesdrop and intercept data transmission.</dd></div>
+<div><dt>Agent Smith Attack</dt><dd>Persuading the victim to install a malicious app by replacing legitimate apps.</dd></div>
+<div><dt>SIMjacker</dt><dd>Vulnerability associated with the SIM card S@T browser. Performing DoS attacks.</dd></div>
+</dl>
+<h3>Hacking tools and management</h3>
+<dl>
+<div><dt>Metasploit (Android)</dt><dd>Creates binary payloads that are sent to target Android devices.</dd></div>
+<div><dt>zANTI (Android)</dt><dd>Android app that allows you to spoof MAC addresses, create malicious Wi-Fi, or hijack sessions.</dd></div>
+<div><dt>Elcomsoft Phone Breaker (iOS)</dt><dd>Logical and over-the-air acquisition of iOS devices, background encryption break, and obtain.</dd></div>
+<div><dt>Mobile Device Management (MDM)</dt><dd>Provides a platform for over-the-air or wired distribution of applications.</dd></div>
+<div><dt>Bring-Your-Own-Device (BYOD)</dt><dd>Allows employees to bring personal devices to workplaces.</dd></div>
+</dl>
+</section>
+
+<section class="mod" id="m10">
+<h2>Module 10: IoT and OT Attacks</h2>
+<p class="note"><b>Internet of Things:</b> Network of devices having IP addresses and capability to sense, collect, and send data.</p>
+<h3>IoT architecture</h3>
+<dl>
+<div><dt>Application Layer</dt><dd>Delivery of various applications to different users in IoT.</dd></div>
+<div><dt>Middleware Layer</dt><dd>Device management and information management.</dd></div>
+<div><dt>Internet Layer</dt><dd>Connection between endpoints.</dd></div>
+<div><dt>Access Gateway Layer</dt><dd>Protocol translation and messaging.</dd></div>
+<div><dt>Edge Technology Layer</dt><dd>Sensors, devices, machines, and intelligent edge nodes.</dd></div>
+</dl>
+<h3>IoT attacks and tools</h3>
+<dl>
+<div><dt>DDoS Attack</dt><dd>Exploiting vulnerabilities through an army of botnets.</dd></div>
+<div><dt>Exploit HVAC</dt><dd>HVAC systems have many security vulnerabilities.</dd></div>
+<div><dt>BlueBorne Attack</dt><dd>Performed over Bluetooth to gain access.</dd></div>
+<div><dt>Jamming Attack</dt><dd>Jams communication between IoT devices.</dd></div>
+<div><dt>SDR-Based Attack</dt><dd>Examines communication and sends spam content.</dd></div>
+<div><dt>Fault-Injection Attack</dt><dd>Injects a faulty or malicious program into the system.</dd></div>
+<div><dt>SeaCat.io</dt><dd>IoT security tool: security-first SaaS technology.</dd></div>
+</dl>
+<h3>Operational Technology (OT)</h3>
+<dl>
+<div><dt>Operational Technology</dt><dd>Detects or causes changes in industrial operations.</dd></div>
+<div><dt>Purdue Model</dt><dd>Used to describe internal connections and dependencies.</dd></div>
+<div><dt>HMI-based Attack</dt><dd>Controls the critical infrastructure and causes physical damage to the SCADA device.</dd></div>
+<div><dt>Side Channel Attack</dt><dd>Physical implementation to obtain critical information.<ul><li><b>Timing Analysis:</b> finish one complete.</li><li><b>Power Analysis:</b> power consumption.</li></ul></dd></div>
+<div><dt>Hacking Programmable Logic Controller</dt><dd>Controlling the physical process of critical infrastructure.</dd></div>
+</dl>
+</section>
+
+<section class="mod" id="m11">
+<h2>Module 11: Cloud Computing</h2>
+<p class="note"><b>Cloud Computing:</b> On-demand delivery of IT capabilities.</p>
+<h3>Service models</h3>
+<dl>
+<div><dt>Infrastructure as a Service</dt><dd>Virtual machines and other abstracted hardware.</dd></div>
+<div><dt>Platform as a Service</dt><dd>Development tools, config management, and deployment platforms.</dd></div>
+<div><dt>Software as a Service</dt><dd>Software delivered to subscribers on-demand over the internet.</dd></div>
+<div><dt>Identity as a Service</dt><dd>IAM services and intelligence collection.</dd></div>
+<div><dt>Container as a Service</dt><dd>Virtual container engines.</dd></div>
+<div><dt>Security as a Service</dt><dd>Penetration testing, authentication, intrusion detection, etc.</dd></div>
+<div><dt>Function as a Service</dt><dd>Application functionalities.</dd></div>
+</dl>
+<h3>Deployment models</h3>
+<dl>
+<div><dt>Private Cloud</dt><dd>Operated for a single organization only.</dd></div>
+<div><dt>Community Cloud</dt><dd>Shared between several organizations from a specific community.</dd></div>
+<div><dt>Hybrid Cloud</dt><dd>Combination of two or more clouds.</dd></div>
+<div><dt>Multi-Cloud</dt><dd>Combines workloads across multiple cloud vectors.</dd></div>
+</dl>
+<h3>NIST cloud architecture</h3>
+<dl>
+<div><dt>Cloud Consumer</dt><dd>Uses cloud services.</dd></div>
+<div><dt>Cloud Provider</dt><dd>Provides cloud services.</dd></div>
+<div><dt>Cloud Carrier</dt><dd>Provides connectivity.</dd></div>
+<div><dt>Cloud Auditor</dt><dd>Independent assessment.</dd></div>
+<div><dt>Cloud Broker</dt><dd>Manages cloud services.</dd></div>
+</dl>
+<h3>Storage, containers, and virtualization</h3>
+<dl>
+<div><dt>Cloud Storage</dt><dd>Medium used to store digital data in logical pools.<ul><li><b>Front-end:</b> accessed by the end user.</li><li><b>Middleware:</b> several functions.</li><li><b>Back-end:</b> where the hardware is implemented.</li></ul></dd></div>
+<div><dt>Container</dt><dd>Application or software including all its dependencies. CaaS consists of containers managed through orchestrators.</dd></div>
+<div><dt>Virtualization</dt><dd>Ability to run multiple OS on a single physical system.</dd></div>
+<div><dt>Containers</dt><dd>Share the OS kernel and binaries and libraries.</dd></div>
+<div><dt>Docker</dt><dd>Open-source tech used for developing dependencies in containers. Provides PaaS through OS-level virtualization.</dd></div>
+<div><dt>Microservices</dt><dd>Break down monolithic applications, with each microservice packaged into a Docker container.</dd></div>
+<div><dt>Container Orchestration</dt><dd>Automated process of managing the lifecycle of software containers.</dd></div>
+<div><dt>Kubernetes</dt><dd>Open-source, portable, and extensible orchestration platform developed by Google. Framework for containers.</dd></div>
+</dl>
+<h3>Cloud attacks</h3>
+<dl>
+<div><dt>Side-Channel Attack</dt><dd>Runs a virtual machine on the same physical host as the victim.</dd></div>
+<div><dt>Wrapping Attack</dt><dd>During translation of SOAP messages.</dd></div>
+<div><dt>Man-in-the-Cloud</dt><dd>Tricks victims into installing malicious code.</dd></div>
+<div><dt>Cloud Hopper Attack</dt><dd>Triggered at the managed service provider and initiates spear-phishing.</dd></div>
+<div><dt>Cloud Cryptojacking</dt><dd>Stealthily mines digital currency.</dd></div>
+<div><dt>Cloudborne Attack</dt><dd>Vulnerability in a bare-metal cloud server that enables attackers to implant a malicious backdoor.</dd></div>
+<div><dt>Lazys3</dt><dd>Ruby script tool used to brute-force AWS S3 buckets.</dd></div>
+<div><dt>Nimbostratus</dt><dd>Tool used for fingerprinting and exploiting Amazon cloud infrastructure.</dd></div>
+</dl>
+</section>
+
+<section class="mod" id="m12">
+<h2>Module 12: Penetration Test</h2>
+<dl>
+<div><dt>Penetration Testing</dt><dd>Test an organization's ability to protect its infrastructure, such as networks, apps, or systems.</dd></div>
+<div><dt>Security Audit</dt><dd>Checks whether the org follows security policies and procedures.</dd></div>
+<div><dt>Vulnerability Assessment</dt><dd>Discovering vulnerabilities.</dd></div>
+<div><dt>Penetration Testing (vs. the two above)</dt><dd>Determines whether the vulnerabilities can be exploited by an attacker.</dd></div>
+<div><dt>Red-Team-Based Penetration Testing</dt><dd>Goal-based assessment where pen testers must mimic the behavior of a real attacker.</dd></div>
+<div><dt>Compliance-Oriented Penetration Testing</dt><dd>Driven by compliance requirements.</dd></div>
+</dl>
+<h3>Risk from penetration testing</h3>
+<dl>
+<div><dt>Technical Risk</dt><dd>Directly arises with target in the production environment.</dd></div>
+<div><dt>Organizational Risk</dt><dd>Side effect of penetration testing.</dd></div>
+<div><dt>Legal Risk</dt><dd>Legal obligations.</dd></div>
+</dl>
+</section>
+</main>
+</div>
+</body>
+</html>
