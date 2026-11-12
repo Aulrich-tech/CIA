@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IAS 2 Final Quiz (75 Questions)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Literata:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="qwrap">
+<div class="qtop"><a href="index.html">Back to reviewer</a><span id="score">Score: 0</span></div>
+<div class="bar"><i id="prog"></i></div>
+<div class="card" id="card"></div>
+</div>
+<script>
+// Format: question|correct answer|wrong|wrong|wrong  (options are shuffled on screen)
+const RAW=[
+"Which web server component stores the critical HTML files of a domain's web pages?|Document Root|Server Root|Virtual Document Tree|Web Proxy",
+"Which component stores the server configuration?|Server Root|Document Root|Web Proxy|Virtual Hosting",
+"Which feature lets multiple domains be placed on the same server?|Virtual Hosting|Web Proxy|Document Root|Server Root",
+"Which component sits between the web client and web server to pass all requests?|Web Proxy|Virtual Hosting|Server Root|Virtual Document Tree",
+"Which attack compromises the DNS server and changes the DNS settings?|DNS Server Hijacking|DNS Amplified Attack|Website Defacement|Dictionary Attack",
+"Attackers use the ../ sequence to access restricted directories in which attack?|Directory Traversal Attack|HTTP Response-Splitting|SSRF|Hybrid Attack",
+"Which attack makes unauthorized changes to a website's content and visual appearance?|Website Defacement|Web Cache Poisoning|Server Misconfiguration|DNS Hijacking",
+"Which attack uses a predefined file with an automated password cracking program?|Dictionary Attack|SSH Brute Force|Hybrid Attack|SSRF",
+"Which attack adds header response data into an input field?|HTTP Response-Splitting Attack|Directory Traversal|Dictionary Attack|DNS Amplified Attack",
+"Which attack is likely when a web server and application have HTTP response-splitting flaws?|Web Cache Poisoning Attack|DNS Server Hijacking|Website Defacement|Dictionary Attack",
+"Which attack creates an encrypted SSH tunnel to gain unauthorized access and transmit malware?|SSH Brute Force Attack|Web Cache Poisoning|DNS Amplified Attack|Directory Traversal",
+"Sending a crafted request to internal or back-end servers describes which attack?|Server-Side Request Forgery (SSRF)|HTTP Response-Splitting|Hybrid Attack|Website Defacement",
+"Employing more than one attack is called a:|Hybrid Attack|Dictionary Attack|Amplified Attack|Cache Poisoning Attack",
+"In the vulnerability stack, Layer 7 is the:|Custom Web Application|Third-Party Components|Web Server|Database",
+"Which layer involves flooding switches with requests that exhaust the CAM table?|Network (Layer 2)|Security (Layer 1)|Operating System (Layer 3)|Database (Layer 4)",
+"Which OWASP category occurs when untrusted data is sent to an interpreter as part of a command or query?|A1 Injection Flaws|A3 Sensitive Data Exposure|A5 Broken Access Control|A8 Insecure Deserialization",
+"Which category occurs when a sniffer captures the cookie containing the session ID?|A2 Broken Authentication|A1 Injection Flaws|A7 XSS|A6 Security Misconfiguration",
+"A misconfigured XML parser accepting input from an unreliable source is:|A4 XML External Entity (XXE)|A2 Broken Authentication|A8 Insecure Deserialization|A9 Known Vulnerabilities",
+"Including untrusted data in a new web page without proper validation is:|A7 Cross-Site Scripting (XSS)|A1 Injection Flaws|A5 Broken Access Control|A3 Sensitive Data Exposure",
+"Attackers injecting malicious code into serialized data is:|A8 Insecure Deserialization|A4 XXE|A7 XSS|A10 Insufficient Logging",
+"Detection software that does not record malicious events or ignores details is:|A10 Insufficient Logging and Monitoring|A9 Known Vulnerabilities|A6 Security Misconfiguration|A2 Broken Authentication",
+"Which tool supports initial mapping and analysis of an application's attack surface?|Burp Suite|SQLmap|Aircrack-ng|BluetoothView",
+"Which tool offers an automated scanner plus tools for finding vulnerabilities manually?|OWASP ZAP Attack Proxy|N-Stalker|Zanti|Lazys3",
+"In which SQL injection does the attacker use the same channel to attack and retrieve results?|In-Band SQL Injection|Out-of-Band SQL Injection|Blind SQL Injection|Union SQL Injection",
+"Which SQL injection joins a forged query to the original query?|Union SQL Injection|Error-Based SQL Injection|Out-of-Band SQL Injection|Blind SQL Injection",
+"Which SQL injection gives no error message and is time-intensive?|Blind/Inferential SQL Injection|Error-Based SQL Injection|In-Band SQL Injection|Union SQL Injection",
+"Which tool automates detecting and exploiting SQL injection flaws?|SQLmap|Burp Suite|Metasploit|SeaCat.io",
+"Which tool is an automated dynamic testing solution that identifies and prioritizes vulnerabilities?|Fortify WebInspect|Aircrack-ng|Nimbostratus|BluetoothView",
+"What is WEP?|An encryption algorithm|A proprietary version of EAP|A centralized authentication server|A signal jammer",
+"TKIP is used by WPA as a replacement for:|WEP|SAE|RADIUS|LEAP",
+"WPA2-Enterprise includes which for centralized client authentication?|EAP or RADIUS|SAE|TKIP|A setup password",
+"WPA3-Personal uses password-based authentication with:|SAE|TKIP|LEAP|WEP",
+"Which suite includes a detector, packet sniffer, and WEP and WPA/WPA2-PSK cracker?|Aircrack-ng|AirMagnet WiFi Analyzer Pro|BluetoothView|zANTI",
+"Which attack hijacks the connection of legitimate network users?|Rogue AP Attack|Ad-Hoc Connection|Jamming Signal Attack|KRACK",
+"An unauthorized AP set up to impersonate a legitimate network is a:|Honeypot AP Attack|AP MAC Spoofing|Ad-Hoc Connection|Unauthorized Association",
+"Spoofing the MAC address to connect to the AP is:|AP MAC Spoofing|Rogue AP Attack|Honeypot AP Attack|KRACK",
+"Which attack uses the 4-way handshake process to join the network?|Key Reinstallation Attack (KRACK)|Jamming Signal Attack|Ad-Hoc Connection|Rogue AP Attack",
+"Which attack uses a high-gain amplifier from a nearby location?|Jamming Signal Attack|KRACK|Honeypot AP Attack|Rogue AP Attack",
+"Sending unsolicited messages over Bluetooth is called:|Bluejacking|Bluesnarfing|Bluebugging|Bluesmacking",
+"Theft of information over Bluetooth is called:|Bluesnarfing|Bluejacking|Bluesniffing|Bluesmacking",
+"Remotely accessing a device over Bluetooth is called:|Bluebugging|Bluesnarfing|Bluejacking|Bluesniffing",
+"Which tool monitors active Bluetooth devices?|BluetoothView|Aircrack-ng|zANTI|Burp Suite",
+"Trying to acquire personal or financial information by sending SMS is:|SMiShing|Mobile Spam|Bluejacking|Agent Smith Attack",
+"Which attack persuades the victim to install a malicious app by replacing legitimate apps?|Agent Smith Attack|SIMjacker|SMiShing|Open Connections",
+"Which vulnerability is associated with the SIM card S@T browser?|SIMjacker|Agent Smith|BlueBorne|Cloudborne",
+"Which Android tool creates binary payloads sent to target devices?|Metasploit|Elcomsoft Phone Breaker|BluetoothView|SeaCat.io",
+"Which Android app can spoof MAC addresses, create malicious Wi-Fi, or hijack sessions?|zANTI|Metasploit|Elcomsoft Phone Breaker|Lazys3",
+"Which iOS tool performs logical and over-the-air acquisition of devices?|Elcomsoft Phone Breaker|zANTI|Metasploit|Burp Suite",
+"Which platform provides over-the-air or wired distribution of applications?|Mobile Device Management (MDM)|BYOD|SMiShing|Agent Smith",
+"Which policy allows employees to bring personal devices to the workplace?|Bring-Your-Own-Device (BYOD)|Mobile Device Management|Open Connections|SIMjacker",
+"Which is a mobile attack vector?|Data Exfiltration|Bluesmacking|Website Defacement|Union Injection",
+"Which IoT layer handles device management and information management?|Middleware Layer|Application Layer|Internet Layer|Edge Technology Layer",
+"Which IoT layer contains sensors, devices, machines, and intelligent edge nodes?|Edge Technology Layer|Access Gateway Layer|Internet Layer|Middleware Layer",
+"Which IoT layer handles protocol translation and messaging?|Access Gateway Layer|Middleware Layer|Application Layer|Internet Layer",
+"Which IoT attack is performed over Bluetooth to gain access?|BlueBorne Attack|Jamming Attack|SDR-Based Attack|Fault-Injection Attack",
+"Which attack injects a faulty or malicious program into the system?|Fault-Injection Attack|SDR-Based Attack|BlueBorne Attack|Jamming Attack",
+"Which attack controls critical infrastructure and causes physical damage to the SCADA device?|HMI-based Attack|Side Channel Attack|Fault-Injection Attack|DDoS Attack",
+"Which model describes internal connections and dependencies in OT?|Purdue Model|NIST Model|OWASP Model|CIA Model",
+"Which side channel technique analyzes power consumption?|Power Analysis|Timing Analysis|Fault Injection|Jamming",
+"Which IoT security tool is described as security-first SaaS technology?|SeaCat.io|Nimbostratus|Lazys3|Fortify WebInspect",
+"Which service model delivers virtual machines and other abstracted hardware?|Infrastructure as a Service|Platform as a Service|Software as a Service|Function as a Service",
+"Which NIST cloud actor provides connectivity?|Cloud Carrier|Cloud Broker|Cloud Auditor|Cloud Provider",
+"Which NIST cloud actor manages cloud services?|Cloud Broker|Cloud Carrier|Cloud Auditor|Cloud Consumer",
+"Which open-source tech develops dependencies in containers and provides PaaS through OS-level virtualization?|Docker|Kubernetes|Nimbostratus|Lazys3",
+"Which open-source orchestration platform was developed by Google?|Kubernetes|Docker|Microservices|Virtualization",
+"Which attack occurs during translation of SOAP messages?|Wrapping Attack|Side-Channel Attack|Cloud Hopper Attack|Cloudborne Attack",
+"Which attack is triggered at the managed service provider and initiates spear-phishing?|Cloud Hopper Attack|Cloud Cryptojacking|Wrapping Attack|Cloudborne Attack",
+"Which attack stealthily mines digital currency?|Cloud Cryptojacking|Cloud Hopper|Man-in-the-Cloud|Wrapping Attack",
+"Which vulnerability in a bare-metal cloud server lets attackers implant a malicious backdoor?|Cloudborne Attack|Cloud Hopper Attack|Wrapping Attack|Side-Channel Attack",
+"Which Ruby script tool brute-forces AWS S3 buckets?|Lazys3|Nimbostratus|Docker|SQLmap",
+"Which tool is used for fingerprinting and exploiting Amazon cloud infrastructure?|Nimbostratus|Lazys3|Kubernetes|Burp Suite",
+"Which assessment determines whether vulnerabilities can be exploited by an attacker?|Penetration Testing|Vulnerability Assessment|Security Audit|Compliance Audit",
+"Which activity checks whether the organization follows security policies and procedures?|Security Audit|Penetration Testing|Vulnerability Assessment|Red-Team Testing",
+"Which goal-based test requires pen testers to mimic a real attacker's behavior?|Red-Team-Based Penetration Testing|Compliance-Oriented Penetration Testing|Vulnerability Assessment|Security Audit",
+"Which risk arises directly with the target in the production environment?|Technical Risk|Organizational Risk|Legal Risk|Compliance Risk"
+];
+const MODS=[[28,"Module 7: Web Application Attacks"],[42,"Module 8: Wireless Attack"],[51,"Module 9: Mobile Attacks"],[60,"Module 10: IoT and OT Attacks"],[71,"Module 11: Cloud Computing"],[99,"Module 12: Penetration Test"]];
+const Q=RAW.map((r,i)=>{const p=r.split("|");return{q:p[0],a:p[1],o:p.slice(1),m:MODS.find(m=>i<m[0])[1]}});
+const card=document.getElementById("card"),prog=document.getElementById("prog"),sc=document.getElementById("score");
+let order,i,score,done;
+function shuffle(a){a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
+function start(){order=Q.map((_,k)=>k);i=0;score=0;show()}
+function show(){
+  if(i>=Q.length){const pct=Math.round(score/Q.length*100);prog.style.width="100%";
+    card.innerHTML=`<div class="result"><h2>${score} / ${Q.length}</h2><p>${pct}% correct</p><button class="btn" id="re">Restart quiz</button></div>`;
+    document.getElementById("re").onclick=start;return}
+  const q=Q[order[i]];done=false;sc.textContent="Score: "+score;prog.style.width=(i/Q.length*100)+"%";
+  card.innerHTML=`<div class="tag">Question ${i+1} of ${Q.length} · ${q.m}</div><h2></h2><div id="opts"></div><div class="fb" id="fb" aria-live="polite"></div><div class="nextrow"><button class="btn alt" id="shuf">Reshuffle questions</button><button class="btn" id="nx" disabled>${i===Q.length-1?"See results":"Next question"}</button></div>`;
+  card.querySelector("h2").textContent=q.q;
+  shuffle(q.o).forEach(t=>{const b=document.createElement("button");b.className="opt";b.textContent=t;b.onclick=()=>pick(b,t,q);document.getElementById("opts").appendChild(b)});
+  document.getElementById("nx").onclick=()=>{i++;show()};
+  document.getElementById("shuf").onclick=()=>{order=shuffle(Q.map((_,k)=>k));i=0;score=0;show()};
+}
+function pick(btn,t,q){
+  if(done)return;done=true;const fb=document.getElementById("fb");
+  document.querySelectorAll(".opt").forEach(b=>{b.disabled=true;if(b.textContent===q.a)b.classList.add("right")});
+  if(t===q.a){score++;fb.className="fb good";fb.textContent="Correct!"}
+  else{btn.classList.add("wrong");fb.className="fb bad";fb.textContent="Not quite. The correct answer is: "+q.a}
+  sc.textContent="Score: "+score;document.getElementById("nx").disabled=false;document.getElementById("nx").focus();
+}
+start();
+</script>
+</body>
+</html>
